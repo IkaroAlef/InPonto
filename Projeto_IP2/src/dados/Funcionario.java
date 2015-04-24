@@ -8,6 +8,7 @@ public class Funcionario {
 	private String cargo;
 	private String senha;
 	private String escala;
-	// qual tipo usar pra foto?
+	//qual tipo usar pra foto?
 	//falta horario
+	//teste
 }
