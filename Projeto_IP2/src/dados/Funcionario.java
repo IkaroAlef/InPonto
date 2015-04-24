@@ -11,4 +11,5 @@ public class Funcionario {
 	//qual tipo usar pra foto?
 	//falta horario
 	//teste
+	//teste 2 
 }
