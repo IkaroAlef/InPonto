@@ -3,10 +3,10 @@ import java.util.ArrayList;
 
 import regras.entity_beans.Funcionario;
 
-public class RepositorioFunc {
+public class RepFuncionario {
 	private ArrayList<Funcionario>funcionario;
 	
-	public RepositorioFunc(){
+	public RepFuncionario(){
 		funcionario = new ArrayList<Funcionario>();
 	}
 	

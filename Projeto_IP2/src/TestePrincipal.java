@@ -1,13 +1,13 @@
 import java.time.LocalTime;
 import java.util.Scanner;
 
-import dados.RepositorioFunc;
+import dados.RepFuncionario;
 import regras.entity_beans.Funcionario;
 
 public class TestePrincipal {
 	private static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
-		RepositorioFunc repositorio = new RepositorioFunc();
+		RepFuncionario repositorio = new RepFuncionario();
 		LocalTime chegada;
 		int hora;
 		int minutos;
