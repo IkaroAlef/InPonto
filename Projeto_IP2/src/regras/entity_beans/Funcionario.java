@@ -1,3 +1,4 @@
+//Classe para representar Funcionario
 package regras.entity_beans;
 
 import java.time.LocalTime;
@@ -10,10 +11,9 @@ public class Funcionario {
 	private String cargo;
 	private String senha;
 	private String escala;
-	private LocalTime chegada,saida,intervalo_in,intervalo_out;
+	private LocalTime chegada,saida,intervalo_in,intervalo_out; //chegada, saida, voltou do intervalo, saiu para o intervalo
 	//qual tipo usar pra foto?
-	//teste
-	//teste 2 
+	//teste 
 	
 	public String getNome() {
 		return nome;
@@ -111,5 +111,17 @@ public class Funcionario {
 		return ("Nome: "+getNome()+
 				"CPF: "+getCpf()+
 				"Hora de Chegada: "+String.valueOf(getChegada()));
+	}
+	
+	public boolean igualNome(String nome){
+		if (this.nome.equals(nome))
+				return true;
+		else return false;
+	}
+
+	public boolean igualCpf(String cpf){
+		if (this.cpf.equals(cpf))
+				return true;
+		else return false;
 	}
 }

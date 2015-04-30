@@ -20,15 +20,16 @@ public class TestePrincipal {
 		hora = sc.nextInt();
 		System.out.print("Digite os minutos: ");
 		minutos = sc.nextInt();
+		sc.nextLine(); //o nextInt não lê o final da linha, o que causa problema no proxime nextLine (o que le o nome), entao pus esse nextLine pra absorver o resto do último nextInt
 		chegada=LocalTime.of(hora, minutos);
 		funcionario.setChegada(chegada);
 		
 		repositorio.cadastrar(funcionario);
 		
-		System.out.print("Buscar Funcionario na posição: ");
-		int i;
-		i=sc.nextInt();
-		System.out.println(repositorio.buscar(i));
+		System.out.print("Nome do funcionario que deseja buscar: ");
+		System.out.println(repositorio.imprimir(repositorio.buscarNome(sc.nextLine())));
+		System.out.print("CPF do funcionario que deseja buscar: ");
+		System.out.println(repositorio.imprimir(repositorio.buscarCpf(sc.nextLine())));
 	}
 
 }
