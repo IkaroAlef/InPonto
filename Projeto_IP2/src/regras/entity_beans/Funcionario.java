@@ -1,7 +1,6 @@
-package dados;
+package regras.entity_beans;
 
 import java.time.LocalTime;
-import java.time.LocalDate;
 
 public class Funcionario {
 	private String nome;
@@ -106,5 +105,11 @@ public class Funcionario {
 
 	public Funcionario(){
 		
+	}
+	
+	public String toString(){
+		return ("Nome: "+getNome()+
+				"CPF: "+getCpf()+
+				"Hora de Chegada: "+String.valueOf(getChegada()));
 	}
 }
