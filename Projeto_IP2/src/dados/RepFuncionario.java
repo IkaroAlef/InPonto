@@ -1,7 +1,7 @@
 //Repositorio de Funcionarios
 package dados;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 import regras.entity_beans.Funcionario;
 
 public class RepFuncionario {

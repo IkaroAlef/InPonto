@@ -8,10 +8,11 @@ public class TestePrincipal {
 	private static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
 		RepFuncionario repositorio = new RepFuncionario();
+		Funcionario funcionario = new Funcionario();
 		LocalTime chegada;
 		int hora;
 		int minutos;
-		Funcionario funcionario = new Funcionario();
+		
 		System.out.print("Nome: ");
 		funcionario.setNome(sc.nextLine());
 		System.out.print("CPF: ");
