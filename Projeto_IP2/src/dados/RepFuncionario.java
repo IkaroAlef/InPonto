@@ -39,4 +39,15 @@ public class RepFuncionario {
 		return -1;
 	}
 	
+	public void deletar(String nome){
+		funcionario.remove(nome);
+	}
+	
+	public void deletar(int i){
+		funcionario.remove(i);
+	}
+	public void editar(int i,Funcionario funcionario){
+		
+	}
+	
 }
