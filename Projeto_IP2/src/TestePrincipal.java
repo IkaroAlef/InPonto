@@ -29,7 +29,7 @@ public class TestePrincipal {
 		
 		System.out.print("Nome do funcionario que deseja buscar: ");
 		System.out.println(repositorio.imprimir(repositorio.buscarNome(sc.nextLine())));
-		System.out.print("CPF do funcionario que deseja buscar: ");
+		System.out.print(" CPF do funcionario que deseja buscar: ");
 		System.out.println(repositorio.imprimir(repositorio.buscarCpf(sc.nextLine())));
 	}
 
