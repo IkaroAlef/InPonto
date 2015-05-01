@@ -39,6 +39,7 @@ public class RepFuncionario {
 		return -1;
 	}
 	
+
 	public void deletar(String nome){
 		funcionario.remove(nome);
 	}
