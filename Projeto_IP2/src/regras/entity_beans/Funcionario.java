@@ -109,8 +109,8 @@ public class Funcionario {
 	
 	public String toString(){
 		return ("Nome: "+getNome()+
-				"CPF: "+getCpf()+
-				"Hora de Chegada: "+String.valueOf(getChegada()));
+				" CPF: "+getCpf()+
+				" Hora de Chegada: "+String.valueOf(getChegada()));
 	}
 	
 	public boolean igualNome(String nome){
