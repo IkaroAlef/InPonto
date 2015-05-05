@@ -47,7 +47,7 @@ public class RepFuncionario {
 		funcionario.remove(i);
 	}
 	public void editar(int i,Funcionario funcionario){
-		
+		this.funcionario.set(i, funcionario);
 	}
 	
 }
