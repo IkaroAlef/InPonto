@@ -9,4 +9,9 @@ public class RegPonto {
 	saida, //saída do trabalho (largou)
 	intervalo_in, //voltou do intervalo)
 	intervalo_out; //saiu para o intervalo
+	
+	public RegPonto(){
+		
+	}
+
 }

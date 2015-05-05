@@ -1,5 +1,8 @@
 package regras;
 
-public class Controlador {
+import regras.entity_beans.*;
 
+public class Controlador {
+	
+	
 }
