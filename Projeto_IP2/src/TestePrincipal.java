@@ -1,12 +1,15 @@
 import java.time.LocalTime;
 import java.util.Scanner;
+//import regras.entity_beans.*;
+
 
 import dados.RepFuncionario;
 import regras.entity_beans.Funcionario;
+import regras.entity_beans.RegPonto;
 
-public class TestePrincipal {
+public class TestePrincipal{
 	private static Scanner sc = new Scanner(System.in);
-	public static void main(String[] args) {
+	public static void main(String[] args)throws Exception {
 		RepFuncionario repositorio = new RepFuncionario();
 		Funcionario funcionario;
 		LocalTime chegada,
@@ -22,6 +25,7 @@ public class TestePrincipal {
 		escala;
 		int hora;
 		int minutos;
+//		RegPonto ponto = new RegPonto();
 		
 		System.out.print("Nome: ");
 		nome=sc.nextLine();
@@ -46,13 +50,13 @@ public class TestePrincipal {
 		intervalo_in=LocalTime.of(hora, minutos);
 		intervalo_out=LocalTime.of(hora, minutos);
 		sc.nextLine(); //o nextInt não lê o final da linha, o que causa problema no proxime nextLine (o que le o nome), entao pus esse nextLine pra absorver o resto do último nextInt
-		
-		repositorio.cadastrar(new Funcionario(nome,cpf,email,senha,empresa,cargo,escala,chegada,saida,intervalo_in,intervalo_out));
+		funcionario = new Funcionario(nome,cpf,email,senha,empresa,cargo,escala,chegada,saida,intervalo_in,intervalo_out);
+		repositorio.cadastrar(funcionario);
 		
 		System.out.print("Nome do funcionario que deseja buscar: ");
 		System.out.println(repositorio.imprimir(repositorio.buscarNome(sc.nextLine())));
-		System.out.print(" CPF do funcionario que deseja buscar: ");
-		System.out.println(repositorio.imprimir(repositorio.buscarCpf(sc.nextLine())));
+		RegPonto.RegistrarPonto(cpf);
+		System.out.print("Ponto Registrado com Sucesso");
 	}
 
 }
