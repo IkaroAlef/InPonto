@@ -22,6 +22,10 @@ public class Funcionario extends Pessoa implements Serializable {
 		this.setIntervalo_out(intervalo_out);
 	}
 	
+	public Funcionario (){
+		
+	}
+	
 	public String getEmpresa() {
 		return empresa;
 	}
@@ -80,9 +84,11 @@ public class Funcionario extends Pessoa implements Serializable {
 	
 	public String toString(){
 		return ("Nome: "+getNome()+
-				" CPF: "+getCpf()+
-				"E-mail:"+getEmail()+
-				" Hora de Chegada: "+String.valueOf(getChegada()));
+				" \nCPF: "+getCpf()+
+				"\nE-mail:"+getEmail()+
+				"\nHora de Chegada: "+String.valueOf(getChegada()))+
+				"\nCargo: "+getCargo()+
+				"\nEmpresa: "+getEmpresa();
 	}
 	
 	public boolean equals(Funcionario funcionario){
@@ -94,7 +100,7 @@ public class Funcionario extends Pessoa implements Serializable {
 	}
 	
 	public boolean igualNome(String nome){
-		if (this.nome.equalsIgnoreCase(nome))
+		if (nome!=null && this.nome.equalsIgnoreCase(nome))
 				return true;
 		else return false;
 	}
