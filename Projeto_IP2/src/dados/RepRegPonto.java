@@ -5,6 +5,7 @@ import regras.entity_beans.Funcionario;
 
 import java.io.File;
 import java.io.ObjectOutputStream;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.io.FileOutputStream;
 import java.io.Serializable;
@@ -31,6 +32,16 @@ public class RepRegPonto implements Serializable {
 		}
 		
 		return pontosDoFuncionario;
+	}
+	
+	public int totalChegadaCorreta(String cpf, RepFuncionario repFuncionario){ //retorna o total de pontos corretos (Sem atrasos e Sem faltas)
+		int cont=0;
+		ArrayList <RegPonto> pontosDoFuncionario = pontosDoFuncionario (cpf,repFuncionario);
+		for (int i=0;i<pontosDoFuncionario.size();i++){
+			if (pontosDoFuncionario.get(i).chegadaCorreta())
+				cont++;
+		}
+		return cont;
 	}
 	
 	public void gravarDisco() throws Exception{
