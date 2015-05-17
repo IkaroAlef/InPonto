@@ -37,7 +37,28 @@ public class RegPonto {
 	}
 	
 	public boolean chegadaCorreta(){
-		if (agora.toLocalTime().equals((LocalTime)funcionario.getChegada())){
+		if (agora.toLocalTime().equals(funcionario.getChegada())){
+			return true;
+		}
+		else return false;					
+	}
+	
+	public boolean saidaCorreta(){
+		if (agora.toLocalTime().equals(funcionario.getSaida())){
+			return true;
+		}
+		else return false;					
+	}
+	
+	public boolean intervalo_InCorreta(){
+		if (agora.toLocalTime().equals(funcionario.getIntervalo_in())){
+			return true;
+		}
+		else return false;					
+	}
+	
+	public boolean intervalo_OutCorreta(){
+		if (agora.toLocalTime().equals(funcionario.getIntervalo_out())){
 			return true;
 		}
 		else return false;					

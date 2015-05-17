@@ -5,10 +5,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 //import regras.entity_beans.*;
 
-
-
-
-
 import dados.RepFuncionario;
 import dados.RepRegPonto;
 import regras.entity_beans.Funcionario;

@@ -34,11 +34,41 @@ public class RepRegPonto implements Serializable {
 		return pontosDoFuncionario;
 	}
 	
-	public int totalChegadaCorreta(String cpf, RepFuncionario repFuncionario){ //retorna o total de pontos corretos (Sem atrasos e Sem faltas)
+	public int totalChegadaCorreta(String cpf, RepFuncionario repFuncionario){ //retorna o total de pontos de chegada corretos (Sem atrasos e Sem faltas)
 		int cont=0;
 		ArrayList <RegPonto> pontosDoFuncionario = pontosDoFuncionario (cpf,repFuncionario);
 		for (int i=0;i<pontosDoFuncionario.size();i++){
 			if (pontosDoFuncionario.get(i).chegadaCorreta())
+				cont++;
+		}
+		return cont;
+	}
+	
+	public int totalSaidaCorreta(String cpf, RepFuncionario repFuncionario){ //retorna o total de pontos de saida corretos (Sem atrasos e Sem faltas)
+		int cont=0;
+		ArrayList <RegPonto> pontosDoFuncionario = pontosDoFuncionario (cpf,repFuncionario);
+		for (int i=0;i<pontosDoFuncionario.size();i++){
+			if (pontosDoFuncionario.get(i).saidaCorreta())
+				cont++;
+		}
+		return cont;
+	}
+	
+	public int totalIntervalo_InCorreta(String cpf, RepFuncionario repFuncionario){ //retorna o total de pontos de Volta do Intervalo corretos (Sem atrasos e Sem faltas)
+		int cont=0;
+		ArrayList <RegPonto> pontosDoFuncionario = pontosDoFuncionario (cpf,repFuncionario);
+		for (int i=0;i<pontosDoFuncionario.size();i++){
+			if (pontosDoFuncionario.get(i).intervalo_InCorreta())
+				cont++;
+		}
+		return cont;
+	}
+	
+	public int totalIntervalo_OutCorreta(String cpf, RepFuncionario repFuncionario){ //retorna o total de pontos de Saída pro Intervalo corretos (Sem atrasos e Sem faltas)
+		int cont=0;
+		ArrayList <RegPonto> pontosDoFuncionario = pontosDoFuncionario (cpf,repFuncionario);
+		for (int i=0;i<pontosDoFuncionario.size();i++){
+			if (pontosDoFuncionario.get(i).intervalo_OutCorreta())
 				cont++;
 		}
 		return cont;
