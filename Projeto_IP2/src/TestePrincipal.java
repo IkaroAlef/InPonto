@@ -1,7 +1,5 @@
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Scanner;
 //import regras.entity_beans.*;
 
@@ -9,12 +7,13 @@ import dados.RepFuncionario;
 import dados.RepRegPonto;
 import regras.entity_beans.Funcionario;
 import regras.entity_beans.RegPonto;
+import dados.IRepositorioPontos;
 
 public class TestePrincipal{
 	private static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args)throws Exception {
 		RepFuncionario repFuncionario = new RepFuncionario();
-		RepRegPonto pontos = new RepRegPonto();
+		IRepositorioPontos pontos = new RepRegPonto();
 		Funcionario funcionario3 = new Funcionario("Lima","123","lima@gmail","1234","UFRPE","Estudante","8h/dia",LocalTime.of(8,0),LocalTime.of(12,0),LocalTime.of(10,0),LocalTime.of(10,15));
 		repFuncionario.adicionarFuncionario(funcionario3);
 		int op;

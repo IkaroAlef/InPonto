@@ -11,7 +11,7 @@ import java.io.FileOutputStream;
 import java.io.Serializable;
 
 
-public class RepRegPonto implements Serializable {
+public class RepRegPonto implements Serializable,IRepositorioPontos {
 	private ArrayList <RegPonto> repositorio;
 	
 	public RepRegPonto(){
