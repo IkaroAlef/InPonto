@@ -3,6 +3,8 @@ import java.time.LocalTime;
 import java.util.Scanner;
 //import regras.entity_beans.*;
 
+
+import dados.IRepositorioFuncionarios;
 import dados.RepFuncionario;
 import dados.RepRegPonto;
 import regras.entity_beans.Funcionario;
@@ -12,7 +14,7 @@ import dados.IRepositorioPontos;
 public class TestePrincipal{
 	private static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args)throws Exception {
-		RepFuncionario repFuncionario = new RepFuncionario();
+		IRepositorioFuncionarios repFuncionario = new RepFuncionario();
 		IRepositorioPontos pontos = new RepRegPonto();
 		Funcionario funcionario3 = new Funcionario("Lima","123","lima@gmail","1234","UFRPE","Estudante","8h/dia",LocalTime.of(8,0),LocalTime.of(12,0),LocalTime.of(10,0),LocalTime.of(10,15));
 		repFuncionario.adicionarFuncionario(funcionario3);
@@ -86,11 +88,12 @@ public class TestePrincipal{
 			System.out.println("Sair?");
 			if(sc.nextLine().equals("sim"))
 				sair=true;
+			break;
 		case 5:
 			sair=true;
 			break;
 		case 6:
-			System.out.println("CPF do funcionario que deseja todos os pontos: ");
+			System.out.println("CPF do funcionario que deseja todos os pontos corretos: ");
 			String cpf1 = sc.nextLine();
 			pontos.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,15,8,0),funcionario3));
 			pontos.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,16,8,0),funcionario3));

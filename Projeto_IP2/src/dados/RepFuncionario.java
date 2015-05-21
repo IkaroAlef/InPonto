@@ -16,7 +16,7 @@ import regras.entity_beans.Funcionario;
 import java.io.Serializable;
 import java.nio.file.Paths;
 
-public class RepFuncionario implements Serializable {
+public class RepFuncionario implements Serializable,IRepositorioFuncionarios {
 	private ArrayList<Funcionario>funcionarios;
 	
 	public RepFuncionario(){

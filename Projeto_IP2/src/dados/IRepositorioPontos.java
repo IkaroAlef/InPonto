@@ -8,12 +8,12 @@ public interface IRepositorioPontos {
 	
 	void adicionarRegistro(RegPonto ponto);
 	
-	ArrayList <RegPonto> pontosDoFuncionario(String cpf, RepFuncionario repFuncionario);
+	ArrayList <RegPonto> pontosDoFuncionario(String cpf, IRepositorioFuncionarios repFuncionario);
 	
-	int totalChegadaCorreta(String cpf, RepFuncionario repFuncionario);
-	int totalSaidaCorreta(String cpf, RepFuncionario repFuncionario);
-	int totalIntervalo_InCorreta(String cpf, RepFuncionario repFuncionario);
-	int totalIntervalo_OutCorreta(String cpf, RepFuncionario repFuncionario);
+	int totalChegadaCorreta(String cpf, IRepositorioFuncionarios repFuncionario);
+	int totalSaidaCorreta(String cpf, IRepositorioFuncionarios repFuncionario);
+	int totalIntervalo_InCorreta(String cpf, IRepositorioFuncionarios repFuncionario);
+	int totalIntervalo_OutCorreta(String cpf, IRepositorioFuncionarios repFuncionario);
 	
 	
 	
