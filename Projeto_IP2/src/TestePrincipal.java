@@ -4,12 +4,15 @@ import java.util.Scanner;
 //import regras.entity_beans.*;
 
 
+
+
 import dados.IRepositorioFuncionarios;
 import dados.RepFuncionario;
 import dados.RepRegPonto;
 import regras.entity_beans.Funcionario;
 import regras.entity_beans.RegPonto;
 import dados.IRepositorioPontos;
+import exceptionsDados.FuncionarioNaoEncontradoException;
 
 public class TestePrincipal{
 	private static Scanner sc = new Scanner(System.in);
@@ -63,8 +66,11 @@ public class TestePrincipal{
 		case 2: 
 			//repFuncionario = new RepFuncionario (RepFuncionario.importar());
 			System.out.print("Nome do funcionario que deseja buscar: ");
-			System.out.println(repFuncionario.imprimir(repFuncionario.buscarNome(sc.nextLine())));
-
+			try{
+			System.out.println(repFuncionario.imprimir(repFuncionario.buscarIndiceNome(sc.nextLine())));
+			}catch (FuncionarioNaoEncontradoException e){
+				System.out.println(e.getMessage());
+			}
 			System.out.println("Sair?");
 			if(sc.nextLine().equals("sim"))
 				sair=true;

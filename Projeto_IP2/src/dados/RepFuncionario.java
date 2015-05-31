@@ -16,6 +16,8 @@ import regras.entity_beans.Funcionario;
 import java.io.Serializable;
 import java.nio.file.Paths;
 
+import exceptionsDados.FuncionarioNaoEncontradoException;
+
 public class RepFuncionario implements Serializable,IRepositorioFuncionarios {
 	private ArrayList<Funcionario>funcionarios;
 	
@@ -36,32 +38,34 @@ public class RepFuncionario implements Serializable,IRepositorioFuncionarios {
 		return String.valueOf(this.funcionarios.get(i));
 	}
 	
-	public int buscarNome(String nome){ //retorna o índice do Funcionario cujo nome é igual ao nome da busca. Retorna -1 caso não encontre
+	public int buscarIndiceNome(String nome) throws FuncionarioNaoEncontradoException{ //retorna o índice do Funcionario cujo nome é igual ao nome da busca. Retorna -1 caso não encontre
 		int i;
 		for (i=0;i<this.funcionarios.size();i++){
 			if (nome!= null && this.funcionarios.get(i).igualNome(nome)){
 				return i;
 			}
+			else throw new FuncionarioNaoEncontradoException(nome);
 		}
 		return -1;
 	}
 	
-	public int buscarCpf(String cpf){ //retorna o índice do Funcionario cujo cpf é igual ao nome da busca. Retorna -1 caso não encontre
-		int i;
-		for (i=0;i<this.funcionarios.size();i++){
+	public int buscarIndiceCpf(String cpf) throws FuncionarioNaoEncontradoException{ //retorna o índice do Funcionario cujo cpf é igual ao nome da busca. Retorna -1 caso não encontre
+		int resultado=0;
+		for (int i=0;i<this.funcionarios.size();i++){
 			if (this.funcionarios.get(i).igualCpf(cpf)){
-				return i;
+				resultado=i;
 			}
+			else throw new FuncionarioNaoEncontradoException(cpf);
 		}
-		return -1;
+		return resultado;
 	}
 	
-	public Funcionario buscaFuncionarioNome(String nome){ //retorna o Objeto Funcionario a partir do nome
-		return this.funcionarios.get(buscarNome(nome));
+	public Funcionario buscaFuncionarioNome(String nome) throws FuncionarioNaoEncontradoException{ //retorna o Objeto Funcionario a partir do nome
+		return this.funcionarios.get(buscarIndiceNome(nome));
 	}
 	
-	public Funcionario buscaFuncionarioCpf(String cpf){ //retorna o Objeto Funcionario a partir do cpf
-		return this.funcionarios.get(buscarCpf(cpf));
+	public Funcionario buscaFuncionarioCpf(String cpf) throws FuncionarioNaoEncontradoException{ //retorna o Objeto Funcionario a partir do cpf
+		return this.funcionarios.get(buscarIndiceCpf(cpf));
 	}
 	
 	public void deletarFuncionario(String nome){
