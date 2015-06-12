@@ -1,4 +1,4 @@
-package regras.entity_beans;
+package negócio.entity_beans;
 
 public class Empresa {
 

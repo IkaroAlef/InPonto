@@ -1,9 +1,9 @@
 package dados;
 
+import negócio.entity_beans.Funcionario;
 import exceptionsDados.FuncionarioNaoEncontradoException;
-import regras.entity_beans.Funcionario;
 
-public interface IRepositorioFuncionarios {
+public interface IRepositorioPessoas {
 	
 	void adicionarFuncionario(Funcionario funcionario);
 	int buscarIndiceNome(String nome) throws FuncionarioNaoEncontradoException;

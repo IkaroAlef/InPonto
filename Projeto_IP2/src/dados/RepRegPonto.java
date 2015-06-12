@@ -1,8 +1,5 @@
 package dados;
 
-import regras.entity_beans.RegPonto;
-import regras.entity_beans.Funcionario;
-
 import java.io.File;
 import java.io.ObjectOutputStream;
 import java.time.LocalTime;
@@ -10,6 +7,8 @@ import java.util.ArrayList;
 import java.io.FileOutputStream;
 import java.io.Serializable;
 
+import negócio.entity_beans.Funcionario;
+import negócio.entity_beans.RegPonto;
 import exceptionsDados.FuncionarioNaoEncontradoException;
 
 
@@ -24,7 +23,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 		repositorio.add(ponto);
 	}
 	
-	public ArrayList <RegPonto> pontosDoFuncionario(String cpf, IRepositorioFuncionarios repFuncionario) throws FuncionarioNaoEncontradoException{ //procurar pontos desse CPF nesse Repositorio de Funcionarios
+	public ArrayList <RegPonto> pontosDoFuncionario(String cpf, IRepositorioPessoas repFuncionario) throws FuncionarioNaoEncontradoException{ //procurar pontos desse CPF nesse Repositorio de Funcionarios
 		ArrayList <RegPonto> pontosDoFuncionario = new ArrayList <RegPonto>();
 		//Falta buscar o Funcionario e depois buscar os pontos desse funcionario no arrayList de Pontos;
 		Funcionario funcionario = repFuncionario.buscaFuncionarioCpf(cpf);
@@ -36,7 +35,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 		return pontosDoFuncionario;
 	}
 	
-	public int totalChegadaCorreta(String cpf, IRepositorioFuncionarios repFuncionario) throws FuncionarioNaoEncontradoException{ //retorna o total de pontos de chegada corretos (Sem atrasos e Sem faltas)
+	public int totalChegadaCorreta(String cpf, IRepositorioPessoas repFuncionario) throws FuncionarioNaoEncontradoException{ //retorna o total de pontos de chegada corretos (Sem atrasos e Sem faltas)
 		int cont=0;
 		ArrayList <RegPonto> pontosDoFuncionario = pontosDoFuncionario (cpf,repFuncionario);
 		for (int i=0;i<pontosDoFuncionario.size();i++){
@@ -46,7 +45,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 		return cont;
 	}
 	
-	public int totalSaidaCorreta(String cpf, IRepositorioFuncionarios repFuncionario) throws FuncionarioNaoEncontradoException{ //retorna o total de pontos de saida corretos (Sem atrasos e Sem faltas)
+	public int totalSaidaCorreta(String cpf, IRepositorioPessoas repFuncionario) throws FuncionarioNaoEncontradoException{ //retorna o total de pontos de saida corretos (Sem atrasos e Sem faltas)
 		int cont=0;
 		ArrayList <RegPonto> pontosDoFuncionario = pontosDoFuncionario (cpf,repFuncionario);
 		for (int i=0;i<pontosDoFuncionario.size();i++){
@@ -56,7 +55,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 		return cont;
 	}
 	
-	public int totalIntervalo_InCorreta(String cpf, IRepositorioFuncionarios repFuncionario) throws FuncionarioNaoEncontradoException{ //retorna o total de pontos de Volta do Intervalo corretos (Sem atrasos e Sem faltas)
+	public int totalIntervalo_InCorreta(String cpf, IRepositorioPessoas repFuncionario) throws FuncionarioNaoEncontradoException{ //retorna o total de pontos de Volta do Intervalo corretos (Sem atrasos e Sem faltas)
 		int cont=0;
 		ArrayList <RegPonto> pontosDoFuncionario = pontosDoFuncionario (cpf,repFuncionario);
 		for (int i=0;i<pontosDoFuncionario.size();i++){
@@ -66,7 +65,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 		return cont;
 	}
 	
-	public int totalIntervalo_OutCorreta(String cpf, IRepositorioFuncionarios repFuncionario) throws FuncionarioNaoEncontradoException{ //retorna o total de pontos de Saída pro Intervalo corretos (Sem atrasos e Sem faltas)
+	public int totalIntervalo_OutCorreta(String cpf, IRepositorioPessoas repFuncionario) throws FuncionarioNaoEncontradoException{ //retorna o total de pontos de Saída pro Intervalo corretos (Sem atrasos e Sem faltas)
 		int cont=0;
 		ArrayList <RegPonto> pontosDoFuncionario = pontosDoFuncionario (cpf,repFuncionario);
 		for (int i=0;i<pontosDoFuncionario.size();i++){

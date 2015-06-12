@@ -1,8 +1,8 @@
-package regras.entity_beans;
+package negócio.entity_beans;
 
 import java.io.Serializable;
 
-import regras.entity_beans.exceptionsBeans.NomeInvalidoException;
+import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 
 public abstract class Pessoa implements Serializable{
 	protected String nome;

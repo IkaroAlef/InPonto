@@ -1,5 +1,5 @@
 //Classe para Registro de Ponto
-package regras.entity_beans;
+package negócio.entity_beans;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;

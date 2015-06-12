@@ -10,22 +10,20 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
 import java.io.FileInputStream;
-
-import regras.entity_beans.Funcionario;
-
 import java.io.Serializable;
 import java.nio.file.Paths;
 
+import negócio.entity_beans.Funcionario;
 import exceptionsDados.FuncionarioNaoEncontradoException;
 
-public class RepFuncionario implements Serializable,IRepositorioFuncionarios {
+public class RepPessoas implements Serializable,IRepositorioPessoas {
 	private ArrayList<Funcionario>funcionarios;
 	
-	public RepFuncionario(){
+	public RepPessoas(){
 		funcionarios = new ArrayList<Funcionario>(); //instancia o arrayList
 	}
 	
-	public RepFuncionario(ArrayList<Funcionario> funcionarios){
+	public RepPessoas(ArrayList<Funcionario> funcionarios){
 		this.funcionarios = funcionarios;
 	}
 	

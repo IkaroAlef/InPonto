@@ -6,18 +6,19 @@ import java.util.Scanner;
 
 
 
-import dados.IRepositorioFuncionarios;
-import dados.RepFuncionario;
+
+import negócio.entity_beans.Funcionario;
+import negócio.entity_beans.RegPonto;
+import dados.IRepositorioPessoas;
+import dados.RepPessoas;
 import dados.RepRegPonto;
-import regras.entity_beans.Funcionario;
-import regras.entity_beans.RegPonto;
 import dados.IRepositorioPontos;
 import exceptionsDados.FuncionarioNaoEncontradoException;
 
 public class TestePrincipal{
 	private static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args)throws Exception {
-		IRepositorioFuncionarios repFuncionario = new RepFuncionario();
+		IRepositorioPessoas repFuncionario = new RepPessoas();
 		IRepositorioPontos pontos = new RepRegPonto();
 		Funcionario funcionario3 = new Funcionario("Lima","123","lima@gmail","1234","UFRPE","Estudante","8h/dia",LocalTime.of(8,0),LocalTime.of(12,0),LocalTime.of(10,0),LocalTime.of(10,15));
 		repFuncionario.adicionarFuncionario(funcionario3);

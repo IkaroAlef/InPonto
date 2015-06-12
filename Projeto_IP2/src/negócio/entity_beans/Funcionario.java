@@ -1,5 +1,5 @@
 //Classe para representar Funcionario
-package regras.entity_beans;
+package negócio.entity_beans;
 
 import java.io.Serializable;
 import java.time.LocalTime;

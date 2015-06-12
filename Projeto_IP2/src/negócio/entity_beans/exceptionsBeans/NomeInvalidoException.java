@@ -1,4 +1,4 @@
-package regras.entity_beans.exceptionsBeans;
+package negócio.entity_beans.exceptionsBeans;
 
 public class NomeInvalidoException extends Exception {
 	
