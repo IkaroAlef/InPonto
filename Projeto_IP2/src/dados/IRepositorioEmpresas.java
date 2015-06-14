@@ -3,7 +3,6 @@ package dados;
 import negócio.entity_beans.Empresa;
 import exceptionsDados.CnpjNaoEncontradoException;
 import exceptionsDados.EmpresaNaoEncontradaException;
-import exceptionsDados.FuncionarioNaoEncontradoException;
 
 public interface IRepositorioEmpresas {
 

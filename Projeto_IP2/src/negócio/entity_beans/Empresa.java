@@ -62,7 +62,7 @@ public class Empresa {
 		this.contato = contato;
 	}
 	
-	public boolean igualNome(String nomeEmpresa2) {
+	public boolean igualNome(String nomeEmpresa) {
 		if (nomeEmpresa!=null && this.nomeEmpresa.equalsIgnoreCase(nomeEmpresa))
 			return true;
 	else return false;

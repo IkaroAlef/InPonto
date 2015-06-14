@@ -1,23 +1,11 @@
 //Repositorio de Empresas.
 package dados;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
-import java.io.FileInputStream;
-import java.io.Serializable;
-import java.nio.file.Paths;
 
 import negócio.entity_beans.Empresa;
-import negócio.entity_beans.Funcionario;
 import exceptionsDados.CnpjNaoEncontradoException;
 import exceptionsDados.EmpresaNaoEncontradaException;
-import exceptionsDados.FuncionarioNaoEncontradoException;
 
 public class RepEmpresa {
 
