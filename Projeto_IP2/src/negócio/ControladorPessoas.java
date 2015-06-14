@@ -3,7 +3,7 @@ package negócio;
 import java.util.Arrays;
 
 import dados.RepPessoas;
-import exceptionsDados.*;
+import dados.exceptionsDados.*;
 import negócio.entity_beans.*;
 
 public class ControladorPessoas {

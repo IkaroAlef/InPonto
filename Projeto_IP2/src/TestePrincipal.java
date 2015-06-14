@@ -7,13 +7,14 @@ import java.util.Scanner;
 
 
 
+
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
 import dados.IRepositorioPessoas;
 import dados.RepPessoas;
 import dados.RepRegPonto;
 import dados.IRepositorioPontos;
-import exceptionsDados.FuncionarioNaoEncontradoException;
+import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 
 public class TestePrincipal{
 	private static Scanner sc = new Scanner(System.in);

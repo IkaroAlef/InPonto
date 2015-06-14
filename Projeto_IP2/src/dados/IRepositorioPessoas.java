@@ -1,7 +1,7 @@
 package dados;
 
+import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.entity_beans.Pessoa;
-import exceptionsDados.FuncionarioNaoEncontradoException;
 
 public interface IRepositorioPessoas {
 	

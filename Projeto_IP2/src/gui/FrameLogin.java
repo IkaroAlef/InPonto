@@ -24,7 +24,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-import exceptionsDados.FuncionarioNaoEncontradoException;
+import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.ControladorPessoas;
 
 public class FrameLogin extends JFrame implements ActionListener {

@@ -1,4 +1,4 @@
-package exceptionsDados;
+package dados.exceptionsDados;
 
 public class FuncionarioNaoEncontradoException extends Exception {
 	private String dado;

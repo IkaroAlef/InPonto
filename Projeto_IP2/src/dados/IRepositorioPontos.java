@@ -2,8 +2,8 @@ package dados;
 
 import java.util.ArrayList;
 
+import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.entity_beans.RegPonto;
-import exceptionsDados.FuncionarioNaoEncontradoException;
 
 public interface IRepositorioPontos {
 	

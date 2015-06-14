@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.io.FileOutputStream;
 import java.io.Serializable;
 
+import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
-import exceptionsDados.FuncionarioNaoEncontradoException;
 
 
 public class RepRegPonto implements Serializable,IRepositorioPontos {
