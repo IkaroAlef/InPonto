@@ -4,6 +4,8 @@ package negócio.entity_beans;
 import java.io.Serializable;
 import java.time.LocalTime;
 
+import javafx.scene.control.PasswordField;
+
 public class Funcionario extends Pessoa implements Serializable {
 	private String empresa;
 	private String cargo;
@@ -11,7 +13,7 @@ public class Funcionario extends Pessoa implements Serializable {
 	private LocalTime chegada,saida,intervalo_in,intervalo_out; //chegada, saida, voltou do intervalo, saiu para o intervalo
 	//qual tipo usar pra foto?
 	
-	public Funcionario(String nome, String cpf,String email,String senha,String empresa, String cargo, String escala, LocalTime chegada, LocalTime saida, LocalTime intervalo_in, LocalTime intervalo_out) throws Exception{
+	public Funcionario(String nome, String cpf,String email,char[] senha,String empresa, String cargo, String escala, LocalTime chegada, LocalTime saida, LocalTime intervalo_in, LocalTime intervalo_out) throws Exception{
 		super(nome,cpf,email,senha);
 		this.setEmpresa(empresa);
 		this.setCargo(cargo);
@@ -99,15 +101,4 @@ public class Funcionario extends Pessoa implements Serializable {
 		return false;
 	}
 	
-	public boolean igualNome(String nome){
-		if (nome!=null && this.nome.equalsIgnoreCase(nome))
-				return true;
-		else return false;
-	}
-
-	public boolean igualCpf(String cpf){
-		if (this.cpf.equals(cpf))
-				return true;
-		else return false;
-	}
 }

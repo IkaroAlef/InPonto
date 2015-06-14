@@ -1,18 +1,18 @@
 package dados;
 
-import negócio.entity_beans.Funcionario;
+import negócio.entity_beans.Pessoa;
 import exceptionsDados.FuncionarioNaoEncontradoException;
 
 public interface IRepositorioPessoas {
 	
-	void adicionarFuncionario(Funcionario funcionario);
+	void adicionarPessoa(Pessoa pessoa);
 	int buscarIndiceNome(String nome) throws FuncionarioNaoEncontradoException;
 	int buscarIndiceCpf(String cpf) throws FuncionarioNaoEncontradoException;
-	Funcionario buscaFuncionarioNome(String nome) throws FuncionarioNaoEncontradoException;
-	Funcionario buscaFuncionarioCpf(String cpf) throws FuncionarioNaoEncontradoException;
-	void deletarFuncionario(String nome);
-	void deletarFuncionario(int i);
-	void editar(int i,Funcionario funcionario);
+	Pessoa buscaPessoaNome(String nome) throws FuncionarioNaoEncontradoException;
+	Pessoa buscaPessoaCpf(String cpf) throws FuncionarioNaoEncontradoException;
+	void deletarPessoa(String nome);
+	void deletarPessoa(int i);
+	void editar(int i,Pessoa pessoa);
 	String imprimir(int i);
 	
 }
