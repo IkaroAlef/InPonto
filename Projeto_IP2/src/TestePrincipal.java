@@ -7,21 +7,23 @@ import java.util.Scanner;
 
 
 
+
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
 import dados.IRepositorioPessoas;
 import dados.RepPessoas;
 import dados.RepRegPonto;
 import dados.IRepositorioPontos;
-import exceptionsDados.FuncionarioNaoEncontradoException;
+import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 
 public class TestePrincipal{
 	private static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args)throws Exception {
 		IRepositorioPessoas repFuncionario = new RepPessoas();
 		IRepositorioPontos pontos = new RepRegPonto();
-		Funcionario funcionario3 = new Funcionario("Lima","123","lima@gmail","1234","UFRPE","Estudante","8h/dia",LocalTime.of(8,0),LocalTime.of(12,0),LocalTime.of(10,0),LocalTime.of(10,15));
-		repFuncionario.adicionarFuncionario(funcionario3);
+		char[] senha = {'1','2','3','4'};
+		Funcionario funcionario3 = new Funcionario("Lima","123","lima@gmail",senha,"UFRPE","Estudante","8h/dia",LocalTime.of(8,0),LocalTime.of(12,0),LocalTime.of(10,0),LocalTime.of(10,15));
+		repFuncionario.adicionarPessoa(funcionario3);
 		int op;
 		boolean sair=false;
 		do{
@@ -53,10 +55,10 @@ public class TestePrincipal{
 			intervalo_out=LocalTime.of(hora, minutos);
 			sc.nextLine(); //o nextInt não lê o final da linha, o que causa problema no proxime nextLine (o que le o nome), entao pus esse nextLine pra absorver o resto do último nextInt
 			
-			funcionario = new Funcionario("Ikaro","12345","ikaroalef@gmail.com","1234","UFRPE","Estudante","8h/dia",chegada,saida,intervalo_in,intervalo_out);
-			Funcionario funcionario1 = new Funcionario("Alef","1234","alef@gmail.com","1234","UFRPE","Estudante","8h/dia",chegada,saida,intervalo_in,intervalo_out);
-			repFuncionario.adicionarFuncionario(funcionario);
-			repFuncionario.adicionarFuncionario(funcionario1);
+			funcionario = new Funcionario("Ikaro","12345","ikaroalef@gmail.com",senha,"UFRPE","Estudante","8h/dia",chegada,saida,intervalo_in,intervalo_out);
+			Funcionario funcionario1 = new Funcionario("Alef","1234","alef@gmail.com",senha,"UFRPE","Estudante","8h/dia",chegada,saida,intervalo_in,intervalo_out);
+			repFuncionario.adicionarPessoa(funcionario);
+			repFuncionario.adicionarPessoa(funcionario1);
 //			repFuncionario.exportar();
 //			System.out.println(repFuncionario.imprimir(repFuncionario.buscarNome("Ikaro")));
 			System.out.println("Sair?");
@@ -80,7 +82,7 @@ public class TestePrincipal{
 			RegPonto ponto = new RegPonto();
 			System.out.println("CPF que deseja registrar ponto: ");
 			String cpf = sc.nextLine();
-			ponto.registrarPonto(repFuncionario.buscaFuncionarioCpf(cpf));
+			ponto.registrarPonto((Funcionario)repFuncionario.buscaPessoaCpf(cpf));
 			pontos.adicionarRegistro(ponto);
 			System.out.println("Sair?");
 			if(sc.nextLine().equals("sim"))

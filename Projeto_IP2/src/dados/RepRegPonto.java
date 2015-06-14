@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.io.FileOutputStream;
 import java.io.Serializable;
 
+import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
-import exceptionsDados.FuncionarioNaoEncontradoException;
 
 
 public class RepRegPonto implements Serializable,IRepositorioPontos {
@@ -26,7 +26,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 	public ArrayList <RegPonto> pontosDoFuncionario(String cpf, IRepositorioPessoas repFuncionario) throws FuncionarioNaoEncontradoException{ //procurar pontos desse CPF nesse Repositorio de Funcionarios
 		ArrayList <RegPonto> pontosDoFuncionario = new ArrayList <RegPonto>();
 		//Falta buscar o Funcionario e depois buscar os pontos desse funcionario no arrayList de Pontos;
-		Funcionario funcionario = repFuncionario.buscaFuncionarioCpf(cpf);
+		Funcionario funcionario = (Funcionario) repFuncionario.buscaPessoaCpf(cpf);
 		for (int i=0;i<this.repositorio.size();i++){
 			if (repositorio.get(i).getFuncionario().equals(funcionario))
 				pontosDoFuncionario.add(repositorio.get(i));

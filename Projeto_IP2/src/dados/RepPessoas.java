@@ -13,44 +13,45 @@ import java.io.FileInputStream;
 import java.io.Serializable;
 import java.nio.file.Paths;
 
+import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.entity_beans.Funcionario;
-import exceptionsDados.FuncionarioNaoEncontradoException;
+import negócio.entity_beans.Pessoa;
 
 public class RepPessoas implements Serializable,IRepositorioPessoas {
-	private ArrayList<Funcionario>funcionarios;
+	private ArrayList<Pessoa>pessoas;
 	
 	public RepPessoas(){
-		funcionarios = new ArrayList<Funcionario>(); //instancia o arrayList
+		pessoas = new ArrayList<Pessoa>(); //instancia o arrayList
 	}
 	
-	public RepPessoas(ArrayList<Funcionario> funcionarios){
-		this.funcionarios = funcionarios;
+	public RepPessoas(ArrayList<Pessoa> pessoas){
+		this.pessoas = pessoas;
 	}
 	
-	public void adicionarFuncionario(Funcionario funcionario){ //cadastra um funcionario no arrayList
-		this.funcionarios.add(funcionario);
+	public void adicionarPessoa(Pessoa pessoa){ //cadastra um funcionario no arrayList
+		this.pessoas.add(pessoa);
 	}
 	
 	public String imprimir(int i){ //retorna um funcionario na posição i no arrayList
 		//fazer teste de I
-		return String.valueOf(this.funcionarios.get(i));
+		return String.valueOf(this.pessoas.get(i));
 	}
 	
 	public int buscarIndiceNome(String nome) throws FuncionarioNaoEncontradoException{ //retorna o índice do Funcionario cujo nome é igual ao nome da busca. Retorna -1 caso não encontre
-		int i;
-		for (i=0;i<this.funcionarios.size();i++){
-			if (nome!= null && this.funcionarios.get(i).igualNome(nome)){
-				return i;
+		int resultado=0;
+		for (int i=0;i<this.pessoas.size();i++){
+			if (nome!= null && this.pessoas.get(i).igualNome(nome)){
+				resultado = i;
 			}
 			else throw new FuncionarioNaoEncontradoException(nome);
 		}
-		return -1;
+		return resultado;
 	}
 	
 	public int buscarIndiceCpf(String cpf) throws FuncionarioNaoEncontradoException{ //retorna o índice do Funcionario cujo cpf é igual ao nome da busca. Retorna -1 caso não encontre
 		int resultado=0;
-		for (int i=0;i<this.funcionarios.size();i++){
-			if (this.funcionarios.get(i).igualCpf(cpf)){
+		for (int i=0;i<this.pessoas.size();i++){
+			if (this.pessoas.get(i).igualCpf(cpf)){
 				resultado=i;
 			}
 			else throw new FuncionarioNaoEncontradoException(cpf);
@@ -58,23 +59,26 @@ public class RepPessoas implements Serializable,IRepositorioPessoas {
 		return resultado;
 	}
 	
-	public Funcionario buscaFuncionarioNome(String nome) throws FuncionarioNaoEncontradoException{ //retorna o Objeto Funcionario a partir do nome
-		return this.funcionarios.get(buscarIndiceNome(nome));
+	public Pessoa buscaPessoaNome(String nome) throws FuncionarioNaoEncontradoException{ //retorna o Objeto Funcionario a partir do nome
+		int i = buscarIndiceNome(nome);
+		if (i < 0)
+			throw new FuncionarioNaoEncontradoException (nome);
+		return this.pessoas.get(i);
 	}
 	
-	public Funcionario buscaFuncionarioCpf(String cpf) throws FuncionarioNaoEncontradoException{ //retorna o Objeto Funcionario a partir do cpf
-		return this.funcionarios.get(buscarIndiceCpf(cpf));
+	public Funcionario buscaPessoaCpf(String cpf) throws FuncionarioNaoEncontradoException{ //retorna o Objeto Funcionario a partir do cpf
+		return (Funcionario) this.pessoas.get(buscarIndiceCpf(cpf));
 	}
 	
-	public void deletarFuncionario(String nome){
-		funcionarios.remove(nome);
+	public void deletarPessoa(String nome){
+		pessoas.remove(nome);
 	}
 	
-	public void deletarFuncionario(int i){
-		funcionarios.remove(i);
+	public void deletarPessoa(int i){
+		pessoas.remove(i);
 	}
-	public void editar(int i,Funcionario funcionario){
-		this.funcionarios.set(i, funcionario);
+	public void editar(int i,Pessoa pessoa){
+		this.pessoas.set(i, pessoa);
 	}
 	
 	public static void criarBase() throws IOException{
@@ -93,7 +97,7 @@ public class RepPessoas implements Serializable,IRepositorioPessoas {
 		}
 		FileOutputStream dados = new FileOutputStream("C:\\Dados\\dados.dados"); //arquivo que armazena os dados
 		ObjectOutputStream gravarArq = new ObjectOutputStream(dados);
-		gravarArq.writeObject(this.funcionarios);	
+		gravarArq.writeObject(this.pessoas);	
 //		System.out.println(this.funcionarios.get(0));
 		dados.close();	
 	}
@@ -112,5 +116,6 @@ public class RepPessoas implements Serializable,IRepositorioPessoas {
 //		System.out.println(funcionarios.get(0));
 		return funcionarios;
 	}
+
 	
 }
