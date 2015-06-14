@@ -1,8 +1,8 @@
 package dados;
 
+import dados.exceptionsDados.CnpjNaoEncontradoException;
+import dados.exceptionsDados.EmpresaNaoEncontradaException;
 import negócio.entity_beans.Empresa;
-import exceptionsDados.CnpjNaoEncontradoException;
-import exceptionsDados.EmpresaNaoEncontradaException;
 
 public interface IRepositorioEmpresas {
 

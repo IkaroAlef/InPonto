@@ -1,4 +1,4 @@
-package exceptionsDados;
+package dados.exceptionsDados;
 
 public class CnpjNaoEncontradoException extends Exception {
 

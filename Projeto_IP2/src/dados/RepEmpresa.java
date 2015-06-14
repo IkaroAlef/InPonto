@@ -3,9 +3,9 @@ package dados;
 
 import java.util.ArrayList;
 
+import dados.exceptionsDados.CnpjNaoEncontradoException;
+import dados.exceptionsDados.EmpresaNaoEncontradaException;
 import negócio.entity_beans.Empresa;
-import exceptionsDados.CnpjNaoEncontradoException;
-import exceptionsDados.EmpresaNaoEncontradaException;
 
 public class RepEmpresa {
 
