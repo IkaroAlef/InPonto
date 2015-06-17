@@ -40,6 +40,20 @@ public class RepPessoas implements Serializable,IRepositorioPessoas {
 		return pessoas.get(i);
 	}
 	
+	public ArrayList<Pessoa> getPessoas(String conteudo){ //caso o parametro seja null, retorna Todo o Array. Caso contrário, retorna as pessoas cujo nome contém o parâmetro
+		ArrayList<Pessoa> retorno = new ArrayList<Pessoa>();
+		if(conteudo==null)
+			return this.pessoas;
+		else{
+			for(int i=0;i<pessoas.size();i++){
+				if(pessoas.get(i).getNome().toUpperCase().contains(conteudo.toUpperCase()))
+					retorno.add(pessoas.get(i));
+			}
+		}
+		return retorno;
+		
+	}
+	
 	public String[] linhaFuncionario(int i){
 		String[] linha= new String[5];
 		if (pessoas.get(i) instanceof Funcionario){
@@ -81,8 +95,8 @@ public class RepPessoas implements Serializable,IRepositorioPessoas {
 		return this.pessoas.get(i);
 	}
 	
-	public Funcionario buscaPessoaCpf(String cpf) throws FuncionarioNaoEncontradoException{ //retorna o Objeto Funcionario a partir do cpf
-		return (Funcionario) this.pessoas.get(buscarIndiceCpf(cpf));
+	public Pessoa buscaPessoaCpf(String cpf) throws FuncionarioNaoEncontradoException{ //retorna o Objeto Funcionario a partir do cpf
+		return this.pessoas.get(buscarIndiceCpf(cpf));
 	}
 	
 	public void deletarPessoa(String nome){

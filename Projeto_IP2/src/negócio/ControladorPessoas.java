@@ -1,19 +1,25 @@
 package negócio;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
-import dados.RepPessoas;
+import dados.IRepositorioPessoas;
 import dados.exceptionsDados.*;
 import negócio.entity_beans.*;
 
 public class ControladorPessoas {
 		
-	private RepPessoas repositorioPessoas;
+	public ArrayList<Pessoa> getPessoas(String conteudo) {
+		return repositorioPessoas.getPessoas(conteudo);
+	}
+
+	private IRepositorioPessoas repositorioPessoas;
 	private char[] senha = {'1','2','3','4'};
 	private Pessoa pessoa = new Admin("Admin","123","ika",senha);
 		
-	public ControladorPessoas(){
-		repositorioPessoas = new RepPessoas();
+	public ControladorPessoas(IRepositorioPessoas instance){
+		repositorioPessoas = instance;
 		repositorioPessoas.adicionarPessoa(pessoa);
 	}
 	
@@ -40,18 +46,50 @@ public class ControladorPessoas {
 	public int tamanhoLista(){
 		return repositorioPessoas.tamanhoLista();
 	}
-	
-	public Object[][] conteudoTabela(){
-		Object[][] retorno = new Object[1][4];
-//		repositorioPessoas.tamanhoLista()
-		for (int i=0;i<1;i++){
-				retorno[i][0]=repositorioPessoas.getObject(i).getNome();
-				retorno[i][1]=repositorioPessoas.getObject(i).getCpf();
-				retorno[i][2]=repositorioPessoas.getObject(i).getEmail();
-				retorno[i][3]=((Funcionario) repositorioPessoas.getObject(i)).getTelefone();
-				retorno[i][4]=((Funcionario) repositorioPessoas.getObject(i)).getCargo();
-		}
-		return retorno;
+
+	public String getString(int i) {
+		return repositorioPessoas.getString(i);
 	}
+
+	public Pessoa getObject(int i) {
+		return repositorioPessoas.getObject(i);
+	}
+
+	public int buscarIndiceNome(String nome)
+			throws FuncionarioNaoEncontradoException {
+		return repositorioPessoas.buscarIndiceNome(nome);
+	}
+
+	public int buscarIndiceCpf(String cpf)
+			throws FuncionarioNaoEncontradoException {
+		return repositorioPessoas.buscarIndiceCpf(cpf);
+	}
+
+	public Pessoa buscaPessoaNome(String nome)
+			throws FuncionarioNaoEncontradoException {
+		return repositorioPessoas.buscaPessoaNome(nome);
+	}
+
+	public Funcionario buscaPessoaCpf(String cpf)
+			throws FuncionarioNaoEncontradoException {
+		return (Funcionario) repositorioPessoas.buscaPessoaCpf(cpf);
+	}
+
+	public void deletarPessoa(String nome) {
+		repositorioPessoas.deletarPessoa(nome);
+	}
+
+	public void deletarPessoa(int i) {
+		repositorioPessoas.deletarPessoa(i);
+	}
+
+	public void editar(int i, Pessoa pessoa) {
+		repositorioPessoas.editar(i, pessoa);
+	}
+
+	public void exportar() throws IOException {
+		repositorioPessoas.exportar();
+	}
+	
 	
 }

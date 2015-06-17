@@ -1,5 +1,8 @@
 package dados;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.entity_beans.Pessoa;
 
@@ -15,5 +18,9 @@ public interface IRepositorioPessoas {
 	void editar(int i,Pessoa pessoa);
 	String getString(int i);
 	Pessoa getObject(int i);
+	ArrayList<Pessoa> getPessoas(String conteudo);
+	String[] linhaFuncionario(int i);
+	int tamanhoLista();
+	void exportar() throws IOException;
 	
 }
