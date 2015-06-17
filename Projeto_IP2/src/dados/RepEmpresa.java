@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import dados.exceptionsDados.CnpjNaoEncontradoException;
 import dados.exceptionsDados.EmpresaNaoEncontradaException;
+import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.entity_beans.Empresa;
 
 public class RepEmpresa {
@@ -31,14 +32,14 @@ public class RepEmpresa {
 	
 	//Busca pelo nomeEmpresa e Retorna o indice da empresa no array.
 	public int buscarIndiceNomeEmpresa(String nomeEmpresa) throws EmpresaNaoEncontradaException{ 
-		int i;
-		for (i=0;i<this.empresas.size();i++){
+		int resultado=0;
+		for (int i=0;i<this.empresas.size();i++){
 			if (nomeEmpresa!= null && this.empresas.get(i).igualNome(nomeEmpresa)){
-				return i;
+				resultado = i;
 			}
 			else throw new EmpresaNaoEncontradaException(nomeEmpresa);
 		}
-		return -1;
+		return resultado;
 	}
 	
 	//Busca pelo CNPJ e Retorna o indice da empresa no array.
