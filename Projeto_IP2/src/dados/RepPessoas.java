@@ -32,9 +32,24 @@ public class RepPessoas implements Serializable,IRepositorioPessoas {
 		this.pessoas.add(pessoa);
 	}
 	
-	public String imprimir(int i){ //retorna um funcionario na posição i no arrayList
-		//fazer teste de I
-		return String.valueOf(this.pessoas.get(i));
+	public String getString(int i){ //retorna um funcionario na posição i no arrayList
+		return pessoas.get(i).toString();
+	}
+	
+	public Pessoa getObject(int i){
+		return pessoas.get(i);
+	}
+	
+	public String[] linhaFuncionario(int i){
+		String[] linha= new String[5];
+		if (pessoas.get(i) instanceof Funcionario){
+			linha[0] = pessoas.get(i).getNome();
+			linha[1] = pessoas.get(i).getCpf();
+			linha[2] = pessoas.get(i).getEmail();
+			linha[3] = ((Funcionario) pessoas.get(i)).getTelefone();
+			linha[4] = ((Funcionario) pessoas.get(i)).getCargo();
+		}
+		return linha;
 	}
 	
 	public int buscarIndiceNome(String nome) throws FuncionarioNaoEncontradoException{ //retorna o índice do Funcionario cujo nome é igual ao nome da busca. Retorna -1 caso não encontre
@@ -81,6 +96,10 @@ public class RepPessoas implements Serializable,IRepositorioPessoas {
 		this.pessoas.set(i, pessoa);
 	}
 	
+	public int tamanhoLista(){
+		return pessoas.size();
+	}
+	
 	public static void criarBase() throws IOException{
 		if (!Paths.get("C:\\Dados\\").toFile().exists()){ //se a pasta não existe, então cria com os arquivos abaixo
 			File file = new File ("C:\\Dados\\");
@@ -116,6 +135,5 @@ public class RepPessoas implements Serializable,IRepositorioPessoas {
 //		System.out.println(funcionarios.get(0));
 		return funcionarios;
 	}
-
 	
 }

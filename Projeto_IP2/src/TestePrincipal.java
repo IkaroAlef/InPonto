@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 
 
+
+import negócio.entity_beans.Empresa;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
 import dados.IRepositorioPessoas;
@@ -22,7 +24,8 @@ public class TestePrincipal{
 		IRepositorioPessoas repFuncionario = new RepPessoas();
 		IRepositorioPontos pontos = new RepRegPonto();
 		char[] senha = {'1','2','3','4'};
-		Funcionario funcionario3 = new Funcionario("Lima","123","lima@gmail",senha,"UFRPE","Estudante","8h/dia",LocalTime.of(8,0),LocalTime.of(12,0),LocalTime.of(10,0),LocalTime.of(10,15));
+		Empresa empresa = new Empresa("UFRPE","2414","25","235");
+		Funcionario funcionario3 = new Funcionario("Lima","123","lima@gmail",senha,"telefone", empresa,"Estudante","8h/dia",LocalTime.of(8,0),LocalTime.of(12,0),LocalTime.of(10,0),LocalTime.of(10,15));
 		repFuncionario.adicionarPessoa(funcionario3);
 		int op;
 		boolean sair=false;
@@ -55,8 +58,8 @@ public class TestePrincipal{
 			intervalo_out=LocalTime.of(hora, minutos);
 			sc.nextLine(); //o nextInt não lê o final da linha, o que causa problema no proxime nextLine (o que le o nome), entao pus esse nextLine pra absorver o resto do último nextInt
 			
-			funcionario = new Funcionario("Ikaro","12345","ikaroalef@gmail.com",senha,"UFRPE","Estudante","8h/dia",chegada,saida,intervalo_in,intervalo_out);
-			Funcionario funcionario1 = new Funcionario("Alef","1234","alef@gmail.com",senha,"UFRPE","Estudante","8h/dia",chegada,saida,intervalo_in,intervalo_out);
+			funcionario = new Funcionario("Ikaro","12345","ikaroalef@gmail.com",senha,"telefone",empresa,"Estudante","8h/dia",chegada,saida,intervalo_in,intervalo_out);
+			Funcionario funcionario1 = new Funcionario("Alef","1234","alef@gmail.com",senha,"telefone",empresa,"Estudante","8h/dia",chegada,saida,intervalo_in,intervalo_out);
 			repFuncionario.adicionarPessoa(funcionario);
 			repFuncionario.adicionarPessoa(funcionario1);
 //			repFuncionario.exportar();
@@ -70,7 +73,7 @@ public class TestePrincipal{
 			//repFuncionario = new RepFuncionario (RepFuncionario.importar());
 			System.out.print("Nome do funcionario que deseja buscar: ");
 			try{
-			System.out.println(repFuncionario.imprimir(repFuncionario.buscarIndiceNome(sc.nextLine())));
+			System.out.println(repFuncionario.getString(repFuncionario.buscarIndiceNome(sc.nextLine())));
 			}catch (FuncionarioNaoEncontradoException e){
 				System.out.println(e.getMessage());
 			}

@@ -7,14 +7,16 @@ import java.time.LocalTime;
 import javafx.scene.control.PasswordField;
 
 public class Funcionario extends Pessoa implements Serializable {
+	private String telefone;
 	private Empresa empresa;
 	private String cargo;
 	private String escala;
 	private LocalTime chegada,saida,intervalo_in,intervalo_out; //chegada, saida, voltou do intervalo, saiu para o intervalo
 	//qual tipo usar pra foto?
 	
-	public Funcionario(String nome, String cpf,String email,char[] senha,Empresa empresa, String cargo, String escala, LocalTime chegada, LocalTime saida, LocalTime intervalo_in, LocalTime intervalo_out) throws Exception{
+	public Funcionario(String nome, String cpf,String email,char[] senha,String telefone, Empresa empresa, String cargo, String escala, LocalTime chegada, LocalTime saida, LocalTime intervalo_in, LocalTime intervalo_out) throws Exception{
 		super(nome,cpf,email,senha);
+		this.setTelefone(telefone);
 		this.setEmpresa(empresa);
 		this.setCargo(cargo);
 		this.setEscala(escala);
@@ -26,6 +28,14 @@ public class Funcionario extends Pessoa implements Serializable {
 	
 	public Funcionario (){
 		
+	}
+	
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 	
 	public Empresa getEmpresa() {

@@ -12,14 +12,14 @@ public class Empresa {
 	private String endereco;
 	private String contato;
 	
-	protected Empresa ( String nomeEmpresa,String cnpj, String endereço, String contato) throws NomeInvalidoException, CNPJInvalidoException{
+	public Empresa ( String nomeEmpresa,String cnpj, String endereço, String contato) throws NomeInvalidoException, CNPJInvalidoException{
 	
 		this.setNomeEmpresa(nomeEmpresa);
 		this.setCnpj(cnpj);
 		this.setEndereco(endereço);
 		this.setContato(contato);
 	}
-	protected Empresa(){
+	public Empresa(){
 		
 	}
 	

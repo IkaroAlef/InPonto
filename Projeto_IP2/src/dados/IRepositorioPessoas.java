@@ -13,6 +13,7 @@ public interface IRepositorioPessoas {
 	void deletarPessoa(String nome);
 	void deletarPessoa(int i);
 	void editar(int i,Pessoa pessoa);
-	String imprimir(int i);
+	String getString(int i);
+	Pessoa getObject(int i);
 	
 }
