@@ -34,6 +34,12 @@ public class Empresa {
 	public String getNomeEmpresa() {
 		return nomeEmpresa;
 	}
+	
+	//ToString
+	 public String toString()  
+	    {  
+	         return nomeEmpresa;  
+	    }  
 
 	public String getCnpj() {
 		return cnpj;

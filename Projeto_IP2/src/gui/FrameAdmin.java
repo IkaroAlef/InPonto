@@ -16,6 +16,7 @@ import javax.swing.JMenuBar;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import negócio.ControladorEmpresas;
 import negócio.ControladorPessoas;
 import negócio.entity_beans.Empresa;
 import negócio.entity_beans.Funcionario;
@@ -32,6 +33,7 @@ public class FrameAdmin extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtBusca;
 	private ControladorPessoas controladorPessoas;
+	private ControladorEmpresas controladorEmpresas;
 	private DefaultTableModel modeloTable;
 	private JTable tableFuncionarios; 
 	private JButton btnPesquisar; 
@@ -89,8 +91,7 @@ public class FrameAdmin extends JFrame {
 				modeloTable.addRow(linha);
 			}
 			
-		}
-		
+			
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(3, 100, 1360, 600);
 		contentPane = new JPanel();
@@ -124,5 +125,7 @@ public class FrameAdmin extends JFrame {
 	    btnPesquisar.setBounds(747, 40, 102, 23);
 	    contentPane.add(btnPesquisar);
 		    
+		}
 	}
 }
+

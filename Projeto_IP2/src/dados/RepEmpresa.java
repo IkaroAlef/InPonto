@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import dados.exceptionsDados.CnpjNaoEncontradoException;
 import dados.exceptionsDados.EmpresaNaoEncontradaException;
-import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.entity_beans.Empresa;
 
 public class RepEmpresa {
