@@ -37,6 +37,9 @@ public class FrameAdmin1 extends JFrame implements ActionListener {
 	private JTable tableFuncionarios; 
 	private JButton btnPesquisar; 
 	private JScrollPane scrllPnFuncionarios;
+	private JButton btnCadastrarFuncionario;
+	private JButton btnMostrarTodos;
+	private JButton btnCadastrarEmpresa;
 	
 	/**
 	 * Launch the application.
@@ -112,6 +115,20 @@ public class FrameAdmin1 extends JFrame implements ActionListener {
 	    btnPesquisar.setBounds(747, 40, 102, 23);
 	    btnPesquisar.addActionListener(this);
 	    contentPane.add(btnPesquisar);
+	    
+	    btnCadastrarFuncionario = new JButton("Cadastrar Funcionario");
+	    btnCadastrarFuncionario.setBounds(30, 527, 170, 23);
+	    btnCadastrarFuncionario.addActionListener(this);
+	    contentPane.add(btnCadastrarFuncionario);
+	    
+	    btnMostrarTodos = new JButton("Mostrar Todos");
+	    btnMostrarTodos.setBounds(874, 40, 118, 23);
+	    btnMostrarTodos.addActionListener(this);
+	    contentPane.add(btnMostrarTodos);
+	    
+	    btnCadastrarEmpresa = new JButton("Cadastrar Empresa");
+	    btnCadastrarEmpresa.setBounds(210, 527, 170, 23);
+	    contentPane.add(btnCadastrarEmpresa);
 		    
 		}
 
@@ -144,6 +161,12 @@ public class FrameAdmin1 extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(btnPesquisar)){
 			this.preencherTableFuncionarios(txtBusca.getText());
+		}
+		else if(e.getSource().equals(btnCadastrarFuncionario)){
+			ControladorDeTelas.Admin1ToAdminCadastrarFuncionario();
+		}
+		else if(e.getSource().equals(btnMostrarTodos)){
+			this.preencherTableFuncionarios(null);
 		}
 	}
 	

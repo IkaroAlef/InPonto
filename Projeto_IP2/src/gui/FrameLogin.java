@@ -103,6 +103,8 @@ public class FrameLogin extends JFrame implements ActionListener {
 			try {
 				if ( controladorPessoas.validarLogin( txtLogin.getText(), passSenha.getPassword() ) ){
 					JOptionPane.showMessageDialog(null, "Login Efetuado com Sucesso.");
+					this.setVisible(false);
+					ControladorDeTelas.LoginToAdm();
 				}
 				else 
 					JOptionPane.showMessageDialog(null, "Senha incorreta.");

@@ -63,9 +63,8 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 	 * Create the frame.
 	 */
 	public FrameAdminCadastroFuncionario() {
-		setAlwaysOnTop(true);
 		setTitle("Cadastrar Funcion\u00E1rio");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 814, 401);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -77,7 +76,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(lblNome);
 		
 		txtNome = new JTextField();
-		txtNome.setBounds(10, 25, 466, 20);
+		txtNome.setBounds(10, 25, 490, 20);
 		contentPane.add(txtNome);
 		txtNome.setColumns(10);
 		
@@ -96,7 +95,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		
 		txtSenha = new JTextField();
 		txtSenha.setColumns(10);
-		txtSenha.setBounds(256, 76, 220, 20);
+		txtSenha.setBounds(256, 76, 244, 20);
 		contentPane.add(txtSenha);
 		
 		JLabel lblEmail = new JLabel("Email:");
@@ -104,7 +103,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(lblEmail);
 		
 		txtEmail = new JTextField();
-		txtEmail.setBounds(10, 122, 466, 20);
+		txtEmail.setBounds(10, 122, 490, 20);
 		contentPane.add(txtEmail);
 		txtEmail.setColumns(10);
 		
@@ -147,7 +146,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(separator);
 		
 		JLabel lblHorrioChegada = new JLabel("Hor\u00E1rio Chegada:");
-		lblHorrioChegada.setBounds(10, 259, 95, 14);
+		lblHorrioChegada.setBounds(10, 259, 104, 14);
 		contentPane.add(lblHorrioChegada);
 		
 		txtHoraChegada = new JTextField();
@@ -165,57 +164,57 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(lbl2ptChegada);
 		
 		JLabel lblHorarioSaida = new JLabel("Hor\u00E1rio Sa\u00EDda:");
-		lblHorarioSaida.setBounds(115, 259, 88, 14);
+		lblHorarioSaida.setBounds(120, 259, 88, 14);
 		contentPane.add(lblHorarioSaida);
 		
 		txtHoraSaida = new JTextField();
 		txtHoraSaida.setColumns(10);
-		txtHoraSaida.setBounds(115, 279, 30, 20);
+		txtHoraSaida.setBounds(120, 279, 30, 20);
 		contentPane.add(txtHoraSaida);
 		
 		JLabel lbl2ptSaida = new JLabel(":");
-		lbl2ptSaida.setBounds(150, 283, 10, 10);
+		lbl2ptSaida.setBounds(155, 283, 10, 10);
 		contentPane.add(lbl2ptSaida);
 		
 		txtMinutosSaida = new JTextField();
 		txtMinutosSaida.setColumns(10);
-		txtMinutosSaida.setBounds(157, 279, 30, 20);
+		txtMinutosSaida.setBounds(162, 279, 30, 20);
 		contentPane.add(txtMinutosSaida);
 		
-		JLabel lblHorarioSaidaIntervalo = new JLabel("Hor\u00E1rio Sa\u00EDda Intervalo");
-		lblHorarioSaidaIntervalo.setBounds(202, 259, 127, 14);
+		JLabel lblHorarioSaidaIntervalo = new JLabel("Hor\u00E1rio Sa\u00EDda Intervalo:");
+		lblHorarioSaidaIntervalo.setBounds(218, 259, 137, 14);
 		contentPane.add(lblHorarioSaidaIntervalo);
 		
 		txtHoraSaidaIntervalo = new JTextField();
 		txtHoraSaidaIntervalo.setColumns(10);
-		txtHoraSaidaIntervalo.setBounds(231, 279, 30, 20);
+		txtHoraSaidaIntervalo.setBounds(247, 279, 30, 20);
 		contentPane.add(txtHoraSaidaIntervalo);
 		
 		JLabel lbl2ptSaidaIntervalo = new JLabel(":");
-		lbl2ptSaidaIntervalo.setBounds(266, 283, 10, 10);
+		lbl2ptSaidaIntervalo.setBounds(282, 283, 10, 10);
 		contentPane.add(lbl2ptSaidaIntervalo);
 		
 		txtMinutosSaidaIntervalo = new JTextField();
 		txtMinutosSaidaIntervalo.setColumns(10);
-		txtMinutosSaidaIntervalo.setBounds(273, 279, 30, 20);
+		txtMinutosSaidaIntervalo.setBounds(289, 279, 30, 20);
 		contentPane.add(txtMinutosSaidaIntervalo);
 		
-		JLabel lblHorrioChegadaIntervalo = new JLabel("Hor\u00E1rio Chegada Intervalo");
-		lblHorrioChegadaIntervalo.setBounds(322, 259, 154, 14);
+		JLabel lblHorrioChegadaIntervalo = new JLabel("Hor\u00E1rio Chegada Intervalo:");
+		lblHorrioChegadaIntervalo.setBounds(355, 259, 150, 14);
 		contentPane.add(lblHorrioChegadaIntervalo);
 		
 		txtHoraChegadaIntervalo = new JTextField();
 		txtHoraChegadaIntervalo.setColumns(10);
-		txtHoraChegadaIntervalo.setBounds(370, 279, 30, 20);
+		txtHoraChegadaIntervalo.setBounds(384, 279, 30, 20);
 		contentPane.add(txtHoraChegadaIntervalo);
 		
 		JLabel lbl2ptChegadaIntervalo = new JLabel(":");
-		lbl2ptChegadaIntervalo.setBounds(405, 283, 10, 10);
+		lbl2ptChegadaIntervalo.setBounds(419, 283, 10, 10);
 		contentPane.add(lbl2ptChegadaIntervalo);
 		
 		txtMinutosChegadaIntervalo = new JTextField();
 		txtMinutosChegadaIntervalo.setColumns(10);
-		txtMinutosChegadaIntervalo.setBounds(412, 279, 30, 20);
+		txtMinutosChegadaIntervalo.setBounds(426, 279, 30, 20);
 		contentPane.add(txtMinutosChegadaIntervalo);
 		
 		btnSalvar = new JButton("Salvar");
@@ -229,31 +228,36 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(btnLimpar);
 		
 		JLabel lblFotoPadroAqui = new JLabel("IMAGEM ATUAL DA CAMERA");
-		lblFotoPadroAqui.setBounds(595, 125, 137, 14);
+		lblFotoPadroAqui.setBounds(569, 125, 163, 14);
 		contentPane.add(lblFotoPadroAqui);
 		
 		btnCapturar = new JButton("Capturar");
 		btnCapturar.setBounds(612, 214, 89, 23);
 		contentPane.add(btnCapturar);
 	}
+	
+	private void limparCampos(){
+		txtNome.setText("");
+		txtCPF.setText("");
+		txtEmail.setText("");
+		txtTelefone.setText("");
+		txtSenha.setText("");
+		txtCargo.setText("");
+		txtHoraChegada.setText("");
+		txtMinutosChegada.setText("");
+		txtHoraSaida.setText("");
+		txtMinutosSaida.setText("");
+		txtHoraSaidaIntervalo.setText("");
+		txtMinutosSaidaIntervalo.setText("");
+		txtHoraChegadaIntervalo.setText("");
+		txtMinutosChegadaIntervalo.setText("");			
+	
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(btnLimpar)){
-			txtNome.setText("");
-			txtCPF.setText("");
-			txtEmail.setText("");
-			txtTelefone.setText("");
-			txtSenha.setText("");
-			txtCargo.setText("");
-			txtHoraChegada.setText("");
-			txtMinutosChegada.setText("");
-			txtHoraSaida.setText("");
-			txtMinutosSaida.setText("");
-			txtHoraSaidaIntervalo.setText("");
-			txtMinutosSaidaIntervalo.setText("");
-			txtHoraChegadaIntervalo.setText("");
-			txtMinutosChegadaIntervalo.setText("");			
+			this.limparCampos();
 		}
 		else if(e.getSource().equals(btnSalvar)){
 			/*
@@ -285,6 +289,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 			}
 			EpontoFachada.getInstance().adicionarPessoa(funcionario);
 			JOptionPane.showMessageDialog(null, "Funcionário Cadastrado com Sucesso" );
+			this.limparCampos();
 		}
 	}
 			
