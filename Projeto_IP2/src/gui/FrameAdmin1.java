@@ -1,7 +1,8 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -14,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JMenuBar;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import negócio.ControladorEmpresas;
 import negócio.ControladorPessoas;
@@ -28,7 +28,7 @@ import javax.swing.JButton;
 
 import dados.RepPessoas;
 
-public class FrameAdmin extends JFrame {
+public class FrameAdmin1 extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField txtBusca;
@@ -46,7 +46,7 @@ public class FrameAdmin extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameAdmin frame = new FrameAdmin();
+					FrameAdmin1 frame = new FrameAdmin1();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -59,7 +59,7 @@ public class FrameAdmin extends JFrame {
 	 * Create the frame.
 	 * @throws Exception 
 	 */
-	public FrameAdmin() throws Exception {
+	public FrameAdmin1() throws Exception {
 		
 		this.controladorPessoas = new ControladorPessoas(new RepPessoas());
 		char[] senha = {'1','2','3','4'};
@@ -79,18 +79,7 @@ public class FrameAdmin extends JFrame {
 		
 		//Modelo de Tabela.
 		this.modeloTable = new DefaultTableModel(new Object[][]{}, new Object[]{"Nome","CPF","Telefone","Cargo"});
-		ArrayList<Pessoa>pessoas = controladorPessoas.getPessoas(null);
-		String[] linha= new String[5];
-		for (int i=0; i < pessoas.size() ; i++){
-			if (pessoas.get(i) instanceof Funcionario){
-				linha[0] = pessoas.get(i).getNome();
-				linha[1] = pessoas.get(i).getCpf();
-				linha[2] = pessoas.get(i).getEmail();
-				linha[3] = ((Funcionario) pessoas.get(i)).getTelefone();
-				linha[4] = ((Funcionario) pessoas.get(i)).getCargo();
-				modeloTable.addRow(linha);
-			}
-			
+		this.preencherTableFuncionarios(null);
 			
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(3, 100, 1360, 600);
@@ -98,7 +87,6 @@ public class FrameAdmin extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
 		
 		this.txtBusca = new JTextField();
 		txtBusca.setBounds(115, 41, 600, 20);
@@ -123,9 +111,43 @@ public class FrameAdmin extends JFrame {
 	    
 	    btnPesquisar = new JButton("Pesquisar");
 	    btnPesquisar.setBounds(747, 40, 102, 23);
+	    btnPesquisar.addActionListener(this);
 	    contentPane.add(btnPesquisar);
 		    
 		}
+
+	//preenche a table de acordo com o parametro: mostra todos os Funcionarios cujo nome contém a String passado como parâmetro.
+	//caso o parametro seja NULL, preenche com todos os Funcionarios
+	public void preencherTableFuncionarios(String nome){ 
+		this.limparTableFuncionarios();
+		ArrayList<Pessoa>pessoas = controladorPessoas.getPessoas(nome);
+		String[] linha= new String[5];
+		for (int i=0; i < pessoas.size() ; i++){
+			if (pessoas.get(i) instanceof Funcionario){
+				linha[0] = pessoas.get(i).getNome();
+				linha[1] = pessoas.get(i).getCpf();
+				linha[2] = pessoas.get(i).getEmail();
+				linha[3] = ((Funcionario) pessoas.get(i)).getTelefone();
+				linha[4] = ((Funcionario) pessoas.get(i)).getCargo();
+				modeloTable.addRow(linha);
+			}
+		}
 	}
+	
+	//limpa a tableFuncionario
+	private void limparTableFuncionarios() { 
+		while (modeloTable.getRowCount() > 0) {
+		modeloTable.removeRow(0);
+		}
+		}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource().equals(btnPesquisar)){
+			this.preencherTableFuncionarios(txtBusca.getText());
+		}
+	}
+	
 }
+
 
