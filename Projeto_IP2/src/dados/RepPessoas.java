@@ -51,7 +51,6 @@ public class RepPessoas implements Serializable,IRepositorioPessoas {
 			}
 		}
 		return retorno;
-		
 	}
 	
 	public String[] linhaFuncionario(int i){

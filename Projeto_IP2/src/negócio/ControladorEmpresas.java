@@ -12,17 +12,13 @@ import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 public class ControladorEmpresas {
 
 	private IRepositorioEmpresas repositorioEmpresas;
-	private Empresa empresa = new Empresa("EPONTO","CNPJ","ENDEREÇO","CONTATO");
 	
 	public ArrayList<Empresa> getEmpresas (String conteudo){
 		return repositorioEmpresas.getEmpresas (conteudo);
 	}	
 	
-	public  ControladorEmpresas (IRepositorioEmpresas instance) throws CnpjNaoEncontradoException, 
-																		CNPJInvalidoException, 
-																		NomeInvalidoException {
+	public  ControladorEmpresas (IRepositorioEmpresas instance){ 
 		repositorioEmpresas = instance;
-		repositorioEmpresas.adicionarEmpresa(empresa);
 	}
 	
 	//CRUD

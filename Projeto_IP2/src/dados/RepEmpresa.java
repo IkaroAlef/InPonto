@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import dados.exceptionsDados.CnpjNaoEncontradoException;
 import dados.exceptionsDados.EmpresaNaoEncontradaException;
 import negócio.entity_beans.Empresa;
+import negócio.entity_beans.Pessoa;
 
-public class RepEmpresa {
+public class RepEmpresa implements IRepositorioEmpresas{
 
 	private ArrayList<Empresa>empresas;
 	
@@ -20,7 +21,7 @@ public class RepEmpresa {
 	}
 	
 	//Cadastro de empresa no array.
-	public void adicionaEmpresa(Empresa empresa){
+	public void adicionarEmpresa(Empresa empresa){
 		this.empresas.add(empresa);
 	}
 	
@@ -70,5 +71,25 @@ public class RepEmpresa {
 	
 	public void editarEmpresa(int i,Empresa empresa){
 		this.empresas.set(i, empresa);
+	}
+
+
+	@Override
+	public void deletarEmpresa(int i) {
+		empresas.remove(i);
+	}
+
+	@Override
+	public ArrayList<Empresa> getEmpresas(String conteudo) {
+		ArrayList<Empresa> retorno = new ArrayList<Empresa>();
+		if(conteudo==null)
+			return this.empresas;
+		else{
+			for(int i=0;i<empresas.size();i++){
+				if(empresas.get(i).getNomeEmpresa().toUpperCase().contains(conteudo.toUpperCase()))
+					retorno.add(empresas.get(i));
+			}
+		}
+		return retorno;
 	}
 }

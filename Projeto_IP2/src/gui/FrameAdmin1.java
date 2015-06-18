@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 import negócio.ControladorEmpresas;
 import negócio.ControladorPessoas;
+import negócio.EpontoFachada;
 import negócio.entity_beans.Empresa;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.Pessoa;
@@ -32,8 +33,6 @@ public class FrameAdmin1 extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField txtBusca;
-	private ControladorPessoas controladorPessoas;
-	private ControladorEmpresas controladorEmpresas;
 	private DefaultTableModel modeloTable;
 	private JTable tableFuncionarios; 
 	private JButton btnPesquisar; 
@@ -60,8 +59,8 @@ public class FrameAdmin1 extends JFrame implements ActionListener {
 	 * @throws Exception 
 	 */
 	public FrameAdmin1() throws Exception {
+		setTitle("Administrador");
 		
-		this.controladorPessoas = new ControladorPessoas(new RepPessoas());
 		char[] senha = {'1','2','3','4'};
 		
 		
@@ -69,11 +68,11 @@ public class FrameAdmin1 extends JFrame implements ActionListener {
 		
 		Empresa empresa = new Empresa("UFRPE","2414","25","235");
 		Funcionario funcionario3 = new Funcionario("Lima","123","lima@gmail",senha,"telefone", empresa,"Estudante","8h/dia",LocalTime.of(8,0),LocalTime.of(12,0),LocalTime.of(10,0),LocalTime.of(10,15));
-		controladorPessoas.adicionarPessoa(funcionario3);
+		EpontoFachada.getInstance().adicionarPessoa(funcionario3);
 		Funcionario funcionario = new Funcionario("Ikaro","12345","ikaroalef@gmail.com",senha,"telefone",empresa,"Estudante","8h/dia",LocalTime.of(8,0),LocalTime.of(12,0),LocalTime.of(10,0),LocalTime.of(10,15));
 		Funcionario funcionario1 = new Funcionario("Alef","1234","alef@gmail.com",senha,"telefone",empresa,"Estudante","8h/dia",LocalTime.of(8,0),LocalTime.of(12,0),LocalTime.of(10,0),LocalTime.of(10,15));
-		controladorPessoas.adicionarPessoa(funcionario);
-		controladorPessoas.adicionarPessoa(funcionario1);
+		EpontoFachada.getInstance().adicionarPessoa(funcionario);
+		EpontoFachada.getInstance().adicionarPessoa(funcionario1);
 		
 		//...TESTE
 		
@@ -120,7 +119,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener {
 	//caso o parametro seja NULL, preenche com todos os Funcionarios
 	public void preencherTableFuncionarios(String nome){ 
 		this.limparTableFuncionarios();
-		ArrayList<Pessoa>pessoas = controladorPessoas.getPessoas(nome);
+		ArrayList<Pessoa>pessoas = EpontoFachada.getInstance().getPessoas(nome);
 		String[] linha= new String[5];
 		for (int i=0; i < pessoas.size() ; i++){
 			if (pessoas.get(i) instanceof Funcionario){

@@ -4,6 +4,7 @@ package negócio.entity_beans;
 import java.io.Serializable;
 import java.time.LocalTime;
 
+import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 import javafx.scene.control.PasswordField;
 
 public class Funcionario extends Pessoa implements Serializable {
@@ -14,7 +15,7 @@ public class Funcionario extends Pessoa implements Serializable {
 	private LocalTime chegada,saida,intervalo_in,intervalo_out; //chegada, saida, voltou do intervalo, saiu para o intervalo
 	//qual tipo usar pra foto?
 	
-	public Funcionario(String nome, String cpf,String email,char[] senha,String telefone, Empresa empresa, String cargo, String escala, LocalTime chegada, LocalTime saida, LocalTime intervalo_in, LocalTime intervalo_out) throws Exception{
+	public Funcionario(String nome, String cpf,String email,char[] senha,String telefone, Empresa empresa, String cargo, String escala, LocalTime chegada, LocalTime saida, LocalTime intervalo_in, LocalTime intervalo_out) throws NomeInvalidoException{
 		super(nome,cpf,email,senha);
 		this.setTelefone(telefone);
 		this.setEmpresa(empresa);
