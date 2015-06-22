@@ -75,7 +75,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		//...TESTE
 		
 		//Modelo de Tabela.
-		this.modeloTable = new DefaultTableModel(new Object[][]{}, new Object[]{"Nome","CPF","Telefone","Cargo"}){
+		this.modeloTable = new DefaultTableModel(new Object[][]{}, new Object[]{"Nome","CPF","E-Mail","Telefone","Cargo","Empresa"}){
 			 @Override
 			    public boolean isCellEditable(int row, int column) { //sobreescreve pra tornar todas as células NÃO editáveis
 			        //all cells false
@@ -131,6 +131,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	    btnCadastrarEmpresa = new JButton("Cadastrar Empresa");
 	    btnCadastrarEmpresa.setBounds(210, 527, 170, 23);
 	    contentPane.add(btnCadastrarEmpresa);
+	    btnCadastrarEmpresa.addActionListener(this);
 	    
 	    btnExcluirFuncionrio = new JButton("Excluir Funcion\u00E1rio");
 	    btnExcluirFuncionrio.setBounds(390, 527, 151, 23);
@@ -144,7 +145,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	public void preencherTableFuncionarios(String nome){ 
 		this.limparTableFuncionarios();
 		ArrayList<Pessoa>pessoas = EpontoFachada.getInstance().getPessoas(nome);
-		String[] linha= new String[5];
+		String[] linha= new String[6];
 		for (int i=0; i < pessoas.size() ; i++){
 			if (pessoas.get(i) instanceof Funcionario){
 				linha[0] = pessoas.get(i).getNome();
@@ -152,6 +153,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 				linha[2] = pessoas.get(i).getEmail();
 				linha[3] = ((Funcionario) pessoas.get(i)).getTelefone();
 				linha[4] = ((Funcionario) pessoas.get(i)).getCargo();
+				linha[5] = ((Funcionario) pessoas.get(i)).getEmpresa().getNomeEmpresa();
 				modeloTable.addRow(linha);
 			}
 		}
@@ -184,6 +186,9 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 				e1.printStackTrace();
 			}
 			JOptionPane.showMessageDialog(null, "Funcionário excluído com sucesso.");
+		}
+		else if(e.getSource().equals(btnCadastrarEmpresa)){
+			ControladorDeTelas.CadastrarEmpresa();
 		}
 	}
 

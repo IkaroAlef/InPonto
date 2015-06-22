@@ -32,5 +32,17 @@ public class ControladorDeTelas extends JFrame {
 		} 
 	}
 	
+	public static void CadastrarEmpresa (){
+		FrameAdminCadastroEmpresa frame;
+		try {
+			frame= new FrameAdminCadastroEmpresa();
+			frame.setVisible(true);
+			
+		} catch (Exception e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+	}
+	
 	
 }

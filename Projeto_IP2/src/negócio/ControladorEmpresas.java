@@ -7,8 +7,6 @@ import dados.RepEmpresa;
 import dados.exceptionsDados.CnpjNaoEncontradoException;
 import dados.exceptionsDados.EmpresaNaoEncontradaException;
 import negócio.entity_beans.Empresa;
-import negócio.entity_beans.exceptionsBeans.CNPJInvalidoException;
-import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 
 public class ControladorEmpresas {
 
@@ -43,11 +41,11 @@ public class ControladorEmpresas {
 	}
 	
 	// Buscar
-	public void buscaEmpresaNome(String nomeEmpresa) throws EmpresaNaoEncontradaException{
-		repositorioEmpresas.buscarEmpresaNome(nomeEmpresa);
+	public Empresa buscaEmpresaNome(String nomeEmpresa) throws EmpresaNaoEncontradaException{
+		return repositorioEmpresas.buscarEmpresaNome(nomeEmpresa);
 	}
-	public void buscaEmpresaCNPJ(String cnpj) throws CnpjNaoEncontradoException{
-		repositorioEmpresas.buscarEmpresaCNPJ(cnpj);
+	public Empresa buscaEmpresaCNPJ(String cnpj) throws CnpjNaoEncontradoException{
+		return repositorioEmpresas.buscarEmpresaCNPJ(cnpj);
 	}
 	
 	//Indice
@@ -56,6 +54,10 @@ public class ControladorEmpresas {
 	}
 	public void buscarIndiceCNPJ(String cnpj) throws CnpjNaoEncontradoException{
 		repositorioEmpresas.buscarIndiceCNPJ(cnpj);
+	}
+	
+	public int tamanhoLista(){
+		return repositorioEmpresas.tamanhoLista();
 	}
 }
 

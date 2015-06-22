@@ -72,9 +72,9 @@ public class ControladorPessoas {
 		return repositorioPessoas.buscarPessoaNome(nome);
 	}
 
-	public Funcionario buscaPessoaCpf(String cpf)
+	public Pessoa buscaPessoaCpf(String cpf)
 			throws FuncionarioNaoEncontradoException {
-		return (Funcionario) repositorioPessoas.buscarPessoaCpf(cpf);
+		return repositorioPessoas.buscarPessoaCpf(cpf);
 	}
 
 	public void deletarPessoa(String nome) throws FuncionarioNaoEncontradoException {
@@ -88,10 +88,5 @@ public class ControladorPessoas {
 	public void editar(int i, Pessoa pessoa) {
 		repositorioPessoas.editar(i, pessoa);
 	}
-
-	public void exportar() throws IOException {
-		repositorioPessoas.exportar();
-	}
-	
 	
 }

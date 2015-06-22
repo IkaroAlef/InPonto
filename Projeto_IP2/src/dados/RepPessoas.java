@@ -119,19 +119,7 @@ public class RepPessoas implements Serializable,IRepositorioPessoas {
 	public int tamanhoLista(){
 		return pessoas.size();
 	}
-	
-	public void exportar() throws IOException{
-		if (!Paths.get("C:\\Dados\\").toFile().exists()){ //se a pasta não existe, então cria com os arquivos abaixo
-			File file = new File ("C:\\Dados\\");
-			file.mkdir(); //cria a pasta
-		}
-		FileOutputStream dados = new FileOutputStream("C:\\Dados\\dados.dados"); //arquivo que armazena os dados
-		ObjectOutputStream gravarArq = new ObjectOutputStream(dados);
-		gravarArq.writeObject(this.pessoas);	
-//		System.out.println(this.funcionarios.get(0));
-		dados.close();	
-	}
-		
+			
 	private static RepPessoas lerDoArquivo() {
         RepPessoas instanciaLocal = null;
 

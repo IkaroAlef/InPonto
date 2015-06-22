@@ -44,8 +44,12 @@ public class EpontoFachada {
 		return pessoas.validarLogin(nome, senhaDigitada);
 	}
 
-	public int tamanhoLista() {
+	public int getSizePessoas() {
 		return pessoas.tamanhoLista();
+	}
+	
+	public int getSizeEmpresas(){
+		return empresas.tamanhoLista();
 	}
 
 	public String getString(int i) {
@@ -71,7 +75,7 @@ public class EpontoFachada {
 		return pessoas.buscaPessoaNome(nome);
 	}
 
-	public Funcionario buscaPessoaCpf(String cpf)
+	public Pessoa buscaPessoaCpf(String cpf)
 			throws FuncionarioNaoEncontradoException {
 		return pessoas.buscaPessoaCpf(cpf);
 	}
@@ -86,10 +90,6 @@ public class EpontoFachada {
 
 	public void editar(int i, Pessoa pessoa) {
 		pessoas.editar(i, pessoa);
-	}
-
-	public void exportar() throws IOException {
-		pessoas.exportar();
 	}
 
 	public ArrayList<Empresa> getEmpresas(String conteudo) {
@@ -112,13 +112,13 @@ public class EpontoFachada {
 		empresas.editarEmpresa(i, empresa);
 	}
 
-	public void buscaEmpresaNome(String nomeEmpresa)
+	public Empresa buscaEmpresaNome(String nomeEmpresa)
 			throws EmpresaNaoEncontradaException {
-		empresas.buscaEmpresaNome(nomeEmpresa);
+		return empresas.buscaEmpresaNome(nomeEmpresa);
 	}
 
-	public void buscaEmpresaCNPJ(String cnpj) throws CnpjNaoEncontradoException {
-		empresas.buscaEmpresaCNPJ(cnpj);
+	public Empresa buscaEmpresaCNPJ(String cnpj) throws CnpjNaoEncontradoException {
+		return empresas.buscaEmpresaCNPJ(cnpj);
 	}
 
 	public void buscarIndiceNomeEmpresa(String nomeEmpresa)

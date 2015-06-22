@@ -16,6 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
 
+import dados.exceptionsDados.EmpresaNaoEncontradaException;
 import negócio.EpontoFachada;
 import negócio.entity_beans.Empresa;
 import negócio.entity_beans.Funcionario;
@@ -39,6 +40,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 	private JTextField txtMinutosSaidaIntervalo;
 	private JTextField txtHoraChegadaIntervalo;
 	private JTextField txtMinutosChegadaIntervalo;
+	private JComboBox cmbBxEmpresa;
 	private JButton btnLimpar;
 	private JButton btnSalvar;
 	private JButton btnCapturar;
@@ -111,9 +113,12 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		lblEmpresa.setBounds(10, 153, 72, 14);
 		contentPane.add(lblEmpresa);
 		
-		JComboBox cmbBxEmpresa = new JComboBox();
+		cmbBxEmpresa = new JComboBox();
 		cmbBxEmpresa.setBounds(10, 167, 116, 20);
 		contentPane.add(cmbBxEmpresa);
+		for(int i=0;i<EpontoFachada.getInstance().getSizeEmpresas() ; i++){
+			cmbBxEmpresa.addItem(EpontoFachada.getInstance().getEmpresas(null).get(i));
+		}
 		
 		JLabel lblTelefone = new JLabel("Telefone:");
 		lblTelefone.setBounds(152, 153, 78, 14);
@@ -276,16 +281,20 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 			char[] senha = txtSenha.getText().toCharArray();
 			String telefone = txtTelefone.getText();
 			String cargo = txtCargo.getText();
+			Empresa empresa = null;
+			try {
+				empresa = (Empresa) EpontoFachada.getInstance().buscaEmpresaNome(cmbBxEmpresa.getSelectedItem().toString());
+			} catch (EmpresaNaoEncontradaException e3) {
+				JOptionPane.showMessageDialog(null, e3.getMessage());
+			}
 			LocalTime horaChegada = LocalTime.of( Integer.parseInt(txtHoraChegada.getText()) , Integer.parseInt( txtMinutosChegada.getText()) );
 			LocalTime horaSaida = LocalTime.of( Integer.parseInt(txtHoraSaida.getText()) , Integer.parseInt( txtMinutosSaida.getText()) );
 			LocalTime horaChegadaIntervalo = LocalTime.of( Integer.parseInt(txtHoraChegadaIntervalo.getText()) , Integer.parseInt( txtMinutosChegadaIntervalo.getText()) );
 			LocalTime horaSaidaIntervalo = LocalTime.of( Integer.parseInt(txtHoraSaidaIntervalo.getText()) , Integer.parseInt( txtMinutosSaidaIntervalo.getText()) );
 			try{
-				funcionario = new Funcionario(nome, cpf, email, senha, telefone, new Empresa("UFRPE","123","123","1312"), cargo, "escala", horaChegada, horaSaida, horaChegadaIntervalo, horaSaidaIntervalo);
+				funcionario = new Funcionario(nome, cpf, email, senha, telefone, empresa, cargo, "escala", horaChegada, horaSaida, horaChegadaIntervalo, horaSaidaIntervalo);
 			}catch(NomeInvalidoException e1){
 				JOptionPane.showMessageDialog(null, e1.getMessage() );
-			}catch(CNPJInvalidoException e2){
-				JOptionPane.showMessageDialog(null, e2.getMessage() );
 			}
 			EpontoFachada.getInstance().adicionarPessoa(funcionario);
 			JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso" );

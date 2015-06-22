@@ -17,6 +17,7 @@ public interface IRepositorioEmpresas {
 	void deletarEmpresa(int i);
 	void editarEmpresa(int i,Empresa empresa);
 	String imprimir(int i);
+	int tamanhoLista();
 
 	ArrayList<Empresa> getEmpresas(String conteudo);
 }

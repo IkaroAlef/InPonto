@@ -20,7 +20,5 @@ public interface IRepositorioPessoas {
 	Pessoa getObject(int i);
 	ArrayList<Pessoa> getPessoas(String conteudo);
 	int tamanhoLista();
-	void exportar() throws IOException;
 	void adicionarPessoa(int i, Pessoa pessoa);
-	
 }

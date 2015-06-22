@@ -117,7 +117,7 @@ public class RepEmpresa implements IRepositorioEmpresas ,Serializable{
 	private static RepEmpresa lerDoArquivo() {
         RepEmpresa instanciaLocal = null;
 
-        File in = new File("pessoas.dat");
+        File in = new File("empresas.dat");
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         try {
@@ -159,4 +159,9 @@ public class RepEmpresa implements IRepositorioEmpresas ,Serializable{
             }
         }
 	}
-}
+
+	@Override
+	public int tamanhoLista() {
+		return empresas.size();
+	}
+	}

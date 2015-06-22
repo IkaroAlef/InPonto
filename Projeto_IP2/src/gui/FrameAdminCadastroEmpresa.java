@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -18,7 +17,6 @@ import java.awt.event.KeyEvent;
 
 import negócio.EpontoFachada;
 import negócio.entity_beans.Empresa;
-import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.exceptionsBeans.CNPJInvalidoException;
 import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 
@@ -108,7 +106,7 @@ public class FrameAdminCadastroEmpresa extends JFrame implements ActionListener 
 		btnSalvar.setBounds(117, 148, 89, 23);
 		btnSalvar.addActionListener(this);
 		contentPane.add(btnSalvar);
-		
+				
 		btnLimpar = new JButton("Limpar");
 		btnLimpar.setBounds(216, 148, 89, 23);
 		btnLimpar.addActionListener(this);
