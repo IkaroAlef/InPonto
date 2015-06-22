@@ -14,11 +14,11 @@ public class Empresa implements Serializable {
 	private String endereco;
 	private String contato;
 	
-	public Empresa ( String nomeEmpresa,String cnpj, String endereço, String contato) throws NomeInvalidoException, CNPJInvalidoException{
+	public Empresa ( String nomeEmpresa,String cnpj, String endereco, String contato) throws NomeInvalidoException, CNPJInvalidoException{
 	
 		this.setNomeEmpresa(nomeEmpresa);
 		this.setCnpj(cnpj);
-		this.setEndereco(endereço);
+		this.setEndereco(endereco);
 		this.setContato(contato);
 	}
 	public Empresa(){
