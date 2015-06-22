@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import dados.exceptionsDados.CnpjNaoEncontradoException;
@@ -14,7 +15,7 @@ import dados.exceptionsDados.EmpresaNaoEncontradaException;
 import negócio.entity_beans.Empresa;
 import negócio.entity_beans.Pessoa;
 
-public class RepEmpresa implements IRepositorioEmpresas{
+public class RepEmpresa implements IRepositorioEmpresas ,Serializable{
 
 	private ArrayList<Empresa>empresas;
 	
