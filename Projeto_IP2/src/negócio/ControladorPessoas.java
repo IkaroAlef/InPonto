@@ -9,24 +9,29 @@ import dados.exceptionsDados.*;
 import negócio.entity_beans.*;
 
 public class ControladorPessoas {
-		
-	public ArrayList<Pessoa> getPessoas(String conteudo) {
-		return repositorioPessoas.getPessoas(conteudo);
-	}
-
 	private IRepositorioPessoas repositorioPessoas;
 	private char[] senha = {'1','2','3','4'};
 	private Pessoa pessoa = new Admin("Admin","123","ika",senha);
 		
+
 	public ControladorPessoas(IRepositorioPessoas instance){
 		repositorioPessoas = instance;
-		repositorioPessoas.adicionarPessoa(pessoa);
+		repositorioPessoas.adicionarPessoa(repositorioPessoas.tamanhoLista(),pessoa);
 	}
+	
+	public ArrayList<Pessoa> getPessoas(String conteudo) {
+		return repositorioPessoas.getPessoas(conteudo);
+	}
+		
 	
 	public void adicionarPessoa(Pessoa pessoa){
 		repositorioPessoas.adicionarPessoa(pessoa);
 	}
 		
+	public void adicionarPessoa(int i, Pessoa pessoa) {
+		repositorioPessoas.adicionarPessoa(i, pessoa);
+	}
+
 	public boolean validarLogin(String nome, char[] senhaDigitada) throws FuncionarioNaoEncontradoException{
 		boolean estaCorreto=true;
 		

@@ -22,5 +22,6 @@ public interface IRepositorioPessoas {
 	String[] linhaFuncionario(int i);
 	int tamanhoLista();
 	void exportar() throws IOException;
+	void adicionarPessoa(int i, Pessoa pessoa);
 	
 }

@@ -3,12 +3,16 @@ package gui;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -28,8 +32,9 @@ import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 import javax.swing.JButton;
 
 import dados.RepPessoas;
+import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 
-public class FrameAdmin1 extends JFrame implements ActionListener {
+public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener {
 
 	private JPanel contentPane;
 	private JTextField txtBusca;
@@ -80,7 +85,13 @@ public class FrameAdmin1 extends JFrame implements ActionListener {
 		//...TESTE
 		
 		//Modelo de Tabela.
-		this.modeloTable = new DefaultTableModel(new Object[][]{}, new Object[]{"Nome","CPF","Telefone","Cargo"});
+		this.modeloTable = new DefaultTableModel(new Object[][]{}, new Object[]{"Nome","CPF","Telefone","Cargo"}){
+			 @Override
+			    public boolean isCellEditable(int row, int column) { //sobreescreve pra tornar todas as células NÃO editáveis
+			        //all cells false
+			        return false;
+			    }
+		};
 		this.preencherTableFuncionarios(null);
 			
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -104,6 +115,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener {
 		contentPane.add(menuBar);
 		
 		this.tableFuncionarios = new JTable(modeloTable);
+		tableFuncionarios.addMouseListener(this);
 
 	    this.scrllPnFuncionarios = new JScrollPane(tableFuncionarios);
 	    scrllPnFuncionarios.setLocation(30, 104);
@@ -155,7 +167,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener {
 		while (modeloTable.getRowCount() > 0) {
 		modeloTable.removeRow(0);
 		}
-		}
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -168,6 +180,45 @@ public class FrameAdmin1 extends JFrame implements ActionListener {
 		else if(e.getSource().equals(btnMostrarTodos)){
 			this.preencherTableFuncionarios(null);
 		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) { //evento para double click nna tableFuncionarios;
+		if (e.getClickCount() == 2) {
+		      JTable target = (JTable)e.getSource();
+		      int row = target.getSelectedRow();
+		      //DAQUI PRA BAIXO, O CÓDIGO
+		      try {
+				System.out.println(EpontoFachada.getInstance().buscaPessoaNome((String) target.getValueAt(row, 0)).getNome());
+			} catch (FuncionarioNaoEncontradoException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

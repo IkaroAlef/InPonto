@@ -32,25 +32,28 @@ public class RepEmpresa implements IRepositorioEmpresas{
 	
 	//Busca pelo nomeEmpresa e Retorna o indice da empresa no array.
 	public int buscarIndiceNomeEmpresa(String nomeEmpresa) throws EmpresaNaoEncontradaException{ 
-		int resultado=0;
+		int resultado=-1;
 		for (int i=0;i<this.empresas.size();i++){
 			if (nomeEmpresa!= null && this.empresas.get(i).igualNome(nomeEmpresa)){
 				resultado = i;
 			}
-			else throw new EmpresaNaoEncontradaException(nomeEmpresa);
 		}
+		if(resultado == -1)
+			throw new EmpresaNaoEncontradaException(nomeEmpresa);
+
 		return resultado;
 	}
 	
 	//Busca pelo CNPJ e Retorna o indice da empresa no array.
 	public int buscarIndiceCNPJ(String cnpj) throws CnpjNaoEncontradoException{ 
-		int resultado=0;
+		int resultado=-1;
 		for (int i=0;i<this.empresas.size();i++){
 			if (this.empresas.get(i).igualCNPJ(cnpj)){
 				resultado=i;
 			}
-			else throw new CnpjNaoEncontradoException(cnpj);
 		}
+		if (resultado == -1)
+			throw new CnpjNaoEncontradoException(cnpj);
 		return resultado;
 	}
 	

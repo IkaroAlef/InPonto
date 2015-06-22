@@ -32,6 +32,10 @@ public class RepPessoas implements Serializable,IRepositorioPessoas {
 		this.pessoas.add(pessoa);
 	}
 	
+	public void adicionarPessoa(int i, Pessoa pessoa){ //cadastra um funcionario no arrayList na posição especifica
+		this.pessoas.add(i,pessoa);
+	}
+	
 	public String getString(int i){ //retorna um funcionario na posição i no arrayList
 		return pessoas.get(i).toString();
 	}
@@ -66,24 +70,26 @@ public class RepPessoas implements Serializable,IRepositorioPessoas {
 	}
 	
 	public int buscarIndiceNome(String nome) throws FuncionarioNaoEncontradoException{ //retorna o índice do Funcionario cujo nome é igual ao nome da busca. Retorna -1 caso não encontre
-		int resultado=0;
+		int resultado=-1;
 		for (int i=0;i<this.pessoas.size();i++){
-			if (nome!= null && this.pessoas.get(i).igualNome(nome)){
+			if (nome != null && this.pessoas.get(i).igualNome(nome)){
 				resultado = i;
-			}
-			else throw new FuncionarioNaoEncontradoException(nome);
+			} 
 		}
+		if(resultado==-1)
+			throw new FuncionarioNaoEncontradoException(nome);
 		return resultado;
 	}
 	
 	public int buscarIndiceCpf(String cpf) throws FuncionarioNaoEncontradoException{ //retorna o índice do Funcionario cujo cpf é igual ao nome da busca. Retorna -1 caso não encontre
-		int resultado=0;
+		int resultado=-1;
 		for (int i=0;i<this.pessoas.size();i++){
-			if (this.pessoas.get(i).igualCpf(cpf)){
+			if (cpf != null && this.pessoas.get(i).igualCpf(cpf)){
 				resultado=i;
 			}
-			else throw new FuncionarioNaoEncontradoException(cpf);
 		}
+		if(resultado==-1)
+			throw new FuncionarioNaoEncontradoException(cpf);
 		return resultado;
 	}
 	
