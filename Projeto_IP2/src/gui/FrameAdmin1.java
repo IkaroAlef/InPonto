@@ -131,7 +131,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	    btnCadastrarEmpresa = new JButton("Cadastrar Empresa");
 	    btnCadastrarEmpresa.setBounds(210, 527, 170, 23);
 	    contentPane.add(btnCadastrarEmpresa);
-	    btnCadastrarEmpresa.addActionListener(this);
+	    btnCadastrarEmpresa.addActionListener(this );
 	    
 	    btnExcluirFuncionrio = new JButton("Excluir Funcion\u00E1rio");
 	    btnExcluirFuncionrio.setBounds(390, 527, 151, 23);
