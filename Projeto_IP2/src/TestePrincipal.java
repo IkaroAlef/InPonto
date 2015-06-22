@@ -85,7 +85,7 @@ public class TestePrincipal{
 			RegPonto ponto = new RegPonto();
 			System.out.println("CPF que deseja registrar ponto: ");
 			String cpf = sc.nextLine();
-			ponto.registrarPonto((Funcionario)repFuncionario.buscaPessoaCpf(cpf));
+			ponto.registrarPonto((Funcionario)repFuncionario.buscarPessoaCpf(cpf));
 			pontos.adicionarRegistro(ponto);
 			System.out.println("Sair?");
 			if(sc.nextLine().equals("sim"))

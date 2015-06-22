@@ -27,6 +27,7 @@ import javax.swing.SwingConstants;
 import dados.RepPessoas;
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.ControladorPessoas;
+import negócio.EpontoFachada;
 
 public class FrameLogin extends JFrame implements ActionListener {
 	
@@ -57,9 +58,6 @@ public class FrameLogin extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public FrameLogin() {
-		
-		this.controladorPessoas = new ControladorPessoas(new RepPessoas());
-		
 		
 		setResizable(false);
 		setTitle("Login");
@@ -101,8 +99,8 @@ public class FrameLogin extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(btnOk)){
 			try {
-				if ( controladorPessoas.validarLogin( txtLogin.getText(), passSenha.getPassword() ) ){
-					JOptionPane.showMessageDialog(null, "Login Efetuado com Sucesso.");
+				if ( EpontoFachada.validarLogin( txtLogin.getText(), passSenha.getPassword() ) ){
+					JOptionPane.showMessageDialog(null, "Login efetuado com sucesso.");
 					this.setVisible(false);
 					ControladorDeTelas.LoginToAdm();
 				}
@@ -112,7 +110,7 @@ public class FrameLogin extends JFrame implements ActionListener {
 				System.out.println("Exception");
 				e1.printStackTrace();
 			} catch (FuncionarioNaoEncontradoException e1) {
-				JOptionPane.showMessageDialog(null, "Usuário Não Encontrado.");
+				JOptionPane.showMessageDialog(null, "Usuário não encontrado.");
 			}
 			txtLogin.setText("");
 			passSenha.setText("");

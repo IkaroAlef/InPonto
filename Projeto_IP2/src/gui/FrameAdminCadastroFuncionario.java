@@ -288,7 +288,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 				JOptionPane.showMessageDialog(null, e2.getMessage() );
 			}
 			EpontoFachada.getInstance().adicionarPessoa(funcionario);
-			JOptionPane.showMessageDialog(null, "Funcionário Cadastrado com Sucesso" );
+			JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso" );
 			this.limparCampos();
 		}
 	}

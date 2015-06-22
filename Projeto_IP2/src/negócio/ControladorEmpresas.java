@@ -3,6 +3,7 @@ package negócio;
 import java.util.ArrayList;
 
 import dados.IRepositorioEmpresas;
+import dados.RepEmpresa;
 import dados.exceptionsDados.CnpjNaoEncontradoException;
 import dados.exceptionsDados.EmpresaNaoEncontradaException;
 import negócio.entity_beans.Empresa;
@@ -17,8 +18,8 @@ public class ControladorEmpresas {
 		return repositorioEmpresas.getEmpresas (conteudo);
 	}	
 	
-	public  ControladorEmpresas (IRepositorioEmpresas instance){ 
-		repositorioEmpresas = instance;
+	public  ControladorEmpresas (){ 
+		repositorioEmpresas = RepEmpresa.getInstance();
 	}
 	
 	//CRUD
@@ -43,10 +44,10 @@ public class ControladorEmpresas {
 	
 	// Buscar
 	public void buscaEmpresaNome(String nomeEmpresa) throws EmpresaNaoEncontradaException{
-		repositorioEmpresas.buscaEmpresaNome(nomeEmpresa);
+		repositorioEmpresas.buscarEmpresaNome(nomeEmpresa);
 	}
 	public void buscaEmpresaCNPJ(String cnpj) throws CnpjNaoEncontradoException{
-		repositorioEmpresas.buscaEmpresaCNPJ(cnpj);
+		repositorioEmpresas.buscarEmpresaCNPJ(cnpj);
 	}
 	
 	//Indice

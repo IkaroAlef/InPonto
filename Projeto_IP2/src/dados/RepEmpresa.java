@@ -1,6 +1,12 @@
 //Repositorio de Empresas.
 package dados;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import dados.exceptionsDados.CnpjNaoEncontradoException;
@@ -12,6 +18,8 @@ public class RepEmpresa implements IRepositorioEmpresas{
 
 	private ArrayList<Empresa>empresas;
 	
+	private static RepEmpresa instance;
+	
 	public RepEmpresa(){
 		empresas = new ArrayList<Empresa>();
 	}
@@ -20,9 +28,17 @@ public class RepEmpresa implements IRepositorioEmpresas{
 		this.empresas = empresas;
 	}
 	
+	public static IRepositorioEmpresas getInstance() {
+        if (instance == null) {
+            instance = lerDoArquivo();
+        }
+        return instance;
+    }
+	
 	//Cadastro de empresa no array.
 	public void adicionarEmpresa(Empresa empresa){
 		this.empresas.add(empresa);
+		this.salvarArquivo();
 	}
 	
 	//Retorna Empresa.
@@ -58,28 +74,29 @@ public class RepEmpresa implements IRepositorioEmpresas{
 	}
 	
 	//Buscar Empresa pelo nome.
-	public Empresa buscaEmpresaNome(String nomeEmpresa) throws EmpresaNaoEncontradaException{ 
+	public Empresa buscarEmpresaNome(String nomeEmpresa) throws EmpresaNaoEncontradaException{ 
 		return this.empresas.get(buscarIndiceNomeEmpresa(nomeEmpresa));
 	}
 	
 	//Buscar Empresa pelo CNPJ.
-	public Empresa buscaEmpresaCNPJ(String cnpj) throws CnpjNaoEncontradoException{ 
+	public Empresa buscarEmpresaCNPJ(String cnpj) throws CnpjNaoEncontradoException{ 
 		return this.empresas.get(buscarIndiceCNPJ(cnpj));
 	}
 	
 	//Deleta um Empresa pelo Nome.
 	public void deletarEmpresa(String nomeEmpresa){
 		empresas.remove(nomeEmpresa);
+		this.salvarArquivo();
 	}
 	
 	public void editarEmpresa(int i,Empresa empresa){
 		this.empresas.set(i, empresa);
+		this.salvarArquivo();
 	}
 
-
-	@Override
 	public void deletarEmpresa(int i) {
 		empresas.remove(i);
+		this.salvarArquivo();
 	}
 
 	@Override
@@ -94,5 +111,51 @@ public class RepEmpresa implements IRepositorioEmpresas{
 			}
 		}
 		return retorno;
+	}
+	
+	private static RepEmpresa lerDoArquivo() {
+        RepEmpresa instanciaLocal = null;
+
+        File in = new File("pessoas.dat");
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+            fis = new FileInputStream(in);
+            ois = new ObjectInputStream(fis);
+            Object o = ois.readObject();
+            instanciaLocal = (RepEmpresa) o;
+        } catch (Exception e) {
+            instanciaLocal = new RepEmpresa();
+        } finally {
+            if (ois != null) {
+                try {
+                    ois.close();
+                } catch (IOException e) {/* Silent exception */
+                }
+            }
+        }
+
+        return instanciaLocal;
+    }
+	
+	public static void salvarArquivo() {
+        if (instance == null) {
+            return;
+        }
+        File out = new File("empresas.dat");
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        
+        try {
+            fos = new FileOutputStream(out);
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(instance);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (oos != null) {
+                try { oos.close(); } catch (IOException e) {/*Silent*/}
+            }
+        }
 	}
 }

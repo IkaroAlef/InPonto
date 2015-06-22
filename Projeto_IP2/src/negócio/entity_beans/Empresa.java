@@ -1,11 +1,13 @@
 package negócio.entity_beans;
 
+import java.io.Serializable;
+
 import negócio.entity_beans.exceptionsBeans.CNPJInvalidoException;
 import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 
 
 
-public class Empresa {
+public class Empresa implements Serializable {
 
 	private String nomeEmpresa;
 	private String cnpj;

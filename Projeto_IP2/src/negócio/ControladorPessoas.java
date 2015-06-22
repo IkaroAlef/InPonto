@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import dados.IRepositorioPessoas;
+import dados.RepPessoas;
 import dados.exceptionsDados.*;
 import negócio.entity_beans.*;
 
@@ -14,9 +15,9 @@ public class ControladorPessoas {
 	private Pessoa pessoa = new Admin("Admin","123","ika",senha);
 		
 
-	public ControladorPessoas(IRepositorioPessoas instance){
-		repositorioPessoas = instance;
-		repositorioPessoas.adicionarPessoa(repositorioPessoas.tamanhoLista(),pessoa);
+	public ControladorPessoas(){
+		this.repositorioPessoas = RepPessoas.getInstance();
+		repositorioPessoas.adicionarPessoa(pessoa);
 	}
 	
 	public ArrayList<Pessoa> getPessoas(String conteudo) {
@@ -32,20 +33,16 @@ public class ControladorPessoas {
 		repositorioPessoas.adicionarPessoa(i, pessoa);
 	}
 
-	public boolean validarLogin(String nome, char[] senhaDigitada) throws FuncionarioNaoEncontradoException{
+	public boolean validarLogin(String dado, char[] senhaDigitada) throws FuncionarioNaoEncontradoException{
 		boolean estaCorreto=true;
 		
-		if(senhaDigitada.length != repositorioPessoas.buscaPessoaNome(nome).getSenha().length)
+		if(senhaDigitada.length != repositorioPessoas.buscarPessoaCpf(dado).getSenha().length)
 			estaCorreto=false;
 			
 		else
-			estaCorreto=Arrays.equals(senhaDigitada, repositorioPessoas.buscaPessoaNome(nome).getSenha());
+			estaCorreto=Arrays.equals(senhaDigitada, repositorioPessoas.buscarPessoaCpf(dado).getSenha());
 		
 		return estaCorreto;
-	}
-	
-	public String[] linhaTabela(int i){
-		return repositorioPessoas.linhaFuncionario(i);
 	}
 	
 	public int tamanhoLista(){
@@ -72,15 +69,15 @@ public class ControladorPessoas {
 
 	public Pessoa buscaPessoaNome(String nome)
 			throws FuncionarioNaoEncontradoException {
-		return repositorioPessoas.buscaPessoaNome(nome);
+		return repositorioPessoas.buscarPessoaNome(nome);
 	}
 
 	public Funcionario buscaPessoaCpf(String cpf)
 			throws FuncionarioNaoEncontradoException {
-		return (Funcionario) repositorioPessoas.buscaPessoaCpf(cpf);
+		return (Funcionario) repositorioPessoas.buscarPessoaCpf(cpf);
 	}
 
-	public void deletarPessoa(String nome) {
+	public void deletarPessoa(String nome) throws FuncionarioNaoEncontradoException {
 		repositorioPessoas.deletarPessoa(nome);
 	}
 

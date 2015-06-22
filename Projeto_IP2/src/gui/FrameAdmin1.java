@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -45,6 +46,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	private JButton btnCadastrarFuncionario;
 	private JButton btnMostrarTodos;
 	private JButton btnCadastrarEmpresa;
+	private JButton btnExcluirFuncionrio;
 	
 	/**
 	 * Launch the application.
@@ -67,21 +69,9 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	 * @throws Exception 
 	 */
 	public FrameAdmin1() throws Exception {
-		setTitle("Administrador");
-		
-		char[] senha = {'1','2','3','4'};
-		
+		setTitle("Administrador");		
 		
 		// TESTE ...
-		
-		Empresa empresa = new Empresa("UFRPE","2414","25","235");
-		Funcionario funcionario3 = new Funcionario("Lima","123","lima@gmail",senha,"telefone", empresa,"Estudante","8h/dia",LocalTime.of(8,0),LocalTime.of(12,0),LocalTime.of(10,0),LocalTime.of(10,15));
-		EpontoFachada.getInstance().adicionarPessoa(funcionario3);
-		Funcionario funcionario = new Funcionario("Ikaro","12345","ikaroalef@gmail.com",senha,"telefone",empresa,"Estudante","8h/dia",LocalTime.of(8,0),LocalTime.of(12,0),LocalTime.of(10,0),LocalTime.of(10,15));
-		Funcionario funcionario1 = new Funcionario("Alef","1234","alef@gmail.com",senha,"telefone",empresa,"Estudante","8h/dia",LocalTime.of(8,0),LocalTime.of(12,0),LocalTime.of(10,0),LocalTime.of(10,15));
-		EpontoFachada.getInstance().adicionarPessoa(funcionario);
-		EpontoFachada.getInstance().adicionarPessoa(funcionario1);
-		
 		//...TESTE
 		
 		//Modelo de Tabela.
@@ -141,6 +131,11 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	    btnCadastrarEmpresa = new JButton("Cadastrar Empresa");
 	    btnCadastrarEmpresa.setBounds(210, 527, 170, 23);
 	    contentPane.add(btnCadastrarEmpresa);
+	    
+	    btnExcluirFuncionrio = new JButton("Excluir Funcion\u00E1rio");
+	    btnExcluirFuncionrio.setBounds(390, 527, 151, 23);
+	    contentPane.add(btnExcluirFuncionrio);
+	    btnExcluirFuncionrio.addActionListener(this);
 		    
 		}
 
@@ -179,6 +174,16 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		}
 		else if(e.getSource().equals(btnMostrarTodos)){
 			this.preencherTableFuncionarios(null);
+		}
+		else if(e.getSource().equals(btnExcluirFuncionrio)){
+			int row = tableFuncionarios.getSelectedRow();
+			try {
+				EpontoFachada.getInstance().deletarPessoa((String)tableFuncionarios.getValueAt(row, 0));
+			} catch (FuncionarioNaoEncontradoException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			JOptionPane.showMessageDialog(null, "Funcionário excluído com sucesso.");
 		}
 	}
 
@@ -220,7 +225,6 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		// TODO Auto-generated method stub
 		
 	}
-	
 }
 
 
