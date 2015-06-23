@@ -2,6 +2,8 @@ package gui;
 
 import javax.swing.JFrame;
 
+import negócio.entity_beans.Funcionario;
+
 public class ControladorDeTelas extends JFrame {
 
 	public static void LoginToAdm (){
@@ -41,8 +43,19 @@ public class ControladorDeTelas extends JFrame {
 		} catch (Exception e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
-		}
+		}	
 	}
 	
+	public static void Admin2(Funcionario funcionario){
+		FrameAdmin2 frame;
+		try {
+			frame= new FrameAdmin2(funcionario);
+			frame.setVisible(true);
+			
+		} catch (Exception e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}	
+	}	
 	
 }
