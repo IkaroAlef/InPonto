@@ -94,7 +94,7 @@ public class TestePrincipal{
 		case 4: 
 			System.out.println("CPF do funcionario que deseja todos os pontos: ");
 			cpf = sc.nextLine();
-			for (RegPonto p: pontos.pontosDoFuncionario(cpf, repFuncionario)){
+			for (RegPonto p: pontos.pontosDoFuncionario(cpf)){
 				System.out.println(p);
 			}
 			System.out.println("Sair?");
@@ -111,7 +111,7 @@ public class TestePrincipal{
 			pontos.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,16,8,0),funcionario3));
 			pontos.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,17,8,0),funcionario3));
 			pontos.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,18,8,0),funcionario3));
-			System.out.println(pontos.totalChegadaCorreta(cpf1, repFuncionario));
+			System.out.println(pontos.totalChegadaCorreta(cpf1));
 			break;
 		}
 		}while(!sair);

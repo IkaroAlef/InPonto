@@ -2,9 +2,7 @@
 package negócio.entity_beans;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 
 public class RegPonto {
 	private LocalDateTime agora;
@@ -14,6 +12,21 @@ public class RegPonto {
 		
 	}
 	
+	public LocalDateTime getAgora() {
+		return agora;
+	}
+	
+	public String getAgoraFormatada(){
+		DateTimeFormatter formatador =  DateTimeFormatter.ofPattern("HH:mm 'do dia' dd/MM/yyyy");
+		String dataFormatada = formatador.format(this.agora);
+		
+		return dataFormatada;
+	}
+	
+	public Funcionario getFuncionario(){
+		return this.funcionario;
+	}
+
 	public RegPonto(LocalDateTime agora, Funcionario funcionario){
 		this.agora=agora;
 		this.funcionario=funcionario;
@@ -26,9 +39,6 @@ public class RegPonto {
 		}
 	}
 	
-	public Funcionario getFuncionario(){
-		return this.funcionario;
-	}
 	
 	public String toString(){
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YY HH:mm");

@@ -9,12 +9,12 @@ public interface IRepositorioPontos {
 	
 	void adicionarRegistro(RegPonto ponto);
 	
-	ArrayList <RegPonto> pontosDoFuncionario(String cpf, IRepositorioPessoas repFuncionario) throws FuncionarioNaoEncontradoException;
+	ArrayList <RegPonto> pontosDoFuncionario(String cpf) throws FuncionarioNaoEncontradoException;
 	
-	int totalChegadaCorreta(String cpf, IRepositorioPessoas repFuncionario) throws FuncionarioNaoEncontradoException;
-	int totalSaidaCorreta(String cpf, IRepositorioPessoas repFuncionario) throws FuncionarioNaoEncontradoException;
-	int totalIntervalo_InCorreta(String cpf, IRepositorioPessoas repFuncionario) throws FuncionarioNaoEncontradoException;
-	int totalIntervalo_OutCorreta(String cpf, IRepositorioPessoas repFuncionario) throws FuncionarioNaoEncontradoException;
+	int totalChegadaCorreta(String cpf) throws FuncionarioNaoEncontradoException;
+	int totalSaidaCorreta(String cpf) throws FuncionarioNaoEncontradoException;
+	int totalIntervalo_InCorreta(String cpf) throws FuncionarioNaoEncontradoException;
+	int totalIntervalo_OutCorreta(String cpf) throws FuncionarioNaoEncontradoException;
 	
 	
 	

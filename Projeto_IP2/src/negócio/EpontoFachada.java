@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import negócio.entity_beans.Empresa;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.Pessoa;
+import negócio.entity_beans.RegPonto;
 import dados.exceptionsDados.CnpjNaoEncontradoException;
 import dados.exceptionsDados.EmpresaNaoEncontradaException;
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
@@ -14,6 +15,7 @@ public class EpontoFachada {
 
 	private static ControladorPessoas pessoas = new ControladorPessoas();
 	private ControladorEmpresas empresas = new ControladorEmpresas();
+	private ControladorPontos pontos = new ControladorPontos();
 
 	private static EpontoFachada instance;
 	
@@ -128,6 +130,35 @@ public class EpontoFachada {
 
 	public void buscarIndiceCNPJ(String cnpj) throws CnpjNaoEncontradoException {
 		empresas.buscarIndiceCNPJ(cnpj);
+	}
+
+	public void adicionarRegistro(RegPonto ponto) {
+		pontos.adicionarRegistro(ponto);
+	}
+
+	public ArrayList<RegPonto> pontosDoFuncionario(String cpf)
+			throws FuncionarioNaoEncontradoException {
+		return pontos.pontosDoFuncionario(cpf);
+	}
+
+	public int totalChegadaCorreta(String cpf)
+			throws FuncionarioNaoEncontradoException {
+		return pontos.totalChegadaCorreta(cpf);
+	}
+
+	public int totalSaidaCorreta(String cpf)
+			throws FuncionarioNaoEncontradoException {
+		return pontos.totalSaidaCorreta(cpf);
+	}
+
+	public int totalIntervalo_InCorreta(String cpf)
+			throws FuncionarioNaoEncontradoException {
+		return pontos.totalIntervalo_InCorreta(cpf);
+	}
+
+	public int totalIntervalo_OutCorreta(String cpf)
+			throws FuncionarioNaoEncontradoException {
+		return pontos.totalIntervalo_OutCorreta(cpf);
 	}
 	
 }
