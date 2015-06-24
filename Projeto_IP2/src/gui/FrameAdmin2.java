@@ -1,6 +1,7 @@
 package gui;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -8,11 +9,20 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
+import com.toedter.calendar.JCalendar;
+
+import dados.RepPessoas;
+import negócio.EpontoFachada;
 import negócio.entity_beans.Funcionario;
+import com.toedter.calendar.JDateChooser;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FrameAdmin2 extends JFrame {
 
 	private JPanel contentPane;
+	private JCalendar calendar;
+	private Funcionario funcionario;
 
 	/**
 	 * Launch the application.
@@ -21,7 +31,7 @@ public class FrameAdmin2 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameAdmin2 frame = new FrameAdmin2(null);
+					FrameAdmin2 frame = new FrameAdmin2((Funcionario) EpontoFachada.getInstance().buscaPessoaNome("Ikaro Alef"));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -33,8 +43,11 @@ public class FrameAdmin2 extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrameAdmin2(Funcionario funcionario) {
+	public FrameAdmin2(Funcionario funcionario) {		
 		super("Dados de " + funcionario.getNome());
+		
+		this.funcionario = funcionario;
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 900, 600);
 		contentPane = new JPanel();
@@ -133,5 +146,20 @@ public class FrameAdmin2 extends JFrame {
 		JLabel lblIntervaloVoltaFuncionario = new JLabel(funcionario.getIntervalo_in().toString());
 		lblIntervaloVoltaFuncionario.setBounds(663, 485, 165, 14);
 		contentPane.add(lblIntervaloVoltaFuncionario);
+		
+		calendar = new JCalendar();
+		calendar.setBounds(10, 11, 500, 350);
+		contentPane.add(calendar);
+		this.ColorirCalendario();
+		
+	}
+	
+	public void ColorirCalendario(){
+		System.out.println(calendar.getDayChooser());
+		JPanel jPanel = calendar.getDayChooser().getDayPanel();
+		Component component[] = jPanel.getComponents();
+		for (int i = 7; i < 49; i++) {
+	        component[i].setBackground(Color.green);
+	    }
 	}
 }

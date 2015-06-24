@@ -1,18 +1,16 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JOptionPane;
-import javax.swing.JSplitPane;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+
 
 import dados.RepPessoas;
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
@@ -25,7 +23,6 @@ public class FrameFuncionario extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JButton btnBaterPonto;
 	private Funcionario funcionario;
-	private Calendar calendario;
 
 	/**
 	 * Launch the application.
