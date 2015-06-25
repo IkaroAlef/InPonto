@@ -63,7 +63,7 @@ public abstract class Pessoa implements Serializable{
 	}
 
 	public boolean igualCpf(String cpf){
-		if (this.cpf.equals(cpf))
+		if (this.cpf.equalsIgnoreCase(cpf))
 				return true;
 		else return false;
 	}

@@ -1,10 +1,12 @@
 //Classe para Registro de Ponto
 package negócio.entity_beans;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class RegPonto {
+public class RegPonto implements Serializable {
 	private LocalDateTime agora;
 	private Funcionario funcionario;
 	
@@ -46,31 +48,89 @@ public class RegPonto {
 				"\n   Data e Hora do Ponto: "+agora.format(formatter));
 	}
 	
-	public boolean chegadaCorreta(){
-		if (agora.toLocalTime().equals(funcionario.getChegada())){
-			return true;
+	public boolean chegadaCorreta(){ //Chegada correta com tolerância de 15 minutos
+		LocalTime ponto = LocalTime.of(agora.getHour(),agora.getMinute());
+		boolean retorno=false;
+		
+		for(int i=0; i<=15; i++){
+			if (ponto.equals(this.funcionario.getChegada())){
+				retorno = true;
+				return retorno;
+					
+			}else{
+				if(ponto.isBefore(this.funcionario.getChegada()))
+					ponto=ponto.plusMinutes(1);
+				else
+					if(ponto.isAfter(this.funcionario.getChegada()))
+						ponto=ponto.minusMinutes(1);
+				}
 		}
-		else return false;					
+		return retorno;	
 	}
 	
-	public boolean saidaCorreta(){
-		if (agora.toLocalTime().equals(funcionario.getSaida())){
-			return true;
+	public boolean saidaCorreta(){//Saida correta com tolerância de 15 minutos
+		LocalTime ponto = LocalTime.of(agora.getHour(),agora.getMinute());
+		boolean retorno=false;
+		
+		for(int i=0; i<=15; i++){
+			if (ponto.equals(funcionario.getSaida())){
+				retorno = true;
+				return retorno;
+			
+			}else{
+				if(ponto.isBefore(this.funcionario.getSaida()))
+					ponto=ponto.plusMinutes(1);
+				else
+					if(ponto.isAfter(this.funcionario.getSaida()))
+						ponto=ponto.minusMinutes(1);
+				}
 		}
-		else return false;					
+		return retorno;	
+		}
+	
+	public boolean intervalo_InCorreta(){ //Ida pro Intervalo correta com tolerância de 15 minutos
+		LocalTime ponto = LocalTime.of(agora.getHour(),agora.getMinute());
+		boolean retorno=false;
+		
+		for(int i=0; i<=15; i++){
+			if (ponto.equals(funcionario.getIntervalo_in())){
+				retorno = true;
+				return retorno;			
+			}else{
+				if(ponto.isBefore(this.funcionario.getIntervalo_in()))
+					ponto=ponto.plusMinutes(1);
+				else
+					if(ponto.isAfter(this.funcionario.getIntervalo_in()))
+						ponto=ponto.minusMinutes(1);
+				}				
+			}
+		return retorno;
 	}
 	
-	public boolean intervalo_InCorreta(){
-		if (agora.toLocalTime().equals(funcionario.getIntervalo_in())){
-			return true;
-		}
-		else return false;					
+	public boolean intervalo_OutCorreta(){ //volta do Intervalo correta com tolerância de 15 minutos
+		LocalTime ponto = LocalTime.of(agora.getHour(),agora.getMinute());
+		boolean retorno=false;
+		
+		for(int i=0; i<=15; i++){
+			if (ponto.equals(funcionario.getIntervalo_out())){
+				retorno = true;
+				return retorno;			
+			}else{
+				if(ponto.isBefore(this.funcionario.getIntervalo_out()))
+					ponto=ponto.plusMinutes(1);
+				else
+					if(ponto.isAfter(this.funcionario.getIntervalo_out()))
+						ponto=ponto.minusMinutes(1);
+				}				
+			}
+		return retorno;					
 	}
 	
-	public boolean intervalo_OutCorreta(){
-		if (agora.toLocalTime().equals(funcionario.getIntervalo_out())){
+	@Override
+	public boolean equals(Object obj){
+		if (obj instanceof RegPonto && this.agora.equals(obj)){
 			return true;
 		}
-		else return false;					
+		return false;
 	}
 }

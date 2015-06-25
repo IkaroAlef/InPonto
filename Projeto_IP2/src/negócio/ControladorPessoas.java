@@ -67,12 +67,12 @@ public class ControladorPessoas {
 		return repositorioPessoas.buscarIndiceCpf(cpf);
 	}
 
-	public Pessoa buscaPessoaNome(String nome)
+	public Pessoa buscarPessoaNome(String nome)
 			throws FuncionarioNaoEncontradoException {
 		return repositorioPessoas.buscarPessoaNome(nome);
 	}
 
-	public Pessoa buscaPessoaCpf(String cpf)
+	public Pessoa buscarPessoaCpf(String cpf)
 			throws FuncionarioNaoEncontradoException {
 		return repositorioPessoas.buscarPessoaCpf(cpf);
 	}

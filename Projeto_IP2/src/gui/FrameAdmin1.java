@@ -172,7 +172,10 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 			this.preencherTableFuncionarios(txtBusca.getText());
 		}
 		else if(e.getSource().equals(btnCadastrarFuncionario)){
-			ControladorDeTelas.Admin1ToAdminCadastrarFuncionario();
+			if(EpontoFachada.getInstance().getSizeEmpresas()<1)
+				JOptionPane.showMessageDialog(null, "É necessário cadastrar uma empresa antes de cadastrar um funcionário.");
+			else 
+				ControladorDeTelas.Admin1ToAdminCadastrarFuncionario();
 		}
 		else if(e.getSource().equals(btnMostrarTodos)){
 			this.preencherTableFuncionarios(null);
@@ -199,7 +202,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		      int row = target.getSelectedRow();
 		      //DAQUI PRA BAIXO, O CÓDIGO
 		      try {
-				ControladorDeTelas.Admin2((Funcionario) EpontoFachada.getInstance().buscaPessoaNome((String) target.getValueAt(row, 0)));
+				ControladorDeTelas.Admin2((Funcionario) EpontoFachada.getInstance().buscarPessoaNome((String) target.getValueAt(row, 0)));
 			} catch (FuncionarioNaoEncontradoException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();

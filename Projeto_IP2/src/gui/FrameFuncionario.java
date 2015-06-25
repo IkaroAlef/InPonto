@@ -31,7 +31,7 @@ public class FrameFuncionario extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameFuncionario frame = new FrameFuncionario((Funcionario) RepPessoas.getInstance().buscarPessoaNome("Ikaro Alef"));
+					FrameFuncionario frame = new FrameFuncionario((Funcionario) RepPessoas.getInstance().buscarPessoaNome("Ikaro"));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -155,8 +155,9 @@ public class FrameFuncionario extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(btnBaterPonto)){
 			RegPonto ponto = new RegPonto();
+			ponto.registrarPonto(funcionario);
 			try {
-				ponto.registrarPonto((Funcionario)EpontoFachada.getInstance().buscaPessoaCpf(funcionario.getCpf()));
+				ponto.registrarPonto((Funcionario)EpontoFachada.getInstance().buscarPessoaCpf(funcionario.getCpf()));
 			} catch (FuncionarioNaoEncontradoException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

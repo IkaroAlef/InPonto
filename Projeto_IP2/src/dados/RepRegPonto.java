@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.Serializable;
 
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
+import negócio.EpontoFachada;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
 
@@ -33,12 +34,12 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 	
 	public void adicionarRegistro(RegPonto ponto){
 		repositorio.add(ponto);
+		salvarArquivo();
 	}
 	
 	public ArrayList <RegPonto> pontosDoFuncionario(String cpf) throws FuncionarioNaoEncontradoException{ //procurar pontos desse CPF nesse Repositorio de Funcionarios
 		ArrayList <RegPonto> pontosDoFuncionario = new ArrayList <RegPonto>();
-		//Falta buscar o Funcionario e depois buscar os pontos desse funcionario no arrayList de Pontos;
-		Funcionario funcionario = (Funcionario) RepPessoas.getInstance().buscarPessoaCpf(cpf);
+		Funcionario funcionario = (Funcionario) EpontoFachada.getInstance().buscarPessoaCpf(cpf);
 		for (int i=0;i<this.repositorio.size();i++){
 			if (repositorio.get(i).getFuncionario().equals(funcionario))
 				pontosDoFuncionario.add(repositorio.get(i));
@@ -49,17 +50,18 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 	
 	public int totalChegadaCorreta(String cpf) throws FuncionarioNaoEncontradoException{ //retorna o total de pontos de chegada corretos (Sem atrasos e Sem faltas)
 		int cont=0;
-		ArrayList <RegPonto> pontosDoFuncionario = pontosDoFuncionario (cpf);
-		for (int i=0;i<pontosDoFuncionario.size();i++){
-			if (pontosDoFuncionario.get(i).chegadaCorreta())
+		ArrayList <RegPonto> pontosDoFuncionario = this.pontosDoFuncionario(cpf);
+		for (int i=0; i < pontosDoFuncionario.size(); i++){
+			if (pontosDoFuncionario.get(i).chegadaCorreta()){
 				cont++;
+			}
 		}
 		return cont;
 	}
 	
 	public int totalSaidaCorreta(String cpf) throws FuncionarioNaoEncontradoException{ //retorna o total de pontos de saida corretos (Sem atrasos e Sem faltas)
 		int cont=0;
-		ArrayList <RegPonto> pontosDoFuncionario = pontosDoFuncionario (cpf);
+		ArrayList <RegPonto> pontosDoFuncionario = this.pontosDoFuncionario(cpf);
 		for (int i=0;i<pontosDoFuncionario.size();i++){
 			if (pontosDoFuncionario.get(i).saidaCorreta())
 				cont++;
@@ -69,7 +71,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 	
 	public int totalIntervalo_InCorreta(String cpf) throws FuncionarioNaoEncontradoException{ //retorna o total de pontos de Volta do Intervalo corretos (Sem atrasos e Sem faltas)
 		int cont=0;
-		ArrayList <RegPonto> pontosDoFuncionario = pontosDoFuncionario (cpf);
+		ArrayList <RegPonto> pontosDoFuncionario = this.pontosDoFuncionario(cpf);
 		for (int i=0;i<pontosDoFuncionario.size();i++){
 			if (pontosDoFuncionario.get(i).intervalo_InCorreta())
 				cont++;
@@ -79,7 +81,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 	
 	public int totalIntervalo_OutCorreta(String cpf) throws FuncionarioNaoEncontradoException{ //retorna o total de pontos de Saída pro Intervalo corretos (Sem atrasos e Sem faltas)
 		int cont=0;
-		ArrayList <RegPonto> pontosDoFuncionario = pontosDoFuncionario (cpf);
+		ArrayList <RegPonto> pontosDoFuncionario = this.pontosDoFuncionario(cpf);
 		for (int i=0;i<pontosDoFuncionario.size();i++){
 			if (pontosDoFuncionario.get(i).intervalo_OutCorreta())
 				cont++;

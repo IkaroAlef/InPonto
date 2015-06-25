@@ -11,15 +11,20 @@ import javax.swing.JLabel;
 
 import com.toedter.calendar.JCalendar;
 
-import dados.RepPessoas;
+import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.EpontoFachada;
 import negócio.entity_beans.Funcionario;
-import com.toedter.calendar.JDateChooser;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import negócio.entity_beans.RegPonto;
 
-public class FrameAdmin2 extends JFrame {
+import java.util.ArrayList;
+import java.util.Date;
 
+public class FrameAdmin2 extends JFrame{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JCalendar calendar;
 	private Funcionario funcionario;
@@ -31,7 +36,7 @@ public class FrameAdmin2 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameAdmin2 frame = new FrameAdmin2((Funcionario) EpontoFachada.getInstance().buscaPessoaNome("Ikaro Alef"));
+					FrameAdmin2 frame = new FrameAdmin2((Funcionario) EpontoFachada.getInstance().buscarPessoaNome("Ikaro"));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -148,6 +153,7 @@ public class FrameAdmin2 extends JFrame {
 		contentPane.add(lblIntervaloVoltaFuncionario);
 		
 		calendar = new JCalendar();
+		calendar.getDayChooser().setAutoscrolls(true);
 		calendar.setBounds(10, 11, 500, 350);
 		contentPane.add(calendar);
 		this.ColorirCalendario();
@@ -155,11 +161,27 @@ public class FrameAdmin2 extends JFrame {
 	}
 	
 	public void ColorirCalendario(){
-		System.out.println(calendar.getDayChooser());
 		JPanel jPanel = calendar.getDayChooser().getDayPanel();
 		Component component[] = jPanel.getComponents();
-		for (int i = 7; i < 49; i++) {
-	        component[i].setBackground(Color.green);
-	    }
+		
+		ArrayList <RegPonto> pontosDoFuncionario = null;
+		try {
+			pontosDoFuncionario = EpontoFachada.getInstance().pontosDoFuncionario(funcionario.getCpf());
+		} catch (FuncionarioNaoEncontradoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Date date = new Date(pontosDoFuncionario.get(0).getAgora().getYear()-1900 , pontosDoFuncionario.get(0).getAgora().getMonthValue()-1 , pontosDoFuncionario.get(0).getAgora().getDayOfMonth());
+		calendar.setDate(date);
+		int size = pontosDoFuncionario.size();
+		for (int i = 7, k = 0; i<49; i++, k++) {
+			for(int j = 0; j < pontosDoFuncionario.size(); j++){
+				if(k<=size){
+					if(pontosDoFuncionario.get(0).chegadaCorreta()){
+						component[i].setBackground(Color.green);
+					}
+				}
+			}
+		}
 	}
 }

@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 
 
+
+import negócio.EpontoFachada;
 import negócio.entity_beans.Empresa;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
@@ -21,12 +23,12 @@ import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 public class TestePrincipal{
 	private static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args)throws Exception {
-		IRepositorioPessoas repFuncionario = new RepPessoas();
-		IRepositorioPontos pontos = new RepRegPonto();
+		EpontoFachada fachada = EpontoFachada.getInstance();
+		
 		char[] senha = {'1','2','3','4'};
 		Empresa empresa = new Empresa("UFRPE","2414","25","235");
 		Funcionario funcionario3 = new Funcionario("Lima","123","lima@gmail",senha,"telefone", empresa,"Estudante","8h/dia",LocalTime.of(8,0),LocalTime.of(12,0),LocalTime.of(10,0),LocalTime.of(10,15));
-		repFuncionario.adicionarPessoa(funcionario3);
+		fachada.adicionarPessoa(funcionario3);
 		int op;
 		boolean sair=false;
 		do{
@@ -60,20 +62,17 @@ public class TestePrincipal{
 			
 			funcionario = new Funcionario("Ikaro","12345","ikaroalef@gmail.com",senha,"telefone",empresa,"Estudante","8h/dia",chegada,saida,intervalo_in,intervalo_out);
 			Funcionario funcionario1 = new Funcionario("Alef","1234","alef@gmail.com",senha,"telefone",empresa,"Estudante","8h/dia",chegada,saida,intervalo_in,intervalo_out);
-			repFuncionario.adicionarPessoa(funcionario);
-			repFuncionario.adicionarPessoa(funcionario1);
-//			repFuncionario.exportar();
-//			System.out.println(repFuncionario.imprimir(repFuncionario.buscarNome("Ikaro")));
+			fachada.adicionarPessoa(funcionario);
+			fachada.adicionarPessoa(funcionario1);
 			System.out.println("Sair?");
 			if(sc.nextLine().equals("sim"))
 				sair=true;
 			break;
 		
 		case 2: 
-			//repFuncionario = new RepFuncionario (RepFuncionario.importar());
 			System.out.print("Nome do funcionario que deseja buscar: ");
 			try{
-			System.out.println(repFuncionario.getString(repFuncionario.buscarIndiceNome(sc.nextLine())));
+			System.out.println(fachada.getString(fachada.buscarIndiceNome(sc.nextLine())));
 			}catch (FuncionarioNaoEncontradoException e){
 				System.out.println(e.getMessage());
 			}
@@ -85,8 +84,8 @@ public class TestePrincipal{
 			RegPonto ponto = new RegPonto();
 			System.out.println("CPF que deseja registrar ponto: ");
 			String cpf = sc.nextLine();
-			ponto.registrarPonto((Funcionario)repFuncionario.buscarPessoaCpf(cpf));
-			pontos.adicionarRegistro(ponto);
+			ponto.registrarPonto((Funcionario) fachada.buscarPessoaCpf(cpf));
+			fachada.adicionarRegistro(ponto);
 			System.out.println("Sair?");
 			if(sc.nextLine().equals("sim"))
 				sair=true;
@@ -94,7 +93,7 @@ public class TestePrincipal{
 		case 4: 
 			System.out.println("CPF do funcionario que deseja todos os pontos: ");
 			cpf = sc.nextLine();
-			for (RegPonto p: pontos.pontosDoFuncionario(cpf)){
+			for (RegPonto p: fachada.pontosDoFuncionario(cpf)){
 				System.out.println(p);
 			}
 			System.out.println("Sair?");
@@ -107,11 +106,11 @@ public class TestePrincipal{
 		case 6:
 			System.out.println("CPF do funcionario que deseja todos os pontos corretos: ");
 			String cpf1 = sc.nextLine();
-			pontos.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,15,8,0),funcionario3));
-			pontos.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,16,8,0),funcionario3));
-			pontos.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,17,8,0),funcionario3));
-			pontos.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,18,8,0),funcionario3));
-			System.out.println(pontos.totalChegadaCorreta(cpf1));
+//			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,15,8,0),funcionario3));
+//      	fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,16,8,15),funcionario3));
+//			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,17,7,45),funcionario3));
+//			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,18,8,0),funcionario3));
+			System.out.println(fachada.totalChegadaCorreta(cpf1));
 			break;
 		}
 		}while(!sair);
