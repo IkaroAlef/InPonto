@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
 import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.demo.DateChooserPanel;
 
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.EpontoFachada;
@@ -17,6 +18,7 @@ import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class FrameAdmin2 extends JFrame{
@@ -26,7 +28,7 @@ public class FrameAdmin2 extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JCalendar calendar;
+	private JCalendar jcalendar;
 	private Funcionario funcionario;
 
 	/**
@@ -152,18 +154,20 @@ public class FrameAdmin2 extends JFrame{
 		lblIntervaloVoltaFuncionario.setBounds(663, 485, 165, 14);
 		contentPane.add(lblIntervaloVoltaFuncionario);
 		
-		calendar = new JCalendar();
-		calendar.getDayChooser().setAutoscrolls(true);
-		calendar.setBounds(10, 11, 500, 350);
-		contentPane.add(calendar);
+		jcalendar = new JCalendar();
+		jcalendar.getDayChooser().setAutoscrolls(true);
+		jcalendar.setBounds(10, 11, 500, 350);
+		contentPane.add(jcalendar);
 		this.ColorirCalendario();
 		
 	}
 	
 	public void ColorirCalendario(){
-		JPanel jPanel = calendar.getDayChooser().getDayPanel();
+		JPanel jPanel = jcalendar.getDayChooser().getDayPanel();
 		Component component[] = jPanel.getComponents();
 		
+		jPanel.getComponent(41).setBackground(Color.black);
+		jPanel.getComponent(43).setBackground(Color.black);
 		ArrayList <RegPonto> pontosDoFuncionario = null;
 		try {
 			pontosDoFuncionario = EpontoFachada.getInstance().pontosDoFuncionario(funcionario.getCpf());
@@ -171,17 +175,19 @@ public class FrameAdmin2 extends JFrame{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Date date = new Date(pontosDoFuncionario.get(0).getAgora().getYear()-1900 , pontosDoFuncionario.get(0).getAgora().getMonthValue()-1 , pontosDoFuncionario.get(0).getAgora().getDayOfMonth());
-		calendar.setDate(date);
+//		Date date = new Date(pontosDoFuncionario.get(0).getAgora().getYear()-1900 , pontosDoFuncionario.get(0).getAgora().getMonthValue()-1 , pontosDoFuncionario.get(0).getAgora().getDayOfMonth());
+		Date d = Calendar.getInstance().getTime();
+		//Calendar.getInstance();
+//		calendar.setDate(date);
 		int size = pontosDoFuncionario.size();
 		for (int i = 7, k = 0; i<49; i++, k++) {
-			for(int j = 0; j < pontosDoFuncionario.size(); j++){
-				if(k<=size){
-					if(pontosDoFuncionario.get(0).chegadaCorreta()){
+//			for(int j = 0; j < pontosDoFuncionario.size(); j++){
+//				if(k<=size){
+//					if(pontosDoFuncionario.get(0).chegadaCorreta()){
 						component[i].setBackground(Color.green);
-					}
-				}
-			}
+//					}
+//				}
+//			}
 		}
 	}
 }

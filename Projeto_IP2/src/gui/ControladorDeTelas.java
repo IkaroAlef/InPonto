@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import negócio.entity_beans.Funcionario;
 
 public class ControladorDeTelas extends JFrame {
-
+	
 	public static void LoginToAdm (){
 		
 		FrameAdmin1 frame;
