@@ -166,8 +166,6 @@ public class FrameAdmin2 extends JFrame{
 		JPanel jPanel = jcalendar.getDayChooser().getDayPanel();
 		Component component[] = jPanel.getComponents();
 		
-		jPanel.getComponent(41).setBackground(Color.black);
-		jPanel.getComponent(43).setBackground(Color.black);
 		ArrayList <RegPonto> pontosDoFuncionario = null;
 		try {
 			pontosDoFuncionario = EpontoFachada.getInstance().pontosDoFuncionario(funcionario.getCpf());
@@ -175,19 +173,18 @@ public class FrameAdmin2 extends JFrame{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		Date date = new Date(pontosDoFuncionario.get(0).getAgora().getYear()-1900 , pontosDoFuncionario.get(0).getAgora().getMonthValue()-1 , pontosDoFuncionario.get(0).getAgora().getDayOfMonth());
 		Date d = Calendar.getInstance().getTime();
 		//Calendar.getInstance();
 //		calendar.setDate(date);
 		int size = pontosDoFuncionario.size();
-		for (int i = 7, k = 0; i<49; i++, k++) {
-//			for(int j = 0; j < pontosDoFuncionario.size(); j++){
-//				if(k<=size){
-//					if(pontosDoFuncionario.get(0).chegadaCorreta()){
+		for (int i = 7; i < 49; i++) {
+			if( i % 7!=0 && i!=13 && i!=20 && i!=27 && i!=34 && i!=41){
+				int j=0;
+					if(pontosDoFuncionario.get(j).chegadaCorreta()){
 						component[i].setBackground(Color.green);
-//					}
-//				}
-//			}
+						j++;
+					}
+			}
 		}
 	}
 }
