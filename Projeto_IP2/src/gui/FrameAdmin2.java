@@ -3,6 +3,8 @@ package gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,7 +12,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
 import com.toedter.calendar.JCalendar;
-import com.toedter.calendar.demo.DateChooserPanel;
 
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.EpontoFachada;
@@ -18,10 +19,8 @@ import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
-public class FrameAdmin2 extends JFrame{
+public class FrameAdmin2 extends JFrame implements PropertyChangeListener{
 
 	/**
 	 * 
@@ -158,33 +157,58 @@ public class FrameAdmin2 extends JFrame{
 		jcalendar.getDayChooser().setAutoscrolls(true);
 		jcalendar.setBounds(10, 11, 500, 350);
 		contentPane.add(jcalendar);
-		this.ColorirCalendario();
-		
+		this.ColorirCalendario(jcalendar.getMonthChooser().getMonth(),jcalendar.getYearChooser().getYear());
+		jcalendar.getMonthChooser().addPropertyChangeListener(this);
+		jcalendar.getYearChooser().addPropertyChangeListener(this);
 	}
 	
-	public void ColorirCalendario(){
-		JPanel jPanel = jcalendar.getDayChooser().getDayPanel();
-		Component component[] = jPanel.getComponents();
+	public void ColorirCalendario(int mes, int ano){
+		mes++; //o array de dias no JCalendar começa do 0. Por isso preciso somar 1 pra passar o mes correto para os metodos abaixo
+		
+		JPanel jPanelDays = jcalendar.getDayChooser().getDayPanel();
+		Component component[] = jPanelDays.getComponents(); //componnentes do quadro Dias
 		
 		ArrayList <RegPonto> pontosDoFuncionario = null;
 		try {
-			pontosDoFuncionario = EpontoFachada.getInstance().pontosDoFuncionario(funcionario.getCpf());
+			pontosDoFuncionario = EpontoFachada.getInstance().getPontosDoFuncionario(funcionario.getCpf(),mes,ano);
 		} catch (FuncionarioNaoEncontradoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Date d = Calendar.getInstance().getTime();
-		//Calendar.getInstance();
-//		calendar.setDate(date);
-		int size = pontosDoFuncionario.size();
-		for (int i = 7; i < 49; i++) {
-			if( i % 7!=0 && i!=13 && i!=20 && i!=27 && i!=34 && i!=41){
-				int j=0;
-					if(pontosDoFuncionario.get(j).chegadaCorreta()){
-						component[i].setBackground(Color.green);
-						j++;
-					}
+		
+//		int diaPrimeiroPonto = pontosDoFuncionario.get(0).getAgora().getDayOfMonth() + 6; //dia do primeiro ponto do funcionario (+6 por causa do painel de Dias que de 0 a 6 representa os nomes dos dias da semana)
+		
+		int qtdComponentesInvisiveis=0; //qntd de Components Invisiveis da primeira semana do mês (já que nem sempre o dia 1 começa no Domingo, e quando nao começa, os componentes continuam existindo porém invisíveis)
+		for (int i=7; i<=13;i++){
+			if(!component[i].isVisible())
+				qtdComponentesInvisiveis++;
+		}
+		
+//		int comeca = diaPrimeiroPonto+qtdComponentesInvisiveis; //representa o indice do componente em que se deve começar a Colorir
+		
+//		for (int i = comeca; i < 49; i++) {
+//			if( i % 7!=0 && i!=13 && i!=20 && i!=27 && i!=34 && i!=41){ //tirar sabados e domingos, porém, hoje 27/06/2015 as 12h acredito que corrigi. 
+		for (int j = 0; j < pontosDoFuncionario.size(); j++){			
+			if(pontosDoFuncionario.get(j).chegadaCorreta()){
+				int i = pontosDoFuncionario.get(j).getAgora().getDayOfMonth() + qtdComponentesInvisiveis + 6;
+				component[i].setBackground(Color.green);
 			}
+			else if (pontosDoFuncionario.get(j).chegadaAtrasada()){
+				int i = pontosDoFuncionario.get(j).getAgora().getDayOfMonth() + qtdComponentesInvisiveis + 6;
+					component[i].setBackground(Color.yellow);
+				} 
+//					component[i].setBackground(Color.red);
+		}
+	}
+
+//	this.ColorirCalendario(jcalendar.getMonthChooser().getMonth()+1, jcalendar.getYearChooser().getYear());
+
+	@Override
+	public void propertyChange(PropertyChangeEvent e) {
+		if(e.getSource().equals(jcalendar.getMonthChooser())){
+			this.ColorirCalendario(jcalendar.getMonthChooser().getMonth(), jcalendar.getYearChooser().getYear());
+		}else if(e.getSource().equals(jcalendar.getYearChooser())){
+			this.ColorirCalendario(jcalendar.getMonthChooser().getMonth(), jcalendar.getYearChooser().getYear());
 		}
 	}
 }

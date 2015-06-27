@@ -77,8 +77,8 @@ public class ControladorPessoas {
 		return repositorioPessoas.buscarPessoaCpf(cpf);
 	}
 
-	public void deletarPessoa(String nome) throws FuncionarioNaoEncontradoException {
-		repositorioPessoas.deletarPessoa(nome);
+	public void deletarPessoas(String[] nome) throws FuncionarioNaoEncontradoException {
+		repositorioPessoas.deletarPessoas(nome);
 	}
 
 	public void deletarPessoa(int i) {

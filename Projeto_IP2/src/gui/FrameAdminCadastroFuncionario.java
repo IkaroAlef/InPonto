@@ -1,11 +1,14 @@
 package gui;
 
-import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalTime;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,6 +18,9 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
+
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
 
 import dados.exceptionsDados.EmpresaNaoEncontradaException;
 import negócio.EpontoFachada;
@@ -40,10 +46,14 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 	private JTextField txtMinutosSaidaIntervalo;
 	private JTextField txtHoraChegadaIntervalo;
 	private JTextField txtMinutosChegadaIntervalo;
-	private JComboBox cmbBxEmpresa;
+	private JComboBox<Empresa> cmbBxEmpresa;
 	private JButton btnLimpar;
 	private JButton btnSalvar;
-	private JButton btnCapturar;
+	
+	//webcam
+	private Dimension ds = new Dimension(240,240);
+	private Webcam wCam = Webcam.getDefault();
+	private WebcamPanel wCamPanel = new WebcamPanel(wCam);
 
 	/**
 	 * Launch the application.
@@ -67,7 +77,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 	public FrameAdminCadastroFuncionario() {
 		setTitle("Cadastrar Funcion\u00E1rio");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 814, 401);
+		setBounds(100, 100, 814, 366);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -113,7 +123,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		lblEmpresa.setBounds(10, 153, 72, 14);
 		contentPane.add(lblEmpresa);
 		
-		cmbBxEmpresa = new JComboBox();
+		cmbBxEmpresa = new JComboBox<Empresa>();
 		cmbBxEmpresa.setBounds(10, 167, 116, 20);
 		contentPane.add(cmbBxEmpresa);
 		for(int i=0;i<EpontoFachada.getInstance().getSizeEmpresas() ; i++){
@@ -223,22 +233,20 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(txtMinutosChegadaIntervalo);
 		
 		btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(596, 328, 89, 23);
+		btnSalvar.setBounds(552, 283, 89, 23);
 		btnSalvar.addActionListener(this);
 		contentPane.add(btnSalvar);
 		
 		btnLimpar = new JButton("Limpar");
-		btnLimpar.setBounds(699, 328, 89, 23);
+		btnLimpar.setBounds(681, 283, 89, 23);
 		btnLimpar.addActionListener(this);
 		contentPane.add(btnLimpar);
 		
-		JLabel lblFotoPadroAqui = new JLabel("IMAGEM ATUAL DA CAMERA");
-		lblFotoPadroAqui.setBounds(569, 125, 163, 14);
-		contentPane.add(lblFotoPadroAqui);
-		
-		btnCapturar = new JButton("Capturar");
-		btnCapturar.setBounds(612, 214, 89, 23);
-		contentPane.add(btnCapturar);
+		//webcam
+		wCamPanel.setBounds(548, 8, 176, 144);
+		wCamPanel.setSize(ds);
+		contentPane.add(wCamPanel);
+		wCamPanel.setFPSDisplayed(true);
 	}
 	
 	private void limparCampos(){
@@ -293,8 +301,14 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 			LocalTime horaSaidaIntervalo = LocalTime.of( Integer.parseInt(txtHoraSaidaIntervalo.getText()) , Integer.parseInt( txtMinutosSaidaIntervalo.getText()) );
 			try{
 				funcionario = new Funcionario(nome, cpf, email, senha, telefone, empresa, cargo, "escala", horaChegada, horaSaida, horaChegadaIntervalo, horaSaidaIntervalo);
+				File file= new File (String.format("Imagem %s.jpg", funcionario.getNome()));
+				ImageIO.write(wCam.getImage(), "JPG", file);
 			}catch(NomeInvalidoException e1){
 				JOptionPane.showMessageDialog(null, e1.getMessage() );
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, "Foto não salva, usuario nao cadastrado");
+				JOptionPane.showMessageDialog(null, e2.getMessage());
 			}
 			EpontoFachada.getInstance().adicionarPessoa(funcionario);
 			JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso" );

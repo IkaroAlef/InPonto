@@ -18,9 +18,14 @@ public class ControladorPontos {
 		pontos.adicionarRegistro(ponto);
 	}
 
-	public ArrayList<RegPonto> pontosDoFuncionario(String cpf)
+	public ArrayList<RegPonto> getPontosDoFuncionario(String cpf)
 			throws FuncionarioNaoEncontradoException {
-		return pontos.pontosDoFuncionario(cpf);
+		return pontos.getPontosDoFuncionario(cpf);
+	}
+	
+	public ArrayList<RegPonto> getPontosDoFuncionario(String cpf, int mes, int ano)
+			throws FuncionarioNaoEncontradoException {
+		return pontos.getPontosDoFuncionario(cpf, mes, ano);
 	}
 
 	public int totalChegadaCorreta(String cpf)

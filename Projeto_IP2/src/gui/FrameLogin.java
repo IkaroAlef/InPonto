@@ -18,6 +18,8 @@ import java.awt.GridLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -29,7 +31,7 @@ import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.ControladorPessoas;
 import negócio.EpontoFachada;
 
-public class FrameLogin extends JFrame implements ActionListener {
+public class FrameLogin extends JFrame implements ActionListener, KeyListener {
 	
 	private JPanel contentPane;
 	private JButton btnOk;
@@ -87,33 +89,57 @@ public class FrameLogin extends JFrame implements ActionListener {
 		passSenha = new JPasswordField();
 		passSenha.setHorizontalAlignment(SwingConstants.LEFT);
 		passSenha.setBounds(76, 39, 150, 20);
+		passSenha.addKeyListener(this);
 		contentPane.add(passSenha);
 		
 		btnOk = new JButton("OK");
 		btnOk.setBounds(76, 71, 89, 23);
 		contentPane.add(btnOk);
 		btnOk.addActionListener(this);
+		
 	}
-
+	
+	public void validarLogin(){
+		try {
+			if (EpontoFachada.getInstance().validarLogin(txtLogin.getText(), passSenha.getPassword() ) ){
+				JOptionPane.showMessageDialog(null, "Login efetuado com sucesso.");
+				this.setVisible(false);
+				ControladorDeTelas.getInstance().loginProximaTela(EpontoFachada.getInstance().buscarPessoaCpf(txtLogin.getText()));
+			}
+			else 
+				JOptionPane.showMessageDialog(null, "Senha incorreta.");
+		} catch (HeadlessException e1) {
+			System.out.println("Exception");
+			e1.printStackTrace();
+		} catch (FuncionarioNaoEncontradoException e1) {
+			JOptionPane.showMessageDialog(null, "Usuário não encontrado.");
+		}
+		txtLogin.setText("");
+		passSenha.setText("");
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(btnOk)){
-			try {
-				if ( EpontoFachada.validarLogin( txtLogin.getText(), passSenha.getPassword() ) ){
-					JOptionPane.showMessageDialog(null, "Login efetuado com sucesso.");
-					this.setVisible(false);
-					ControladorDeTelas.LoginToAdm();
-				}
-				else 
-					JOptionPane.showMessageDialog(null, "Senha incorreta.");
-			} catch (HeadlessException e1) {
-				System.out.println("Exception");
-				e1.printStackTrace();
-			} catch (FuncionarioNaoEncontradoException e1) {
-				JOptionPane.showMessageDialog(null, "Usuário não encontrado.");
-			}
-			txtLogin.setText("");
-			passSenha.setText("");
+			this.validarLogin();
 		}
 	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_ENTER){
+			this.validarLogin();
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+
+	}
+	
 }

@@ -68,7 +68,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	 * Create the frame.
 	 * @throws Exception 
 	 */
-	public FrameAdmin1() throws Exception {
+	public FrameAdmin1() {
 		setTitle("Administrador");		
 		
 		// TESTE ...
@@ -175,23 +175,26 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 			if(EpontoFachada.getInstance().getSizeEmpresas()<1)
 				JOptionPane.showMessageDialog(null, "É necessário cadastrar uma empresa antes de cadastrar um funcionário.");
 			else 
-				ControladorDeTelas.Admin1ToAdminCadastrarFuncionario();
+				ControladorDeTelas.getInstance().frameCadastrarFuncionario();
 		}
 		else if(e.getSource().equals(btnMostrarTodos)){
 			this.preencherTableFuncionarios(null);
 		}
 		else if(e.getSource().equals(btnExcluirFuncionrio)){
-			int row = tableFuncionarios.getSelectedRow();
+			String nomes[] = new String[tableFuncionarios.getSelectedRowCount()];
+			for (int i = 0; i < tableFuncionarios.getSelectedRowCount(); i++){
+				nomes[i] = tableFuncionarios.getValueAt(i, 0).toString();
+			}
 			try {
-				EpontoFachada.getInstance().deletarPessoa((String)tableFuncionarios.getValueAt(row, 0));
+				EpontoFachada.getInstance().deletarPessoas(nomes);
 			} catch (FuncionarioNaoEncontradoException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			JOptionPane.showMessageDialog(null, "Funcionário excluído com sucesso.");
+			JOptionPane.showMessageDialog(null, "Funcionário (s) excluído (s) com sucesso.");
 		}
 		else if(e.getSource().equals(btnCadastrarEmpresa)){
-			ControladorDeTelas.CadastrarEmpresa();
+			ControladorDeTelas.getInstance().frameCadastrarEmpresa();
 		}
 	}
 
@@ -202,7 +205,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		      int row = target.getSelectedRow();
 		      //DAQUI PRA BAIXO, O CÓDIGO
 		      try {
-				ControladorDeTelas.Admin2((Funcionario) EpontoFachada.getInstance().buscarPessoaNome((String) target.getValueAt(row, 0)));
+				ControladorDeTelas.getInstance().frameAdmin2((Funcionario) EpontoFachada.getInstance().buscarPessoaNome((String) target.getValueAt(row, 0)));
 			} catch (FuncionarioNaoEncontradoException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();

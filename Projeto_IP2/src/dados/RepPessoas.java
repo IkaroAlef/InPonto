@@ -101,9 +101,11 @@ public class RepPessoas implements Serializable,IRepositorioPessoas {
 		return this.pessoas.get(buscarIndiceCpf(cpf));
 	}
 	
-	public void deletarPessoa(String nome) throws FuncionarioNaoEncontradoException{
-		Pessoa pessoa = this.buscarPessoaNome(nome);
-		pessoas.remove(pessoa);
+	public void deletarPessoas(String[] nomes) throws FuncionarioNaoEncontradoException{
+		for (int i = 0; i<nomes.length; i++){
+			Pessoa pessoa  = this.buscarPessoaNome(nomes[i]);
+			pessoas.remove(pessoa);
+		}
 		RepPessoas.salvarArquivo();
 	}
 	

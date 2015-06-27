@@ -13,7 +13,7 @@ public interface IRepositorioPessoas {
 	int buscarIndiceCpf(String cpf) throws FuncionarioNaoEncontradoException;
 	Pessoa buscarPessoaNome(String nome) throws FuncionarioNaoEncontradoException;
 	Pessoa buscarPessoaCpf(String cpf) throws FuncionarioNaoEncontradoException;
-	void deletarPessoa(String nome) throws FuncionarioNaoEncontradoException;
+	void deletarPessoas(String[] nome) throws FuncionarioNaoEncontradoException;
 	void deletarPessoa(int i);
 	void editar(int i,Pessoa pessoa);
 	String getString(int i);

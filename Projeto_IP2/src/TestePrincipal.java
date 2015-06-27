@@ -60,7 +60,7 @@ public class TestePrincipal{
 			intervalo_out=LocalTime.of(hora, minutos);
 			sc.nextLine(); //o nextInt não lê o final da linha, o que causa problema no proxime nextLine (o que le o nome), entao pus esse nextLine pra absorver o resto do último nextInt
 			
-			funcionario = new Funcionario("Ikaro","12345","ikaroalef@gmail.com",senha,"telefone",empresa,"Estudante","8h/dia",chegada,saida,intervalo_in,intervalo_out);
+			funcionario = new Funcionario("Ikaro","103","ikaroalef@gmail.com",senha,"telefone",empresa,"Estudante","8h/dia",chegada,saida,intervalo_in,intervalo_out);
 			Funcionario funcionario1 = new Funcionario("Alef","1234","alef@gmail.com",senha,"telefone",empresa,"Estudante","8h/dia",chegada,saida,intervalo_in,intervalo_out);
 			fachada.adicionarPessoa(funcionario);
 			fachada.adicionarPessoa(funcionario1);
@@ -93,7 +93,7 @@ public class TestePrincipal{
 		case 4: 
 			System.out.println("CPF do funcionario que deseja todos os pontos: ");
 			cpf = sc.nextLine();
-			for (RegPonto p: fachada.pontosDoFuncionario(cpf)){
+			for (RegPonto p: fachada.getPontosDoFuncionario(cpf)){
 				System.out.println(p);
 			}
 			System.out.println("Sair?");
@@ -112,7 +112,25 @@ public class TestePrincipal{
 //			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,18,8,0),funcionario3));
 			System.out.println(fachada.totalChegadaCorreta(cpf1));
 			break;
+		case 7:
+			RegPonto ponto2 = new RegPonto();
+			System.out.println("Hora que deseja registrar ponto: ");
+			int hora2 = sc.nextInt();
+			sc.nextLine();
+			System.out.println("CPF do funcionario: ");
+			cpf = sc.nextLine();
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,06,22,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,06,23,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,06,24,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,06,25,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,06,26,hora2+1,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,06,29,hora2+1,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
+			System.out.println("Sair?");
+			if(sc.nextLine().equals("sim"))
+				sair=true;
+			break;
 		}
+				
 		}while(!sair);
 	}
 

@@ -1,10 +1,8 @@
 package negócio;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import negócio.entity_beans.Empresa;
-import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.Pessoa;
 import negócio.entity_beans.RegPonto;
 import dados.exceptionsDados.CnpjNaoEncontradoException;
@@ -13,11 +11,18 @@ import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 
 public class EpontoFachada {
 
-	private static ControladorPessoas pessoas = new ControladorPessoas();
+	private ControladorPessoas pessoas = new ControladorPessoas();
 	private ControladorEmpresas empresas = new ControladorEmpresas();
 	private ControladorPontos pontos = new ControladorPontos();
 
 	private static EpontoFachada instance;
+	
+	public static EpontoFachada getInstance(){
+		if(instance==null)
+			instance = new EpontoFachada();
+		
+		return instance;
+	}
 	
 	private EpontoFachada() {
 
@@ -27,12 +32,6 @@ public class EpontoFachada {
 		pessoas.adicionarPessoa(i, pessoa);
 	}
 	
-	public static EpontoFachada getInstance(){
-		if(instance==null)
-			instance = new EpontoFachada();
-		
-		return instance;
-	}
 
 	public ArrayList<Pessoa> getPessoas(String conteudo) {
 		return pessoas.getPessoas(conteudo);
@@ -42,7 +41,7 @@ public class EpontoFachada {
 		pessoas.adicionarPessoa(pessoa);
 	}
 
-	public static boolean validarLogin(String nome, char[] senhaDigitada) throws FuncionarioNaoEncontradoException {
+	public boolean validarLogin(String nome, char[] senhaDigitada) throws FuncionarioNaoEncontradoException {
 		return pessoas.validarLogin(nome, senhaDigitada);
 	}
 
@@ -82,8 +81,8 @@ public class EpontoFachada {
 		return pessoas.buscarPessoaCpf(cpf);
 	}
 
-	public void deletarPessoa(String nome) throws FuncionarioNaoEncontradoException {
-		pessoas.deletarPessoa(nome);
+	public void deletarPessoas(String[] nome) throws FuncionarioNaoEncontradoException {
+		pessoas.deletarPessoas(nome);
 	}
 
 	public void deletarPessoa(int i) {
@@ -136,9 +135,14 @@ public class EpontoFachada {
 		pontos.adicionarRegistro(ponto);
 	}
 
-	public ArrayList<RegPonto> pontosDoFuncionario(String cpf)
+	public ArrayList<RegPonto> getPontosDoFuncionario(String cpf)
 			throws FuncionarioNaoEncontradoException {
-		return pontos.pontosDoFuncionario(cpf);
+		return pontos.getPontosDoFuncionario(cpf);
+	}
+	
+	public ArrayList<RegPonto> getPontosDoFuncionario(String cpf, int mes, int ano)
+			throws FuncionarioNaoEncontradoException {
+		return pontos.getPontosDoFuncionario(cpf, mes, ano);
 	}
 
 	public int totalChegadaCorreta(String cpf)

@@ -68,6 +68,14 @@ public class RegPonto implements Serializable {
 		return retorno;	
 	}
 	
+	public boolean chegadaAtrasada(){ //Chegada atrasada
+		boolean retorno=false;
+		
+		retorno=!this.chegadaCorreta();
+		
+		return retorno;	
+	}
+	
 	public boolean saidaCorreta(){//Saida correta com tolerância de 15 minutos
 		LocalTime ponto = LocalTime.of(agora.getHour(),agora.getMinute());
 		boolean retorno=false;
