@@ -60,7 +60,7 @@ public class TestePrincipal{
 			intervalo_out=LocalTime.of(hora, minutos);
 			sc.nextLine(); //o nextInt não lê o final da linha, o que causa problema no proxime nextLine (o que le o nome), entao pus esse nextLine pra absorver o resto do último nextInt
 			
-			funcionario = new Funcionario("Ikaro","103","ikaroalef@gmail.com",senha,"telefone",empresa,"Estudante","8h/dia",chegada,saida,intervalo_in,intervalo_out);
+			funcionario = new Funcionario("Ikaro","103","ikaroalef@gmail.com",senha,"telefone",empresa,"Estudante","Seg. à Sex",chegada,saida,intervalo_in,intervalo_out);
 			Funcionario funcionario1 = new Funcionario("Alef","1234","alef@gmail.com",senha,"telefone",empresa,"Estudante","8h/dia",chegada,saida,intervalo_in,intervalo_out);
 			fachada.adicionarPessoa(funcionario);
 			fachada.adicionarPessoa(funcionario1);
@@ -119,9 +119,9 @@ public class TestePrincipal{
 			sc.nextLine();
 			System.out.println("CPF do funcionario: ");
 			cpf = sc.nextLine();
-			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,06,22,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
-			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,06,23,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
-			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,06,24,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,06,17,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,06,18,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,06,19,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
 			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,06,25,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
 			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,06,26,hora2+1,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
 			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,06,29,hora2+1,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));

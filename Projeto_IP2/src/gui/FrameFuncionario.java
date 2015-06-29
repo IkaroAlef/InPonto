@@ -45,7 +45,7 @@ public class FrameFuncionario extends JFrame implements ActionListener {
 	 */
 	public FrameFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
-		setTitle("Funcionario");
+		setTitle("Bem-Vindo "+funcionario.getNome());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 600);
 		contentPane = new JPanel();

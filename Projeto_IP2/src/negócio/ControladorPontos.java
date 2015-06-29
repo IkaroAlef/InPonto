@@ -24,7 +24,7 @@ public class ControladorPontos {
 	}
 	
 	public ArrayList<RegPonto> getPontosDoFuncionario(String cpf, int mes, int ano)
-			throws FuncionarioNaoEncontradoException {
+			throws FuncionarioNaoEncontradoException{
 		return pontos.getPontosDoFuncionario(cpf, mes, ano);
 	}
 

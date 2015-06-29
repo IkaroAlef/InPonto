@@ -2,7 +2,9 @@ package negócio;
 
 import java.util.ArrayList;
 
+import negócio.entity_beans.Dispensa;
 import negócio.entity_beans.Empresa;
+import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.Pessoa;
 import negócio.entity_beans.RegPonto;
 import dados.exceptionsDados.CnpjNaoEncontradoException;
@@ -14,7 +16,8 @@ public class EpontoFachada {
 	private ControladorPessoas pessoas = new ControladorPessoas();
 	private ControladorEmpresas empresas = new ControladorEmpresas();
 	private ControladorPontos pontos = new ControladorPontos();
-
+	private ControladorDispensas dispensas = new ControladorDispensas();
+	
 	private static EpontoFachada instance;
 	
 	public static EpontoFachada getInstance(){
@@ -26,6 +29,22 @@ public class EpontoFachada {
 	
 	private EpontoFachada() {
 
+	}
+	
+	public void adicionarDispensa(Dispensa dispensa) {
+		dispensas.adicionarDispensa(dispensa);
+	}
+
+	public Dispensa getDispensa(int i) {
+		return dispensas.getDispensa(i);
+	}
+
+	public ArrayList<Dispensa> getDispensas(Funcionario funcionario) {
+		return dispensas.getDispensas(funcionario);
+	}
+
+	public boolean dispensaContains(Funcionario funcionario) {
+		return dispensas.dispensaContains(funcionario);
 	}
 	
 	public void adicionarPessoa(int i, Pessoa pessoa) {
@@ -141,7 +160,7 @@ public class EpontoFachada {
 	}
 	
 	public ArrayList<RegPonto> getPontosDoFuncionario(String cpf, int mes, int ano)
-			throws FuncionarioNaoEncontradoException {
+			throws FuncionarioNaoEncontradoException{
 		return pontos.getPontosDoFuncionario(cpf, mes, ano);
 	}
 

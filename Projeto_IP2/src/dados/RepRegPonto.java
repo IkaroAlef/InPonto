@@ -55,7 +55,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 			if (repositorio.get(i).getFuncionario().equals(funcionario) && repositorio.get(i).getAgora().getMonthValue()==mes && repositorio.get(i).getAgora().getYear() == ano)
 				pontosDoFuncionario.add(repositorio.get(i));
 		}
-		
+
 		return pontosDoFuncionario;
 	}
 	

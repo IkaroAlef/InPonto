@@ -47,6 +47,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 	private JTextField txtHoraChegadaIntervalo;
 	private JTextField txtMinutosChegadaIntervalo;
 	private JComboBox<Empresa> cmbBxEmpresa;
+	private JComboBox <String> cmbBxEscala;
 	private JButton btnLimpar;
 	private JButton btnSalvar;
 	
@@ -152,9 +153,11 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		lblEscala.setBounds(10, 198, 46, 14);
 		contentPane.add(lblEscala);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(10, 215, 116, 20);
-		contentPane.add(comboBox);
+		cmbBxEscala = new JComboBox <String>();
+		cmbBxEscala.setBounds(10, 215, 116, 20);
+		contentPane.add(cmbBxEscala);
+		cmbBxEscala.addItem("Seg. à Sex");
+		cmbBxEscala.addItem("Dia sim Dia não");
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(10, 246, 470, 2);
@@ -300,7 +303,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 			LocalTime horaChegadaIntervalo = LocalTime.of( Integer.parseInt(txtHoraChegadaIntervalo.getText()) , Integer.parseInt( txtMinutosChegadaIntervalo.getText()) );
 			LocalTime horaSaidaIntervalo = LocalTime.of( Integer.parseInt(txtHoraSaidaIntervalo.getText()) , Integer.parseInt( txtMinutosSaidaIntervalo.getText()) );
 			try{
-				funcionario = new Funcionario(nome, cpf, email, senha, telefone, empresa, cargo, "escala", horaChegada, horaSaida, horaChegadaIntervalo, horaSaidaIntervalo);
+				funcionario = new Funcionario(nome, cpf, email, senha, telefone, empresa, cargo, "Seg. à Sex", horaChegada, horaSaida, horaChegadaIntervalo, horaSaidaIntervalo);
 				File file= new File (String.format("Imagem %s.jpg", funcionario.getNome()));
 				ImageIO.write(wCam.getImage(), "JPG", file);
 			}catch(NomeInvalidoException e1){
