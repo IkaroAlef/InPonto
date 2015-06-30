@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.io.FileOutputStream;
 import java.io.Serializable;
@@ -53,6 +52,17 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 		Funcionario funcionario = (Funcionario) EpontoFachada.getInstance().buscarPessoaCpf(cpf);
 		for (int i=0;i<this.repositorio.size();i++){
 			if (repositorio.get(i).getFuncionario().equals(funcionario) && repositorio.get(i).getAgora().getMonthValue()==mes && repositorio.get(i).getAgora().getYear() == ano)
+				pontosDoFuncionario.add(repositorio.get(i));
+		}
+
+		return pontosDoFuncionario;
+	}
+	
+	public ArrayList <RegPonto> getPontosDoFuncionario(String cpf,int dia, int mes, int ano) throws FuncionarioNaoEncontradoException{ //procurar pontos desse CPF nesse mes e ano
+		ArrayList <RegPonto> pontosDoFuncionario = new ArrayList <RegPonto>();
+		Funcionario funcionario = (Funcionario) EpontoFachada.getInstance().buscarPessoaCpf(cpf);
+		for (int i=0;i<this.repositorio.size();i++){
+			if (repositorio.get(i).getFuncionario().equals(funcionario) && repositorio.get(i).getAgora().getYear() == ano && repositorio.get(i).getAgora().getMonthValue()==mes && repositorio.get(i).getAgora().getDayOfMonth() == dia)
 				pontosDoFuncionario.add(repositorio.get(i));
 		}
 

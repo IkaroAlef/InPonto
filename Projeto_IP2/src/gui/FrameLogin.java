@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.HeadlessException;
 
@@ -9,13 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
-import java.awt.FlowLayout;
 
 import javax.swing.JTextField;
-import javax.swing.BoxLayout;
 
-import java.awt.GridLayout;
-import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -26,7 +21,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-import dados.RepPessoas;
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.ControladorPessoas;
 import negócio.EpontoFachada;
@@ -38,8 +32,6 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener {
 	private JTextField txtLogin;
 	private JPasswordField passSenha;
 	
-	private ControladorPessoas controladorPessoas ;
-
 	/**
 	 * Launch the application.
 	 */

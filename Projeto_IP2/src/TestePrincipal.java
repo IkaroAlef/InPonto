@@ -1,23 +1,11 @@
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Scanner;
-//import regras.entity_beans.*;
-
-
-
-
-
-
-
 
 import negócio.EpontoFachada;
 import negócio.entity_beans.Empresa;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
-import dados.IRepositorioPessoas;
-import dados.RepPessoas;
-import dados.RepRegPonto;
-import dados.IRepositorioPontos;
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 
 public class TestePrincipal{
@@ -113,7 +101,6 @@ public class TestePrincipal{
 			System.out.println(fachada.totalChegadaCorreta(cpf1));
 			break;
 		case 7:
-			RegPonto ponto2 = new RegPonto();
 			System.out.println("Hora que deseja registrar ponto: ");
 			int hora2 = sc.nextInt();
 			sc.nextLine();

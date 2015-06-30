@@ -11,6 +11,7 @@ public interface IRepositorioPontos {
 	
 	ArrayList <RegPonto> getPontosDoFuncionario(String cpf) throws FuncionarioNaoEncontradoException;
 	ArrayList <RegPonto> getPontosDoFuncionario(String cpf, int mes, int ano) throws FuncionarioNaoEncontradoException;
+	ArrayList <RegPonto> getPontosDoFuncionario(String cpf,int dia, int mes, int ano) throws FuncionarioNaoEncontradoException;
 	
 	int totalChegadaCorreta(String cpf) throws FuncionarioNaoEncontradoException;
 	int totalSaidaCorreta(String cpf) throws FuncionarioNaoEncontradoException;

@@ -27,6 +27,11 @@ public class ControladorPontos {
 			throws FuncionarioNaoEncontradoException{
 		return pontos.getPontosDoFuncionario(cpf, mes, ano);
 	}
+	
+	public ArrayList<RegPonto> getPontosDoFuncionario(String cpf, int dia, int mes, int ano)
+			throws FuncionarioNaoEncontradoException{
+		return pontos.getPontosDoFuncionario(cpf, dia, mes, ano);
+	}	
 
 	public int totalChegadaCorreta(String cpf)
 			throws FuncionarioNaoEncontradoException {

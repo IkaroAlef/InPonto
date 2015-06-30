@@ -5,14 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -21,18 +18,12 @@ import javax.swing.JTable;
 import javax.swing.JMenuBar;
 import javax.swing.table.DefaultTableModel;
 
-import negócio.ControladorEmpresas;
-import negócio.ControladorPessoas;
 import negócio.EpontoFachada;
-import negócio.entity_beans.Empresa;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.Pessoa;
-import negócio.entity_beans.exceptionsBeans.CNPJInvalidoException;
-import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 
 import javax.swing.JButton;
 
-import dados.RepPessoas;
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 
 public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener {

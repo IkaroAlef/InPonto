@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -27,9 +29,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import javax.swing.JCheckBox;
 
-public class FrameAdmin2 extends JFrame implements PropertyChangeListener, ActionListener{
+public class FrameAdmin2 extends JFrame implements PropertyChangeListener, ActionListener, MouseListener{
 
 	/**
 	 * 
@@ -100,7 +101,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		contentPane.add(lblEmailFuncionario);
 		
 		JLabel lblTelefone = new JLabel("Telefone:");
-		lblTelefone.setBounds(590, 310, 46, 14);
+		lblTelefone.setBounds(590, 310, 63, 14);
 		contentPane.add(lblTelefone);
 		
 		JLabel lblTelefoneFuncionario = new JLabel(funcionario.getTelefone());
@@ -108,7 +109,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		contentPane.add(lblTelefoneFuncionario);
 		
 		JLabel lblEmpresa = new JLabel("Empresa:");
-		lblEmpresa.setBounds(590, 335, 46, 14);
+		lblEmpresa.setBounds(590, 335, 63, 14);
 		contentPane.add(lblEmpresa);
 		
 		JLabel lblEmpresaFuncionario = new JLabel(funcionario.getEmpresa().getNomeEmpresa());
@@ -166,6 +167,13 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		jcalendar = new JCalendar();
 		jcalendar.getDayChooser().setAutoscrolls(true);
 		jcalendar.setBounds(10, 11, 500, 350);
+		Component[] componentesDias = jcalendar.getDayChooser().getDayPanel().getComponents();
+		for (int i = 7; i < 49; i++){
+			componentesDias[i].addMouseListener(this);
+		}
+		jcalendar.getMonthChooser().addPropertyChangeListener(this);
+		jcalendar.getYearChooser().addPropertyChangeListener(this);
+		this.ColorirCalendario(jcalendar.getMonthChooser().getMonth(),jcalendar.getYearChooser().getYear());
 		contentPane.add(jcalendar);
 		
 		btnIniciarFerias = new JButton("Iniciar Férias ou Licença");
@@ -173,13 +181,9 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		contentPane.add(btnIniciarFerias);
 		btnIniciarFerias.addActionListener(this);
 		
-		jcalendar.getMonthChooser().addPropertyChangeListener(this);
-		jcalendar.getYearChooser().addPropertyChangeListener(this);
-		this.ColorirCalendario(jcalendar.getMonthChooser().getMonth(),jcalendar.getYearChooser().getYear());
 		}
 	
 	public void ColorirCalendario(int mes, int ano){
-//		System.out.println("Teste");
 		mes++; //o array de dias no JCalendar começa do 0. Por isso preciso somar 1 pra passar o mes correto para os metodos abaixo
 		
 		JPanel jPanelDays = jcalendar.getDayChooser().getDayPanel();
@@ -200,7 +204,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 			}
 			
 			 if(EpontoFachada.getInstance().dispensaContains(funcionario)){
-					System.out.println("teste");
+//					System.out.println("teste");
 					ArrayList <Dispensa> dispensas = EpontoFachada.getInstance().getDispensas(funcionario);
 					for (int j = 0; j < dispensas.size(); j++){
 						LocalDateTime dataInicio = dispensas.get(j).getInicio();
@@ -278,6 +282,71 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 			EpontoFachada.getInstance().adicionarDispensa(dispensa);
 			JOptionPane.showMessageDialog(null, "Dispensa adicionada com sucesso. Data de retorno das férias: "+ formatador.format(LocalDateTime.now().plusDays(qtdDias+1)));
 		}
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
+		if (e.getClickCount() == 2) {
+				JPanel jPanelDays = jcalendar.getDayChooser().getDayPanel();
+				Component components[] = jPanelDays.getComponents(); //componentes do quadro Dias
+				
+				int qtdComponentesInvisiveis=0; //qntd de Components Invisiveis da primeira semana do mês (já que nem sempre o dia 1 começa no Domingo, e quando nao começa, os componentes continuam existindo porém invisíveis)
+				for (int i=7; i<=13;i++){
+					if(!components[i].isVisible())
+						qtdComponentesInvisiveis++;
+				}
+				int dia = jcalendar.getDayChooser().getDay();
+				int mes = jcalendar.getMonthChooser().getMonth() +1; //+1 porque o getMonth considera Janeiro como 0.
+				int ano = jcalendar.getYearChooser().getYear();
+				
+				String ponto = "";
+				ArrayList<RegPonto> pontos = null;
+				try {
+					pontos = EpontoFachada.getInstance().getPontosDoFuncionario(funcionario.getCpf(), dia, mes, ano);
+				} catch (FuncionarioNaoEncontradoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+				if(pontos.size()==0) //se nao houver pontos registrados
+					JOptionPane.showMessageDialog(null, "Não há pontos registrados neste dia.", "Pontos", JOptionPane.INFORMATION_MESSAGE);
+				
+				else if(components[dia+6+qtdComponentesInvisiveis].getBackground().equals(Color.red)){ //se faltou  **** não está funcionando, quando dou um click num dia, ele muda a cor.
+					System.out.println("vermelho");
+					JOptionPane.showMessageDialog(null, "O funcionario faltou neste dia.", "Pontos", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else{
+					for (int i = 0; i < pontos.size();i++){ //mostra todos os pontos daquele dia
+						ponto += "- "+pontos.get(i).getAgoraFormatada()+"\n"; 		
+					}
+					JOptionPane.showMessageDialog(null, ponto, "Pontos", JOptionPane.INFORMATION_MESSAGE);
+				}
+				this.ColorirCalendario(mes-1, ano); //-1 pq neste metodo eu somo 1, e no metodo Colorir soma-se 1 ao mes (ou seja, ficaria +2)
+			}
+		}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+			
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 }
