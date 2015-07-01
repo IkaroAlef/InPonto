@@ -1,9 +1,13 @@
 package gui;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Formatter;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -57,6 +61,7 @@ public class FramePontosComFotos extends JFrame {
 		lblPontos = new JLabel[tamanho];
 		
 		for (int i = 0; i<pontos.size(); i++){
+			
 			foto[i] = pontos.get(i).getFotoPonto();
 			lblFoto[i] = new JLabel(foto[i]);
 			lblFoto[i].setLocation(5+(i*210), 11);	
@@ -69,7 +74,6 @@ public class FramePontosComFotos extends JFrame {
 			lblPontos[i].setSize(190,150);
 			contentPane.add(lblPontos[i]);
 		}
-		
 	}
 }
 
