@@ -170,7 +170,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		}
 		else if(e.getSource().equals(btnMostrarTodos)){
 			this.preencherTableFuncionarios(null);
-		}
+		} 	
 		else if(e.getSource().equals(btnExcluirFuncionrio)){
 			String nomes[] = new String[tableFuncionarios.getSelectedRowCount()];
 			for (int i = 0; i < tableFuncionarios.getSelectedRowCount(); i++){

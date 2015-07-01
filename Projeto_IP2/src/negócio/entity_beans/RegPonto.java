@@ -6,9 +6,12 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.swing.ImageIcon;
+
 public class RegPonto implements Serializable {
 	private LocalDateTime agora;
 	private Funcionario funcionario;
+	private ImageIcon fotoPonto;
 	
 	public RegPonto(){
 		
@@ -41,6 +44,13 @@ public class RegPonto implements Serializable {
 		}
 	}
 	
+	public void registrarPonto(Funcionario funcionario, ImageIcon fotoPonto){
+		if(funcionario!=null){
+			this.agora=LocalDateTime.now();
+			this.funcionario=funcionario;
+			this.fotoPonto = fotoPonto;
+		}
+	}
 	
 	public String toString(){
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YY HH:mm");

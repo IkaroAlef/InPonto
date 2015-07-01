@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime;
@@ -12,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -21,6 +24,7 @@ import javax.swing.JButton;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
 
 import dados.exceptionsDados.EmpresaNaoEncontradaException;
 import negócio.EpontoFachada;
@@ -29,7 +33,7 @@ import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.exceptionsBeans.CNPJInvalidoException;
 import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 
-public class FrameAdminCadastroFuncionario extends JFrame implements ActionListener {
+public class FrameAdminCadastroFuncionario extends JFrame implements ActionListener, WindowListener {
 
 	private JPanel contentPane;
 	private JTextField txtNome;
@@ -52,9 +56,8 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 	private JButton btnSalvar;
 	
 	//webcam
-	private Dimension ds = new Dimension(240,240);
-	private Webcam wCam = Webcam.getDefault();
-	private WebcamPanel wCamPanel = new WebcamPanel(wCam);
+	private Webcam wCam;
+	private WebcamPanel wCamPanel;
 
 	/**
 	 * Launch the application.
@@ -84,6 +87,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		addWindowListener(this);
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setBounds(10, 11, 46, 14);
 		contentPane.add(lblNome);
@@ -246,10 +250,11 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(btnLimpar);
 		
 		//webcam
-		wCamPanel.setBounds(548, 8, 176, 144);
-		wCamPanel.setSize(ds);
+		wCam = Webcam.getDefault();
+		wCam.setViewSize(WebcamResolution.VGA.getSize());
+		wCamPanel = new WebcamPanel(wCam);
+		wCamPanel.setBounds(520, 8, 260, 240);
 		contentPane.add(wCamPanel);
-		wCamPanel.setFPSDisplayed(true);
 	}
 	
 	private void limparCampos(){
@@ -276,15 +281,6 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 			this.limparCampos();
 		}
 		else if(e.getSource().equals(btnSalvar)){
-			/*
-			try{
-				Empresa empresa = new Empresa ("UFRPE","123","123","1312");
-			}catch(NomeInvalidoException excp1){
-				JOptionPane.showMessageDialog(null, excp1.getMessage() );
-			}catch(CNPJInvalidoException excp2){
-				JOptionPane.showMessageDialog(null, excp2.getMessage() );
-			}
-			*/
 			Funcionario funcionario = null;
 			String nome = txtNome.getText();
 			String cpf = txtCPF.getText();
@@ -304,19 +300,57 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 			LocalTime horaSaidaIntervalo = LocalTime.of( Integer.parseInt(txtHoraSaidaIntervalo.getText()) , Integer.parseInt( txtMinutosSaidaIntervalo.getText()) );
 			try{
 				funcionario = new Funcionario(nome, cpf, email, senha, telefone, empresa, cargo, "Seg. à Sex", horaChegada, horaSaida, horaChegadaIntervalo, horaSaidaIntervalo);
-				File file= new File (String.format("Imagem %s.jpg", funcionario.getNome()));
-				ImageIO.write(wCam.getImage(), "JPG", file);
+				funcionario.setFotoPadrao(new ImageIcon(wCam.getImage()));
+//				File file= new File (String.format("Imagem %s.jpg", funcionario.getNome()));
+//				ImageIO.write(wCam.getImage(), "JPG", file);
 			}catch(NomeInvalidoException e1){
 				JOptionPane.showMessageDialog(null, e1.getMessage() );
-			} catch (IOException e2) {
-				// TODO Auto-generated catch block
-				JOptionPane.showMessageDialog(null, "Foto não salva, usuario nao cadastrado");
-				JOptionPane.showMessageDialog(null, e2.getMessage());
 			}
 			EpontoFachada.getInstance().adicionarPessoa(funcionario);
 			JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso" );
 			this.limparCampos();
 		}
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		wCam.close();
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 			
 }

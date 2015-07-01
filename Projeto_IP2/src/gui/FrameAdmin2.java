@@ -1,15 +1,23 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -40,6 +48,9 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 	private JCalendar jcalendar;
 	private Funcionario funcionario;
 	private JButton btnIniciarFerias;
+	private ImageIcon fotoPadrao;
+	private JLabel lblFoto;
+	
 	
 	/**
 	 * Launch the application.
@@ -64,104 +75,114 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		super("Dados de " + funcionario.getNome());
 		
 		this.funcionario = funcionario;
-
+		
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 900, 600);
+		setBounds(100, 100, 900, 658);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JLabel lblFotoPadroAqui = new JLabel("FOTO PADR\u00C3O AQUI");
-		lblFotoPadroAqui.setBounds(699, 180, 129, 14);
-		contentPane.add(lblFotoPadroAqui);
+		/*
+		try {
+			fotoPadrao = ImageIO.read(new File(String.format("Imagem %s.jpg", funcionario.getNome())));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		fotoPadrao = funcionario.getFotoPadrao();
+		lblFoto = new JLabel(fotoPadrao, JLabel.CENTER);
+		lblFoto.setLocation(551, 9);
+		lblFoto.setSize(323, 277);
+		contentPane.add(lblFoto);
 		
 		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(590, 235, 46, 14);
+		lblNome.setBounds(606, 314, 46, 14);
 		contentPane.add(lblNome);
 		
 		JLabel lblNomeFuncionario = new JLabel(funcionario.getNome());
-		lblNomeFuncionario.setBounds(663, 235, 165, 14);
+		lblNomeFuncionario.setBounds(679, 314, 165, 14);
 		contentPane.add(lblNomeFuncionario);
 		
 		JLabel lblCpf = new JLabel("Cpf:");
-		lblCpf.setBounds(590, 260, 46, 14);
+		lblCpf.setBounds(606, 339, 46, 14);
 		contentPane.add(lblCpf);
 		
 		JLabel lblCpfFuncionario = new JLabel(funcionario.getCpf());
-		lblCpfFuncionario.setBounds(663, 260, 165, 14);
+		lblCpfFuncionario.setBounds(679, 339, 165, 14);
 		contentPane.add(lblCpfFuncionario);
 		
 		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(590, 285, 46, 14);
+		lblEmail.setBounds(606, 364, 46, 14);
 		contentPane.add(lblEmail);
 		
 		JLabel lblEmailFuncionario = new JLabel(funcionario.getEmail());
-		lblEmailFuncionario.setBounds(663, 285, 165, 14);
+		lblEmailFuncionario.setBounds(679, 364, 165, 14);
 		contentPane.add(lblEmailFuncionario);
 		
 		JLabel lblTelefone = new JLabel("Telefone:");
-		lblTelefone.setBounds(590, 310, 63, 14);
+		lblTelefone.setBounds(606, 389, 63, 14);
 		contentPane.add(lblTelefone);
 		
 		JLabel lblTelefoneFuncionario = new JLabel(funcionario.getTelefone());
-		lblTelefoneFuncionario.setBounds(663, 310, 165, 14);
+		lblTelefoneFuncionario.setBounds(679, 389, 165, 14);
 		contentPane.add(lblTelefoneFuncionario);
 		
 		JLabel lblEmpresa = new JLabel("Empresa:");
-		lblEmpresa.setBounds(590, 335, 63, 14);
+		lblEmpresa.setBounds(606, 414, 63, 14);
 		contentPane.add(lblEmpresa);
 		
 		JLabel lblEmpresaFuncionario = new JLabel(funcionario.getEmpresa().getNomeEmpresa());
-		lblEmpresaFuncionario.setBounds(663, 335, 165, 14);
+		lblEmpresaFuncionario.setBounds(679, 414, 165, 14);
 		contentPane.add(lblEmpresaFuncionario);
 		
 		JLabel lblCargo = new JLabel("Cargo:");
-		lblCargo.setBounds(590, 360, 46, 14);
+		lblCargo.setBounds(606, 439, 46, 14);
 		contentPane.add(lblCargo);
 		
 		JLabel lblCargoFuncionario = new JLabel(funcionario.getCargo());
-		lblCargoFuncionario.setBounds(663, 360, 165, 14);
+		lblCargoFuncionario.setBounds(679, 439, 165, 14);
 		contentPane.add(lblCargoFuncionario);
 		
 		JLabel lblEscala = new JLabel("Escala:");
-		lblEscala.setBounds(590, 385, 46, 14);
+		lblEscala.setBounds(606, 464, 46, 14);
 		contentPane.add(lblEscala);
 		
 		JLabel lblEscalaFuncionario = new JLabel(funcionario.getEscala());
-		lblEscalaFuncionario.setBounds(663, 385, 165, 14);
+		lblEscalaFuncionario.setBounds(679, 464, 165, 14);
 		contentPane.add(lblEscalaFuncionario);
 		
 		JLabel lblHorarioChegada = new JLabel("Hor\u00E1rio Chegada:");
-		lblHorarioChegada.setBounds(551, 410, 102, 14);
+		lblHorarioChegada.setBounds(567, 489, 102, 14);
 		contentPane.add(lblHorarioChegada);
 		
 		JLabel lblHorarioChegadaFuncionario = new JLabel(funcionario.getChegada().toString());
-		lblHorarioChegadaFuncionario.setBounds(663, 410, 165, 14);
+		lblHorarioChegadaFuncionario.setBounds(679, 489, 165, 14);
 		contentPane.add(lblHorarioChegadaFuncionario);
 		
 		JLabel lblHorarioSaida = new JLabel("Hor\u00E1rio Sa\u00EDda:");
-		lblHorarioSaida.setBounds(551, 435, 102, 14);
+		lblHorarioSaida.setBounds(567, 514, 102, 14);
 		contentPane.add(lblHorarioSaida);
 		
 		JLabel lblHorarioSaidaFuncionario = new JLabel(funcionario.getSaida().toString());
-		lblHorarioSaidaFuncionario.setBounds(663, 435, 165, 14);
+		lblHorarioSaidaFuncionario.setBounds(679, 514, 165, 14);
 		contentPane.add(lblHorarioSaidaFuncionario);
 		
 		JLabel lblIntervaloSaida = new JLabel("Intervalo Sa\u00EDda:");
-		lblIntervaloSaida.setBounds(551, 460, 102, 14);
+		lblIntervaloSaida.setBounds(567, 539, 102, 14);
 		contentPane.add(lblIntervaloSaida);
 		
 		JLabel lblIntervaloSaidaFuncionario = new JLabel(funcionario.getIntervalo_out().toString());
-		lblIntervaloSaidaFuncionario.setBounds(663, 460, 165, 14);
+		lblIntervaloSaidaFuncionario.setBounds(679, 539, 165, 14);
 		contentPane.add(lblIntervaloSaidaFuncionario);
 		
 		JLabel lblIntervaloVolta = new JLabel("Intervalo Volta:");
-		lblIntervaloVolta.setBounds(551, 485, 85, 14);
+		lblIntervaloVolta.setBounds(567, 564, 85, 14);
 		contentPane.add(lblIntervaloVolta);
 		
 		JLabel lblIntervaloVoltaFuncionario = new JLabel(funcionario.getIntervalo_in().toString());
-		lblIntervaloVoltaFuncionario.setBounds(663, 485, 165, 14);
+		lblIntervaloVoltaFuncionario.setBounds(679, 564, 165, 14);
 		contentPane.add(lblIntervaloVoltaFuncionario);
 		
 		jcalendar = new JCalendar();
@@ -177,7 +198,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		contentPane.add(jcalendar);
 		
 		btnIniciarFerias = new JButton("Iniciar Férias ou Licença");
-		btnIniciarFerias.setBounds(547, 506, 177, 23);
+		btnIniciarFerias.setBounds(563, 585, 177, 23);
 		contentPane.add(btnIniciarFerias);
 		btnIniciarFerias.addActionListener(this);
 		

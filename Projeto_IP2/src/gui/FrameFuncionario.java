@@ -3,14 +3,28 @@ package gui;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
+
+
+
+
+
+
+
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
 
 import dados.RepPessoas;
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
@@ -18,12 +32,14 @@ import negócio.EpontoFachada;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
 
-public class FrameFuncionario extends JFrame implements ActionListener {
+public class FrameFuncionario extends JFrame implements ActionListener, WindowListener {
 
 	private JPanel contentPane;
 	private JButton btnBaterPonto;
 	private Funcionario funcionario;
-
+	//webcam
+		private Webcam wCam;
+		private WebcamPanel wCamPanel;
 	/**
 	 * Launch the application.
 	 */
@@ -47,108 +63,111 @@ public class FrameFuncionario extends JFrame implements ActionListener {
 		this.funcionario = funcionario;
 		setTitle("Bem-Vindo "+funcionario.getNome());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 900, 600);
+		setBounds(100, 100, 754, 461);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JLabel lblImagemDaCamera = new JLabel("IMAGEM DA CAMERA");
-		lblImagemDaCamera.setBounds(699, 243, 117, 14);
-		contentPane.add(lblImagemDaCamera);
+		addWindowListener(this);
 		
 		btnBaterPonto = new JButton("Bater Ponto");
-		btnBaterPonto.setBounds(699, 415, 117, 23);
+		btnBaterPonto.setBounds(275, 388, 117, 23);
 		contentPane.add(btnBaterPonto);
 		btnBaterPonto.addActionListener(this);
 		
 		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(49, 269, 63, 14);
+		lblNome.setBounds(49, 57, 63, 14);
 		contentPane.add(lblNome);
 		
 		JLabel lblNomeFuncionario = new JLabel(funcionario.getNome());
-		lblNomeFuncionario.setBounds(122, 269, 165, 14);
+		lblNomeFuncionario.setBounds(122, 57, 165, 14);
 		contentPane.add(lblNomeFuncionario);
 		
 		JLabel lblCpf = new JLabel("Cpf:");
-		lblCpf.setBounds(49, 294, 63, 14);
+		lblCpf.setBounds(49, 82, 63, 14);
 		contentPane.add(lblCpf);
 		
 		JLabel lblCpfFuncionario = new JLabel(funcionario.getCpf());
-		lblCpfFuncionario.setBounds(122, 294, 165, 14);
+		lblCpfFuncionario.setBounds(122, 82, 165, 14);
 		contentPane.add(lblCpfFuncionario);
 		
 		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(49, 319, 63, 14);
+		lblEmail.setBounds(49, 107, 63, 14);
 		contentPane.add(lblEmail);
 		
 		JLabel lblEmailFuncionario = new JLabel(funcionario.getEmail());
-		lblEmailFuncionario.setBounds(122, 319, 165, 14);
+		lblEmailFuncionario.setBounds(122, 107, 165, 14);
 		contentPane.add(lblEmailFuncionario);
 		
 		JLabel lblTelefone = new JLabel("Telefone:");
-		lblTelefone.setBounds(49, 344, 63, 14);
+		lblTelefone.setBounds(49, 132, 63, 14);
 		contentPane.add(lblTelefone);
 		
 		JLabel lblTelefoneFuncionario = new JLabel(funcionario.getTelefone());
-		lblTelefoneFuncionario.setBounds(122, 344, 165, 14);
+		lblTelefoneFuncionario.setBounds(122, 132, 165, 14);
 		contentPane.add(lblTelefoneFuncionario);
 		
 		JLabel lblEmpresa = new JLabel("Empresa:");
-		lblEmpresa.setBounds(49, 369, 63, 14);
+		lblEmpresa.setBounds(49, 157, 63, 14);
 		contentPane.add(lblEmpresa);
 		
 		JLabel lblEmpresaFuncionario = new JLabel(funcionario.getEmpresa().getNomeEmpresa());
-		lblEmpresaFuncionario.setBounds(122, 369, 165, 14);
+		lblEmpresaFuncionario.setBounds(122, 157, 165, 14);
 		contentPane.add(lblEmpresaFuncionario);
 		
 		JLabel lblCargo = new JLabel("Cargo:");
-		lblCargo.setBounds(49, 394, 63, 14);
+		lblCargo.setBounds(49, 182, 63, 14);
 		contentPane.add(lblCargo);
 		
 		JLabel lblCargoFuncionario = new JLabel(funcionario.getCargo());
-		lblCargoFuncionario.setBounds(122, 394, 165, 14);
+		lblCargoFuncionario.setBounds(122, 182, 165, 14);
 		contentPane.add(lblCargoFuncionario);
 		
 		JLabel lblEscala = new JLabel("Escala:");
-		lblEscala.setBounds(49, 419, 63, 14);
+		lblEscala.setBounds(49, 207, 63, 14);
 		contentPane.add(lblEscala);
 		
 		JLabel lblEscalaFuncionario = new JLabel(funcionario.getEscala());
-		lblEscalaFuncionario.setBounds(122, 419, 165, 14);
+		lblEscalaFuncionario.setBounds(122, 207, 165, 14);
 		contentPane.add(lblEscalaFuncionario);
 		
 		JLabel lblHorarioChegada = new JLabel("Hor\u00E1rio Chegada:");
-		lblHorarioChegada.setBounds(10, 444, 102, 14);
+		lblHorarioChegada.setBounds(10, 232, 102, 14);
 		contentPane.add(lblHorarioChegada);
 		
 		JLabel lblHorarioChegadaFuncionario = new JLabel(funcionario.getChegada().toString());
-		lblHorarioChegadaFuncionario.setBounds(122, 444, 165, 14);
+		lblHorarioChegadaFuncionario.setBounds(122, 232, 165, 14);
 		contentPane.add(lblHorarioChegadaFuncionario);
 		
 		JLabel lblHorarioSaida = new JLabel("Hor\u00E1rio Sa\u00EDda:");
-		lblHorarioSaida.setBounds(10, 469, 102, 14);
+		lblHorarioSaida.setBounds(10, 257, 102, 14);
 		contentPane.add(lblHorarioSaida);
 		
 		JLabel lblHorarioSaidaFuncionario = new JLabel(funcionario.getSaida().toString());
-		lblHorarioSaidaFuncionario.setBounds(122, 469, 165, 14);
+		lblHorarioSaidaFuncionario.setBounds(122, 257, 165, 14);
 		contentPane.add(lblHorarioSaidaFuncionario);
 		
 		JLabel lblIntervaloSaida = new JLabel("Intervalo Sa\u00EDda:");
-		lblIntervaloSaida.setBounds(10, 494, 102, 14);
+		lblIntervaloSaida.setBounds(10, 282, 102, 14);
 		contentPane.add(lblIntervaloSaida);
 		
 		JLabel lblIntervaloSaidaFuncionario = new JLabel(funcionario.getIntervalo_out().toString());
-		lblIntervaloSaidaFuncionario.setBounds(122, 494, 165, 14);
+		lblIntervaloSaidaFuncionario.setBounds(122, 282, 165, 14);
 		contentPane.add(lblIntervaloSaidaFuncionario);
 		
 		JLabel lblIntervaloVolta = new JLabel("Intervalo Volta:");
-		lblIntervaloVolta.setBounds(10, 519, 102, 14);
+		lblIntervaloVolta.setBounds(10, 307, 102, 14);
 		contentPane.add(lblIntervaloVolta);
 		
 		JLabel lblIntervaloVoltaFuncionario = new JLabel(funcionario.getIntervalo_in().toString());
-		lblIntervaloVoltaFuncionario.setBounds(122, 519, 165, 14);
+		lblIntervaloVoltaFuncionario.setBounds(122, 307, 165, 14);
 		contentPane.add(lblIntervaloVoltaFuncionario);
+		
+		wCam = Webcam.getDefault();
+		wCam.setViewSize(WebcamResolution.VGA.getSize());
+		wCamPanel = new WebcamPanel(wCam);
+		wCamPanel.setBounds(248, 11, 480, 347);
+		contentPane.add(wCamPanel);
 	}
 
 	@Override
@@ -157,7 +176,7 @@ public class FrameFuncionario extends JFrame implements ActionListener {
 			RegPonto ponto = new RegPonto();
 			ponto.registrarPonto(funcionario);
 			try {
-				ponto.registrarPonto((Funcionario)EpontoFachada.getInstance().buscarPessoaCpf(funcionario.getCpf()));
+				ponto.registrarPonto((Funcionario)EpontoFachada.getInstance().buscarPessoaCpf(funcionario.getCpf()),new ImageIcon(wCam.getImage()));
 			} catch (FuncionarioNaoEncontradoException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -165,6 +184,47 @@ public class FrameFuncionario extends JFrame implements ActionListener {
 			EpontoFachada.getInstance().adicionarRegistro(ponto);
 			JOptionPane.showMessageDialog(null, "Ponto registrado com sucesso às " + ponto.getAgoraFormatada() + ("!"));
 			}
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		wCam.close();
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 }
