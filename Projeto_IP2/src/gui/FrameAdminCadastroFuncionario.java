@@ -251,6 +251,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		
 		//webcam
 		wCam = Webcam.getDefault();
+		wCam.setViewSize(WebcamResolution.VGA.getSize());
 		wCamPanel = new WebcamPanel(wCam);
 		wCamPanel.setBounds(520, 8, 260, 240);
 		contentPane.add(wCamPanel);
@@ -313,8 +314,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 
 	@Override
 	public void windowActivated(WindowEvent e) {
-		wCam.open();
-		wCam.setViewSize(WebcamResolution.VGA.getSize());
+
 	}
 
 	@Override
