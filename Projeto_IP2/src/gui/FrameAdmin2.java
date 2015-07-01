@@ -42,6 +42,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 	private JCalendar jcalendar;
 	private Funcionario funcionario;
 	private JButton btnIniciarFerias;
+	private JButton btnEditar;
 	private ImageIcon fotoPadrao;
 	private JLabel lblFoto;
 	private JTextField txtGreen;
@@ -262,6 +263,10 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		lblTotalRed = new JLabel("");
 		lblTotalRed.setBounds(138, 433, 46, 14);
 		contentPane.add(lblTotalRed);
+		
+		btnEditar = new JButton("Editar");
+		btnEditar.setBounds(755, 583, 89, 23);
+		contentPane.add(btnEditar);
 		btnIniciarFerias.addActionListener(this);
 		
 		}
@@ -390,6 +395,9 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 			Dispensa dispensa = new Dispensa(funcionario, LocalDateTime.now().plusDays(1) ,qtdDias);
 			EpontoFachada.getInstance().adicionarDispensa(dispensa);
 			JOptionPane.showMessageDialog(null, "Dispensa adicionada com sucesso. Data de retorno das férias: "+ formatador.format(LocalDateTime.now().plusDays(qtdDias+1)));
+		}
+		else if(arg0.getSource().equals(btnEditar)){
+			
 		}
 		
 	}
