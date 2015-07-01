@@ -397,7 +397,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 			JOptionPane.showMessageDialog(null, "Dispensa adicionada com sucesso. Data de retorno das férias: "+ formatador.format(LocalDateTime.now().plusDays(qtdDias+1)));
 		}
 		else if(arg0.getSource().equals(btnEditar)){
-			
+			ControladorDeTelas.getInstance().frameEditarFuncionario(funcionario);
 		}
 		
 	}

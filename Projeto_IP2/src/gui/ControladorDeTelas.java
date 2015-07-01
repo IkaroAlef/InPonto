@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import negócio.EpontoFachada;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.Pessoa;
 import negócio.entity_beans.RegPonto;
@@ -61,6 +62,10 @@ public class ControladorDeTelas extends JFrame {
 	
 	public void framePontosComFotos(ArrayList<RegPonto> pontos){
 		new FramePontosComFotos(pontos).setVisible(true);
+	}
+	
+	public void frameEditarFuncionario (Funcionario funcionario){
+		new FrameAdminEditarFuncionario(funcionario).setVisible(true);
 	}
 	
 }

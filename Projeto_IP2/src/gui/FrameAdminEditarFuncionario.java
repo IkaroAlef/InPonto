@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
@@ -15,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -27,13 +30,14 @@ import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
 
 import dados.exceptionsDados.EmpresaNaoEncontradaException;
+import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.EpontoFachada;
 import negócio.entity_beans.Empresa;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.exceptionsBeans.CNPJInvalidoException;
 import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 
-public class FrameAdminEditarFuncionario extends JFrame implements ActionListener, WindowListener {
+public class FrameAdminEditarFuncionario extends JFrame implements ActionListener, WindowListener, ItemListener {
 
 	private JPanel contentPane;
 	private JTextField txtNome;
@@ -54,6 +58,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 	private JComboBox <String> cmbBxEscala;
 	private JButton btnLimpar;
 	private JButton btnSalvar;
+	private JCheckBox chkbxAlterarFoto;
 	
 	//webcam
 	private Webcam wCam;
@@ -79,7 +84,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 	 * Create the frame.
 	 */
 	public FrameAdminEditarFuncionario(Funcionario funcionario) {
-		setTitle("Cadastrar Funcion\u00E1rio");
+		super("Editar Funcionario");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 814, 366);
 		contentPane = new JPanel();
@@ -92,7 +97,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		lblNome.setBounds(10, 11, 46, 14);
 		contentPane.add(lblNome);
 		
-		txtNome = new JTextField();
+		txtNome = new JTextField(funcionario.getNome());
 		txtNome.setBounds(10, 25, 490, 20);
 		contentPane.add(txtNome);
 		txtNome.setColumns(10);
@@ -101,7 +106,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		lblNewLabel.setBounds(10, 61, 46, 14);
 		contentPane.add(lblNewLabel);
 		
-		txtCPF = new JTextField();
+		txtCPF = new JTextField(funcionario.getCpf());
 		txtCPF.setColumns(10);
 		txtCPF.setBounds(10, 76, 220, 20);
 		contentPane.add(txtCPF);
@@ -119,7 +124,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		lblEmail.setBounds(10, 107, 46, 14);
 		contentPane.add(lblEmail);
 		
-		txtEmail = new JTextField();
+		txtEmail = new JTextField(funcionario.getEmail());
 		txtEmail.setBounds(10, 122, 490, 20);
 		contentPane.add(txtEmail);
 		txtEmail.setColumns(10);
@@ -139,7 +144,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		lblTelefone.setBounds(152, 153, 78, 14);
 		contentPane.add(lblTelefone);
 		
-		txtTelefone = new JTextField();
+		txtTelefone = new JTextField(funcionario.getTelefone());
 		txtTelefone.setBounds(152, 167, 151, 20);
 		contentPane.add(txtTelefone);
 		txtTelefone.setColumns(10);
@@ -148,7 +153,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		lblCargo.setBounds(322, 153, 58, 14);
 		contentPane.add(lblCargo);
 		
-		txtCargo = new JTextField();
+		txtCargo = new JTextField(funcionario.getCargo());
 		txtCargo.setBounds(321, 167, 155, 20);
 		contentPane.add(txtCargo);
 		txtCargo.setColumns(10);
@@ -171,12 +176,12 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		lblHorrioChegada.setBounds(10, 259, 104, 14);
 		contentPane.add(lblHorrioChegada);
 		
-		txtHoraChegada = new JTextField();
+		txtHoraChegada = new JTextField(String.valueOf(funcionario.getChegada().getHour()));
 		txtHoraChegada.setBounds(10, 279, 30, 20);
 		contentPane.add(txtHoraChegada);
 		txtHoraChegada.setColumns(10);
 		
-		txtMinutosChegada = new JTextField();
+		txtMinutosChegada = new JTextField(String.valueOf(funcionario.getChegada().getMinute()));
 		txtMinutosChegada.setColumns(10);
 		txtMinutosChegada.setBounds(52, 279, 30, 20);
 		contentPane.add(txtMinutosChegada);
@@ -189,7 +194,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		lblHorarioSaida.setBounds(120, 259, 88, 14);
 		contentPane.add(lblHorarioSaida);
 		
-		txtHoraSaida = new JTextField();
+		txtHoraSaida = new JTextField(String.valueOf(funcionario.getSaida().getHour()));
 		txtHoraSaida.setColumns(10);
 		txtHoraSaida.setBounds(120, 279, 30, 20);
 		contentPane.add(txtHoraSaida);
@@ -198,7 +203,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		lbl2ptSaida.setBounds(155, 283, 10, 10);
 		contentPane.add(lbl2ptSaida);
 		
-		txtMinutosSaida = new JTextField();
+		txtMinutosSaida = new JTextField(String.valueOf(funcionario.getSaida().getMinute()));
 		txtMinutosSaida.setColumns(10);
 		txtMinutosSaida.setBounds(162, 279, 30, 20);
 		contentPane.add(txtMinutosSaida);
@@ -207,7 +212,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		lblHorarioSaidaIntervalo.setBounds(218, 259, 137, 14);
 		contentPane.add(lblHorarioSaidaIntervalo);
 		
-		txtHoraSaidaIntervalo = new JTextField();
+		txtHoraSaidaIntervalo = new JTextField(String.valueOf(funcionario.getIntervalo_out().getHour()));
 		txtHoraSaidaIntervalo.setColumns(10);
 		txtHoraSaidaIntervalo.setBounds(247, 279, 30, 20);
 		contentPane.add(txtHoraSaidaIntervalo);
@@ -216,7 +221,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		lbl2ptSaidaIntervalo.setBounds(282, 283, 10, 10);
 		contentPane.add(lbl2ptSaidaIntervalo);
 		
-		txtMinutosSaidaIntervalo = new JTextField();
+		txtMinutosSaidaIntervalo = new JTextField(String.valueOf(funcionario.getIntervalo_out().getMinute()));
 		txtMinutosSaidaIntervalo.setColumns(10);
 		txtMinutosSaidaIntervalo.setBounds(289, 279, 30, 20);
 		contentPane.add(txtMinutosSaidaIntervalo);
@@ -225,7 +230,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		lblHorrioChegadaIntervalo.setBounds(355, 259, 150, 14);
 		contentPane.add(lblHorrioChegadaIntervalo);
 		
-		txtHoraChegadaIntervalo = new JTextField();
+		txtHoraChegadaIntervalo = new JTextField(String.valueOf(funcionario.getIntervalo_in().getHour()));
 		txtHoraChegadaIntervalo.setColumns(10);
 		txtHoraChegadaIntervalo.setBounds(384, 279, 30, 20);
 		contentPane.add(txtHoraChegadaIntervalo);
@@ -234,7 +239,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		lbl2ptChegadaIntervalo.setBounds(419, 283, 10, 10);
 		contentPane.add(lbl2ptChegadaIntervalo);
 		
-		txtMinutosChegadaIntervalo = new JTextField();
+		txtMinutosChegadaIntervalo = new JTextField(String.valueOf(funcionario.getIntervalo_in().getMinute()));
 		txtMinutosChegadaIntervalo.setColumns(10);
 		txtMinutosChegadaIntervalo.setBounds(426, 279, 30, 20);
 		contentPane.add(txtMinutosChegadaIntervalo);
@@ -249,12 +254,13 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		btnLimpar.addActionListener(this);
 		contentPane.add(btnLimpar);
 		
-		//webcam
-		wCam = Webcam.getDefault();
-		wCamPanel = new WebcamPanel(wCam);
-		wCamPanel.setBounds(520, 8, 260, 240);
-		contentPane.add(wCamPanel);
-	}
+		chkbxAlterarFoto = new JCheckBox("Alterar Foto", false);
+		chkbxAlterarFoto.setSize(100, 20);
+		chkbxAlterarFoto.setLocation(620, 255);
+		chkbxAlterarFoto.addItemListener(this);
+		contentPane.add(chkbxAlterarFoto);
+		
+		}
 	
 	private void limparCampos(){
 		txtNome.setText("");
@@ -298,28 +304,37 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 			LocalTime horaChegadaIntervalo = LocalTime.of( Integer.parseInt(txtHoraChegadaIntervalo.getText()) , Integer.parseInt( txtMinutosChegadaIntervalo.getText()) );
 			LocalTime horaSaidaIntervalo = LocalTime.of( Integer.parseInt(txtHoraSaidaIntervalo.getText()) , Integer.parseInt( txtMinutosSaidaIntervalo.getText()) );
 			try{
+				if(chkbxAlterarFoto.isSelected()){
 				funcionario = new Funcionario(nome, cpf, email, senha, telefone, empresa, cargo, "Seg. à Sex", horaChegada, horaSaida, horaChegadaIntervalo, horaSaidaIntervalo);
 				funcionario.setFotoPadrao(new ImageIcon(wCam.getImage()));
-//				File file= new File (String.format("Imagem %s.jpg", funcionario.getNome()));
-//				ImageIO.write(wCam.getImage(), "JPG", file);
+				}
+				else{
+					funcionario = new Funcionario(nome, cpf, email, senha, telefone, empresa, cargo, "Seg. à Sex", horaChegada, horaSaida, horaChegadaIntervalo, horaSaidaIntervalo);
+					funcionario.setFotoPadrao(funcionario.getFotoPadrao());
+			}
 			}catch(NomeInvalidoException e1){
 				JOptionPane.showMessageDialog(null, e1.getMessage() );
 			}
-			EpontoFachada.getInstance().adicionarPessoa(funcionario);
-			JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso" );
+			try {
+				EpontoFachada.getInstance().editar(EpontoFachada.getInstance().buscarIndiceCpf(funcionario.getCpf()),funcionario);
+			} catch (FuncionarioNaoEncontradoException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			JOptionPane.showMessageDialog(null, "Dados atualizados com sucesso!" );
 			this.limparCampos();
 		}
 	}
 
 	@Override
 	public void windowActivated(WindowEvent e) {
-		wCam.open();
-		wCam.setViewSize(WebcamResolution.VGA.getSize());
+
 	}
 
 	@Override
 	public void windowClosed(WindowEvent e) {
-		wCam.close();
+		if(chkbxAlterarFoto.isSelected())
+			wCam.close();
 	}
 
 	@Override
@@ -345,11 +360,26 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		// TODO Auto-generated method stub
 		
 	}
-
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getSource().equals(chkbxAlterarFoto)){
+			if(chkbxAlterarFoto.isSelected()){
+				wCam = Webcam.getDefault();
+				wCam.setViewSize(WebcamResolution.VGA.getSize());
+				wCamPanel = new WebcamPanel(wCam);
+				wCamPanel.setBounds(520, 8, 260, 240);
+				contentPane.add(wCamPanel);
+			}else{
+				wCam.close();
+				wCamPanel.setVisible(false);
+			}
+		}
 	}
 			
 }
