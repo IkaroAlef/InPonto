@@ -22,7 +22,6 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
-import negócio.ControladorPessoas;
 import negócio.EpontoFachada;
 
 public class FrameLogin extends JFrame implements ActionListener, KeyListener {

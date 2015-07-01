@@ -18,6 +18,9 @@ public interface IRepositorioPontos {
 	int totalIntervalo_InCorreta(String cpf) throws FuncionarioNaoEncontradoException;
 	int totalIntervalo_OutCorreta(String cpf) throws FuncionarioNaoEncontradoException;
 	
+	boolean isDiaCorreto(String cpf, int dia, int mes, int ano) throws FuncionarioNaoEncontradoException;
+	boolean isDiaAtrasado(String cpf, int dia, int mes, int ano) throws FuncionarioNaoEncontradoException;
+	
 	
 	
 }

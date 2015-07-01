@@ -169,6 +169,16 @@ public class EpontoFachada {
 		return pontos.getPontosDoFuncionario(cpf, dia, mes, ano);
 	}
 
+	public boolean isDiaCorreto(String cpf, int dia, int mes, int ano)
+			throws FuncionarioNaoEncontradoException {
+		return pontos.isDiaCorreto(cpf, dia, mes, ano);
+	}
+
+	public boolean isDiaAtrasado(String cpf, int dia, int mes, int ano)
+			throws FuncionarioNaoEncontradoException {
+		return pontos.isDiaAtrasado(cpf, dia, mes, ano);
+	}
+
 	public int totalChegadaCorreta(String cpf)
 			throws FuncionarioNaoEncontradoException {
 		return pontos.totalChegadaCorreta(cpf);

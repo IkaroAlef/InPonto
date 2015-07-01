@@ -74,7 +74,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 		int cont=0;
 		ArrayList <RegPonto> pontosDoFuncionario = this.getPontosDoFuncionario(cpf);
 		for (int i=0; i < pontosDoFuncionario.size(); i++){
-			if (pontosDoFuncionario.get(i).chegadaCorreta()){
+			if (pontosDoFuncionario.get(i).isChegadaCorreta()){
 				cont++;
 			}
 		}
@@ -85,7 +85,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 		int cont=0;
 		ArrayList <RegPonto> pontosDoFuncionario = this.getPontosDoFuncionario(cpf);
 		for (int i=0;i<pontosDoFuncionario.size();i++){
-			if (pontosDoFuncionario.get(i).saidaCorreta())
+			if (pontosDoFuncionario.get(i).isSaidaCorreta())
 				cont++;
 		}
 		return cont;
@@ -95,7 +95,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 		int cont=0;
 		ArrayList <RegPonto> pontosDoFuncionario = this.getPontosDoFuncionario(cpf);
 		for (int i=0;i<pontosDoFuncionario.size();i++){
-			if (pontosDoFuncionario.get(i).intervalo_InCorreta())
+			if (pontosDoFuncionario.get(i).isIntervalo_InCorreta())
 				cont++;
 		}
 		return cont;
@@ -105,10 +105,23 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 		int cont=0;
 		ArrayList <RegPonto> pontosDoFuncionario = this.getPontosDoFuncionario(cpf);
 		for (int i=0;i<pontosDoFuncionario.size();i++){
-			if (pontosDoFuncionario.get(i).intervalo_OutCorreta())
+			if (pontosDoFuncionario.get(i).isIntervalo_OutCorreta())
 				cont++;
 		}
 		return cont;
+	}
+	
+	public boolean isDiaCorreto(String cpf, int dia, int mes, int ano) throws FuncionarioNaoEncontradoException{
+		boolean retorno=false;
+		ArrayList <RegPonto> pontos = getPontosDoFuncionario(cpf, dia, mes, ano);
+		retorno = pontos.get(0).isChegadaCorreta() && pontos.get(1).isIntervalo_OutCorreta() && pontos.get(2).isIntervalo_InCorreta() && pontos.get(3).isSaidaCorreta();
+		return retorno;
+	}
+
+	public boolean isDiaAtrasado(String cpf, int dia, int mes, int ano) throws FuncionarioNaoEncontradoException{
+		boolean retorno=false;
+			retorno = !isDiaCorreto(cpf, dia, mes, ano);
+		return retorno;
 	}
 	
 	private static RepRegPonto lerDoArquivo() {

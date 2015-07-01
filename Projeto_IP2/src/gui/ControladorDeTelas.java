@@ -1,15 +1,18 @@
 package gui;
 
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 
-import negócio.EpontoFachada;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.Pessoa;
+import negócio.entity_beans.RegPonto;
 
 public class ControladorDeTelas extends JFrame {
-	public static FrameAdmin1 frameAdmin1 = new FrameAdmin1();
-	public static FrameAdminCadastroEmpresa frameAdminCadEmpresa = new FrameAdminCadastroEmpresa();
-	public static FrameAdminCadastroFuncionario frameAdminCadFuncionario = new FrameAdminCadastroFuncionario();
+	private FrameAdmin1 frameAdmin1 = new FrameAdmin1();
+	private FrameAdminCadastroEmpresa frameAdminCadEmpresa = new FrameAdminCadastroEmpresa();
+	private FrameAdminCadastroFuncionario frameAdminCadFuncionario;
+	private FrameLogin frameLogin = new FrameLogin();
 	
 	public static ControladorDeTelas instance;
 	
@@ -22,6 +25,10 @@ public class ControladorDeTelas extends JFrame {
 	
 	private ControladorDeTelas(){
 		
+	}
+	
+	public void frameLogin(){
+		this.frameLogin.setVisible(true);
 	}
 	
 	public void loginProximaTela (Pessoa pessoa){
@@ -44,11 +51,16 @@ public class ControladorDeTelas extends JFrame {
 	}
 	
 	public void frameCadastrarFuncionario(){
+		frameAdminCadFuncionario = new FrameAdminCadastroFuncionario();
 		frameAdminCadFuncionario.setVisible(true);
 	}
 	
 	public void frameAdmin2(Funcionario funcionario){
 		new FrameAdmin2(funcionario).setVisible(true);
 	}	
+	
+	public void framePontosComFotos(ArrayList<RegPonto> pontos){
+		new FramePontosComFotos(pontos).setVisible(true);
+	}
 	
 }

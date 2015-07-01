@@ -62,7 +62,7 @@ public class FrameFuncionario extends JFrame implements ActionListener, WindowLi
 	public FrameFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 		setTitle("Bem-Vindo "+funcionario.getNome());
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 754, 461);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -166,7 +166,7 @@ public class FrameFuncionario extends JFrame implements ActionListener, WindowLi
 		wCam = Webcam.getDefault();
 		wCam.setViewSize(WebcamResolution.VGA.getSize());
 		wCamPanel = new WebcamPanel(wCam);
-		wCamPanel.setBounds(248, 11, 480, 347);
+		wCamPanel.setBounds(280, 11, 440, 330);
 		contentPane.add(wCamPanel);
 	}
 
@@ -196,6 +196,7 @@ public class FrameFuncionario extends JFrame implements ActionListener, WindowLi
 	@Override
 	public void windowClosed(WindowEvent e) {
 		wCam.close();
+		ControladorDeTelas.getInstance().frameLogin();
 	}
 
 	@Override

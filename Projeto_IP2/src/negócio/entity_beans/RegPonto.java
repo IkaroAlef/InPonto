@@ -32,6 +32,14 @@ public class RegPonto implements Serializable {
 		return this.funcionario;
 	}
 
+	public ImageIcon getFotoPonto() {
+		return fotoPonto;
+	}
+
+	public void setFotoPonto(ImageIcon fotoPonto) {
+		this.fotoPonto = fotoPonto;
+	}
+
 	public RegPonto(LocalDateTime agora, Funcionario funcionario){
 		this.agora=agora;
 		this.funcionario=funcionario;
@@ -48,7 +56,7 @@ public class RegPonto implements Serializable {
 		if(funcionario!=null){
 			this.agora=LocalDateTime.now();
 			this.funcionario=funcionario;
-			this.fotoPonto = fotoPonto;
+			this.setFotoPonto(fotoPonto);
 		}
 	}
 	
@@ -58,7 +66,7 @@ public class RegPonto implements Serializable {
 				"\n   Data e Hora do Ponto: "+agora.format(formatter));
 	}
 	
-	public boolean chegadaCorreta(){ //Chegada correta com tolerância de 15 minutos
+	public boolean isChegadaCorreta(){ //Chegada correta com tolerância de 15 minutos
 		LocalTime ponto = LocalTime.of(agora.getHour(),agora.getMinute());
 		boolean retorno=false;
 		
@@ -78,15 +86,15 @@ public class RegPonto implements Serializable {
 		return retorno;	
 	}
 	
-	public boolean chegadaAtrasada(){ //Chegada atrasada
+	public boolean isChegadaAtrasada(){ //Chegada atrasada
 		boolean retorno=false;
 		
-		retorno=!this.chegadaCorreta();
+		retorno=!this.isChegadaCorreta();
 		
 		return retorno;	
 	}
 	
-	public boolean saidaCorreta(){//Saida correta com tolerância de 15 minutos
+	public boolean isSaidaCorreta(){//Saida correta com tolerância de 15 minutos
 		LocalTime ponto = LocalTime.of(agora.getHour(),agora.getMinute());
 		boolean retorno=false;
 		
@@ -106,7 +114,15 @@ public class RegPonto implements Serializable {
 		return retorno;	
 		}
 	
-	public boolean intervalo_InCorreta(){ //Ida pro Intervalo correta com tolerância de 15 minutos
+	public boolean isSaidaAtrasada(){ //Chegada atrasada
+		boolean retorno=false;
+		
+		retorno=!this.isSaidaCorreta();
+		
+		return retorno;	
+	}
+	
+	public boolean isIntervalo_InCorreta(){ //Ida pro Intervalo correta com tolerância de 15 minutos
 		LocalTime ponto = LocalTime.of(agora.getHour(),agora.getMinute());
 		boolean retorno=false;
 		
@@ -125,7 +141,15 @@ public class RegPonto implements Serializable {
 		return retorno;
 	}
 	
-	public boolean intervalo_OutCorreta(){ //volta do Intervalo correta com tolerância de 15 minutos
+	public boolean isIntervalo_InAtrasada(){ //Chegada atrasada
+		boolean retorno=false;
+		
+		retorno=!this.isIntervalo_InCorreta();
+		
+		return retorno;	
+	}
+	
+	public boolean isIntervalo_OutCorreta(){ //volta do Intervalo correta com tolerância de 15 minutos
 		LocalTime ponto = LocalTime.of(agora.getHour(),agora.getMinute());
 		boolean retorno=false;
 		
@@ -142,6 +166,14 @@ public class RegPonto implements Serializable {
 				}				
 			}
 		return retorno;					
+	}
+	
+	public boolean isIntervalo_OutAtrasada(){ //Chegada atrasada
+		boolean retorno=false;
+		
+		retorno=!this.isIntervalo_OutCorreta();
+		
+		return retorno;	
 	}
 	
 	@Override
