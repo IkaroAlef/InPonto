@@ -22,8 +22,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
+import dados.RepPessoas;
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.EpontoFachada;
+import negócio.entity_beans.Admin;
+import negócio.entity_beans.Pessoa;
 
 public class FrameLogin extends JFrame implements ActionListener, KeyListener {
 	
@@ -88,6 +91,12 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener {
 		btnOk.setBounds(76, 71, 89, 23);
 		contentPane.add(btnOk);
 		btnOk.addActionListener(this);
+
+		 if( EpontoFachada.getInstance().getSizePessoas() == 0){
+				 char[] senha = {'1','2','3','4'};
+	    	Pessoa pessoa = new Admin("AdminSuper","123","ikaroalef@gmail.com",senha);
+	    	RepPessoas.getInstance().adicionarPessoa(pessoa);
+	    	}
 		
 	}
 	

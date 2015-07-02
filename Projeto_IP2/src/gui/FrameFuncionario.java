@@ -47,7 +47,7 @@ public class FrameFuncionario extends JFrame implements ActionListener, WindowLi
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameFuncionario frame = new FrameFuncionario((Funcionario) RepPessoas.getInstance().buscarPessoaNome("Ikaro"));
+					FrameFuncionario frame = new FrameFuncionario((Funcionario) RepPessoas.getInstance().buscarPessoaNome("Ikaro Alef"));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

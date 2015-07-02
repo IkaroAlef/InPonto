@@ -64,7 +64,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameAdmin2 frame = new FrameAdmin2((Funcionario) EpontoFachada.getInstance().buscarPessoaNome("Ikaro"));
+					FrameAdmin2 frame = new FrameAdmin2((Funcionario) EpontoFachada.getInstance().buscarPessoaNome("Ikaro Alef"));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -366,10 +366,10 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 						else if(component[i].getBackground().equals(Color.red))
 							totalRed++;
 					}
-//System.out.println(String.valueOf(totalGreen + "\n"));
-//					lblTotalGreen.setText(String.valueOf(totalGreen));
-//					lblTotalYellow.setText(String.valueOf(totalYellow));
-//					lblTotalRed.setText(String.valueOf(totalRed));
+//					System.out.println(String.valueOf(totalGreen + "\n"));
+					lblTotalGreen.setText(String.valueOf(totalGreen));
+					lblTotalYellow.setText(String.valueOf(totalYellow));
+					lblTotalRed.setText(String.valueOf(totalRed));
 					}
 			}
 		}
