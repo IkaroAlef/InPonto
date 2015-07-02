@@ -11,13 +11,9 @@ import negócio.entity_beans.*;
 
 public class ControladorPessoas {
 	private IRepositorioPessoas repositorioPessoas;
-	private char[] senha = {'1','2','3','4'};
-	private Pessoa pessoa = new Admin("Admin","123","ika",senha);
-		
 
 	public ControladorPessoas(){
 		this.repositorioPessoas = RepPessoas.getInstance();
-		repositorioPessoas.adicionarPessoa(pessoa);
 	}
 	
 	public ArrayList<Pessoa> getPessoas(String conteudo) {

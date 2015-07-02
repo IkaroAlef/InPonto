@@ -2,19 +2,19 @@ package gui;
 
 import java.util.ArrayList;
 
+import negócio.entity_beans.Admin;
+
 import javax.swing.JFrame;
 
-import negócio.EpontoFachada;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.Pessoa;
 import negócio.entity_beans.RegPonto;
 
 public class ControladorDeTelas extends JFrame {
-	private FrameAdmin1 frameAdmin1 = new FrameAdmin1();
+	private FrameAdmin1 frameAdmin1;
 	private FrameAdminCadastroEmpresa frameAdminCadEmpresa = new FrameAdminCadastroEmpresa();
 	private FrameAdminCadastroFuncionario frameAdminCadFuncionario;
 	private FrameLogin frameLogin = new FrameLogin();
-	private FrameAdminCadastroAdmin frameCadastroAdmin = new FrameAdminCadastroAdmin();
 	
 	public static ControladorDeTelas instance;
 	
@@ -37,7 +37,7 @@ public class ControladorDeTelas extends JFrame {
 		if (pessoa instanceof Funcionario)
 			frameFuncionario((Funcionario) pessoa);
 		else 
-			frameAdmin1();	
+			new FrameAdmin1((Admin) pessoa).setVisible(true);	
 	}
 	
 	public void frameFuncionario(Funcionario funcionario){
@@ -70,7 +70,7 @@ public class ControladorDeTelas extends JFrame {
 	}
 	
 	public void frameCadastrarAdmin(){
-		frameCadastroAdmin.setVisible(true);
+		new FrameAdminCadastroAdmin().setVisible(true);
 	}
 	
 }

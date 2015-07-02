@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -29,10 +31,11 @@ import negócio.entity_beans.RegPonto;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
 import javax.swing.JTextField;
 
 
-public class FrameAdmin2 extends JFrame implements PropertyChangeListener, ActionListener, MouseListener{
+public class FrameAdmin2 extends JFrame implements PropertyChangeListener, ActionListener, MouseListener, WindowListener{
 
 	/**
 	 * 
@@ -85,14 +88,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		/*
-		try {
-			fotoPadrao = ImageIO.read(new File(String.format("Imagem %s.jpg", funcionario.getNome())));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
+
 		fotoPadrao = funcionario.getFotoPadrao();
 		lblFoto = new JLabel(fotoPadrao);
 		lblFoto.setLocation(551, 9);
@@ -468,6 +464,47 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		ControladorDeTelas.getInstance().frameLogin();
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
 	}

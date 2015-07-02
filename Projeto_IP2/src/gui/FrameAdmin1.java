@@ -17,10 +17,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.JMenuBar;
 import javax.swing.table.DefaultTableModel;
 
 import negócio.EpontoFachada;
+import negócio.entity_beans.Admin;
+import negócio.entity_beans.Empresa;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.Pessoa;
 
@@ -28,8 +29,11 @@ import javax.swing.JButton;
 
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 
+import javax.swing.JComboBox;
+
 public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener, WindowListener {
 
+	private Admin admin;
 	private JPanel contentPane;
 	private JTextField txtBusca;
 	private DefaultTableModel modeloTable;
@@ -40,7 +44,9 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	private JButton btnMostrarTodos;
 	private JButton btnCadastrarEmpresa;
 	private JButton btnExcluirFuncionrio;
-	private JButton btnCadastrarAdministrador ;
+	private JButton btnCadastrarAdministrador;
+	private JComboBox<Empresa> cmbBxEmpresa;
+	private JLabel lblEmpresa;
 	
 	/**
 	 * Launch the application.
@@ -49,7 +55,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameAdmin1 frame = new FrameAdmin1();
+					FrameAdmin1 frame = new FrameAdmin1((Admin) EpontoFachada.getInstance().buscarPessoaCpf("123"));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -62,12 +68,9 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	 * Create the frame.
 	 * @throws Exception 
 	 */
-	public FrameAdmin1() {
-		setTitle("Administrador");		
-		
-		// TESTE ...
-		//...TESTE
-		
+	public FrameAdmin1(Admin admin) {
+		setTitle("Administrador " + admin.getNome());		
+
 		//Modelo de Tabela.
 		this.modeloTable = new DefaultTableModel(new Object[][]{}, new Object[]{"Nome","CPF","E-Mail","Telefone","Cargo","Empresa"}){
 			 @Override
@@ -76,14 +79,29 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 			        return false;
 			    }
 		};
-		this.preencherTableFuncionarios(null);
-			
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.admin = admin;
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(3, 100, 1360, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		addWindowListener(this);
+		
+		cmbBxEmpresa = new JComboBox<Empresa>();
+	    cmbBxEmpresa.setBounds(115, 72, 90, 20);
+	    for (int i = 0; i < admin.getEmpresas().size(); i++){
+	    	cmbBxEmpresa.addItem(admin.getEmpresas().get(i));
+	    }
+	    cmbBxEmpresa.addActionListener(this);
+	    contentPane.add(cmbBxEmpresa);
+
+	    if(admin.getCpf().equals("123"))
+	    		this.preencherTableFuncionariosSuper(null);
+	    else
+	    	this.preencherTableFuncionarios(null);
 		
 		this.txtBusca = new JTextField();
 		txtBusca.setBounds(115, 41, 600, 20);
@@ -94,17 +112,12 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		lblProcurar.setBounds(30, 44, 75, 14);
 		contentPane.add(lblProcurar);
 		
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 97, 21);
-		contentPane.add(menuBar);
-		
 		this.tableFuncionarios = new JTable(modeloTable);
 		tableFuncionarios.addMouseListener(this);
 
 	    this.scrllPnFuncionarios = new JScrollPane(tableFuncionarios);
 	    scrllPnFuncionarios.setLocation(30, 104);
 		scrllPnFuncionarios.setSize(1290, 360);
-//      scrollPane.setVisible(true);
 	    contentPane.add(scrllPnFuncionarios);
 	    
 	    btnPesquisar = new JButton("Pesquisar");
@@ -136,6 +149,10 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	    btnCadastrarAdministrador.setBounds(30, 527, 180, 23);
 	    btnCadastrarAdministrador.addActionListener(this);
 	    contentPane.add(btnCadastrarAdministrador);
+	    
+	    lblEmpresa = new JLabel("Empresa:");
+	    lblEmpresa.setBounds(30, 79, 56, 14);
+	    contentPane.add(lblEmpresa);
 		    
 		}
 
@@ -143,10 +160,13 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	//caso o parametro seja NULL, preenche com todos os Funcionarios
 	public void preencherTableFuncionarios(String nome){ 
 		this.limparTableFuncionarios();
+		
 		ArrayList<Pessoa>pessoas = EpontoFachada.getInstance().getPessoas(nome);
 		String[] linha= new String[6];
+		Empresa empresa = (Empresa) cmbBxEmpresa.getSelectedItem();
 		for (int i=0; i < pessoas.size() ; i++){
-			if (pessoas.get(i) instanceof Funcionario){
+			if (pessoas.get(i) instanceof Funcionario && 
+					((Funcionario)pessoas.get(i)).getEmpresa().igualNome(empresa.getNomeEmpresa())){
 				linha[0] = pessoas.get(i).getNome();
 				linha[1] = pessoas.get(i).getCpf();
 				linha[2] = pessoas.get(i).getEmail();
@@ -158,6 +178,33 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		}
 	}
 	
+	public void preencherTableFuncionariosSuper(String nome){ 
+		this.limparTableFuncionarios();
+		
+		ArrayList<Pessoa>pessoas = EpontoFachada.getInstance().getPessoas(nome);
+		String[] linha= new String[6];
+		for (int i=0; i < pessoas.size() ; i++){
+			if (pessoas.get(i) instanceof Funcionario) {
+				linha[0] = pessoas.get(i).getNome();
+				linha[1] = pessoas.get(i).getCpf();
+				linha[2] = pessoas.get(i).getEmail();
+				linha[3] = ((Funcionario) pessoas.get(i)).getTelefone();
+				linha[4] = ((Funcionario) pessoas.get(i)).getCargo();
+				linha[5] = ((Funcionario) pessoas.get(i)).getEmpresa().getNomeEmpresa();
+				modeloTable.addRow(linha);
+			}
+			else if(pessoas.get(i) instanceof Admin){
+				linha[0] = pessoas.get(i).getNome();
+				linha[1] = pessoas.get(i).getCpf();
+				linha[2] = pessoas.get(i).getEmail();
+				linha[3] = "";
+				linha[4] = "";
+				linha[5] = "";
+				modeloTable.addRow(linha);
+			}
+		}
+	}
+
 	//limpa a tableFuncionario
 	private void limparTableFuncionarios() { 
 		while (modeloTable.getRowCount() > 0) {
@@ -167,18 +214,28 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		if(e.getSource().equals(btnPesquisar)){
-			this.preencherTableFuncionarios(txtBusca.getText());
+			if (admin.getCpf().equals("123"))
+				this.preencherTableFuncionariosSuper(txtBusca.getText());
+			else
+				this.preencherTableFuncionarios(txtBusca.getText());
 		}
+		
 		else if(e.getSource().equals(btnCadastrarFuncionario)){
 			if(EpontoFachada.getInstance().getSizeEmpresas()<1)
 				JOptionPane.showMessageDialog(null, "É necessário cadastrar uma empresa antes de cadastrar um funcionário.");
 			else 
 				ControladorDeTelas.getInstance().frameCadastrarFuncionario();
 		}
+		
 		else if(e.getSource().equals(btnMostrarTodos)){
-			this.preencherTableFuncionarios(null);
+			if(admin.getCpf().equals("123"))
+				this.preencherTableFuncionariosSuper(null);
+			else 
+				this.preencherTableFuncionarios(null);
 		} 	
+		
 		else if(e.getSource().equals(btnExcluirFuncionrio)){
 			String nomes[] = new String[tableFuncionarios.getSelectedRowCount()];
 			for (int i = 0; i < tableFuncionarios.getSelectedRowCount(); i++){
@@ -192,14 +249,19 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 			}
 			JOptionPane.showMessageDialog(null, "Funcionário (s) excluído (s) com sucesso.");
 		}
+		
 		else if(e.getSource().equals(btnCadastrarEmpresa)){
 			ControladorDeTelas.getInstance().frameCadastrarEmpresa();
 		}
+		
 		else if(e.getSource().equals(btnCadastrarAdministrador))
 			if(EpontoFachada.getInstance().getSizeEmpresas()<1)
 				JOptionPane.showMessageDialog(null, "É necessário cadastrar uma empresa antes de cadastrar um funcionário.");
 			else 
 			ControladorDeTelas.getInstance().frameCadastrarAdmin();
+		else if(e.getSource().equals(cmbBxEmpresa)){
+			this.preencherTableFuncionarios(null);
+		}
 	}
 
 	@Override

@@ -154,7 +154,7 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 			admin.adicionarEmpresas(empresas);
 			
 			EpontoFachada.getInstance().adicionarPessoa(admin);
-			JOptionPane.showMessageDialog(null, "Empresa cadastrada com suscesso" );
+			JOptionPane.showMessageDialog(null, "Cadastro realizado com suscesso!");
 			this.limparCampos();
 			}
 		}

@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.nio.file.Paths;
 
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
+import negócio.entity_beans.Admin;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.Pessoa;
 
@@ -30,6 +31,9 @@ public class RepPessoas implements Serializable,IRepositorioPessoas {
 	
 	public static IRepositorioPessoas getInstance() {
         if (instance == null) {
+        	char[] senha = {'1','2','3','4'};
+        	Pessoa pessoa = new Admin("Admin","123","ika",senha);
+        	RepPessoas.getInstance().adicionarPessoa(pessoa);	
             instance = lerDoArquivo();
         }
         return instance;
