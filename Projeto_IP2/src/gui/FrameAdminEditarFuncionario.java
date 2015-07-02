@@ -59,6 +59,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 	private JButton btnLimpar;
 	private JButton btnSalvar;
 	private JCheckBox chkbxAlterarFoto;
+	private Funcionario funcionario;
 	
 	//webcam
 	private Webcam wCam;
@@ -93,6 +94,9 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		contentPane.setLayout(null);
 		
 		addWindowListener(this);
+		
+		this.funcionario=funcionario;
+		
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setBounds(10, 11, 46, 14);
 		contentPane.add(lblNome);
@@ -118,6 +122,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		txtSenha = new JTextField();
 		txtSenha.setColumns(10);
 		txtSenha.setBounds(256, 76, 244, 20);
+		txtSenha.addActionListener(this);
 		contentPane.add(txtSenha);
 		
 		JLabel lblEmail = new JLabel("Email:");
@@ -286,7 +291,11 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 			this.limparCampos();
 		}
 		else if(e.getSource().equals(btnSalvar)){
-			Funcionario funcionario = null;
+			if(txtSenha.getText().equals("")){
+				JOptionPane.showMessageDialog(null, "Por favor, digite a senha novamente ou insira uma nova.");
+				txtSenha.requestFocus();
+			}else{
+			Funcionario funcionarioNew = null;
 			String nome = txtNome.getText();
 			String cpf = txtCPF.getText();
 			String email = txtEmail.getText();
@@ -305,24 +314,25 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 			LocalTime horaSaidaIntervalo = LocalTime.of( Integer.parseInt(txtHoraSaidaIntervalo.getText()) , Integer.parseInt( txtMinutosSaidaIntervalo.getText()) );
 			try{
 				if(chkbxAlterarFoto.isSelected()){
-				funcionario = new Funcionario(nome, cpf, email, senha, telefone, empresa, cargo, "Seg. à Sex", horaChegada, horaSaida, horaChegadaIntervalo, horaSaidaIntervalo);
-				funcionario.setFotoPadrao(new ImageIcon(wCam.getImage()));
+				funcionarioNew = new Funcionario(nome, cpf, email, senha, telefone, empresa, cargo, "Seg. à Sex", horaChegada, horaSaida, horaChegadaIntervalo, horaSaidaIntervalo);
+				funcionarioNew.setFotoPadrao(new ImageIcon(wCam.getImage()));
 				}
 				else{
-					funcionario = new Funcionario(nome, cpf, email, senha, telefone, empresa, cargo, "Seg. à Sex", horaChegada, horaSaida, horaChegadaIntervalo, horaSaidaIntervalo);
-					funcionario.setFotoPadrao(funcionario.getFotoPadrao());
+					funcionarioNew = new Funcionario(nome, cpf, email, senha, telefone, empresa, cargo, "Seg. à Sex", horaChegada, horaSaida, horaChegadaIntervalo, horaSaidaIntervalo);
+					funcionarioNew.setFotoPadrao(funcionario.getFotoPadrao());
 			}
 			}catch(NomeInvalidoException e1){
 				JOptionPane.showMessageDialog(null, e1.getMessage() );
 			}
 			try {
-				EpontoFachada.getInstance().editar(EpontoFachada.getInstance().buscarIndiceCpf(funcionario.getCpf()),funcionario);
+				EpontoFachada.getInstance().editar(EpontoFachada.getInstance().buscarIndiceCpf(funcionario.getCpf()),funcionarioNew);
 			} catch (FuncionarioNaoEncontradoException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			JOptionPane.showMessageDialog(null, "Dados atualizados com sucesso!" );
 			this.limparCampos();
+		}
 		}
 	}
 
