@@ -95,6 +95,19 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		lblFoto.setSize(323, 277);
 		contentPane.add(lblFoto);
 		
+		lblTotalGreen = new JLabel();
+		lblTotalGreen.setBounds(138, 383, 46, 14);
+		contentPane.add(lblTotalGreen);
+		
+		lblTotalYellow = new JLabel();
+		lblTotalYellow.setBounds(138, 408, 46, 14);
+		contentPane.add(lblTotalYellow);
+		
+		lblTotalRed = new JLabel();
+		lblTotalRed.setBounds(138, 433, 46, 14);
+		contentPane.add(lblTotalRed);
+		
+		
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setBounds(606, 308, 46, 14);
 		contentPane.add(lblNome);
@@ -249,18 +262,6 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		lblTotalFaltas.setBounds(10, 433, 118, 14);
 		contentPane.add(lblTotalFaltas);
 		
-		lblTotalGreen = new JLabel("");
-		lblTotalGreen.setBounds(138, 383, 46, 14);
-		contentPane.add(lblTotalGreen);
-		
-		lblTotalYellow = new JLabel("");
-		lblTotalYellow.setBounds(138, 408, 46, 14);
-		contentPane.add(lblTotalYellow);
-		
-		lblTotalRed = new JLabel("");
-		lblTotalRed.setBounds(138, 433, 46, 14);
-		contentPane.add(lblTotalRed);
-		
 		btnEditar = new JButton("Editar");
 		btnEditar.setBounds(755, 583, 89, 23);
 		btnEditar.addActionListener(this);
@@ -351,7 +352,9 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 						}
 					}
 					//Mostrar a quantidade Total de pontos corretos, atrasos e faltas.
-					int totalGreen=0, totalYellow=0, totalRed=0;
+					int totalGreen=0;
+					int totalYellow=0;
+					int totalRed=0;
 					int qtdComponentesInvUltimaLinha=0; //qntd de Components Invisiveis da primeira semana do mês (já que nem sempre o dia 1 começa no Domingo, e quando nao começa, os componentes continuam existindo porém invisíveis)
 					for (int i=35; i<49;i++){
 						if(!component[i].isVisible())
@@ -435,11 +438,6 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 				*/
 				else{
 					ControladorDeTelas.getInstance().framePontosComFotos(pontos);
-					//CHAMAR AQUI
-					//
-					//
-					//
-					//A TELA PONTOS COM FOTOS
 					}
 				this.ColorirCalendario(mes-1, ano); //-1 pq neste metodo eu somo 1, e no metodo Colorir soma-se 1 ao mes (ou seja, ficaria +2)
 			}

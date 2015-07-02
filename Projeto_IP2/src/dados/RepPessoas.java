@@ -9,11 +9,8 @@ import java.util.ArrayList;
 import java.io.ObjectInputStream;
 import java.io.FileInputStream;
 import java.io.Serializable;
-import java.nio.file.Paths;
 
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
-import negócio.entity_beans.Admin;
-import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.Pessoa;
 
 public class RepPessoas implements Serializable,IRepositorioPessoas {

@@ -1,13 +1,8 @@
 package gui;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Formatter;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
