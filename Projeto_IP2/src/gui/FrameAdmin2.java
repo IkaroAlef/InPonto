@@ -201,6 +201,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		
 		btnIniciarFerias = new JButton("Iniciar Férias ou Licença");
 		btnIniciarFerias.setBounds(563, 585, 177, 23);
+		btnIniciarFerias.addActionListener(this);
 		contentPane.add(btnIniciarFerias);
 		
 		txtGreen = new JTextField();
@@ -266,8 +267,9 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		
 		btnEditar = new JButton("Editar");
 		btnEditar.setBounds(755, 583, 89, 23);
+		btnEditar.addActionListener(this);
 		contentPane.add(btnEditar);
-		btnIniciarFerias.addActionListener(this);
+		
 		
 		}
 	
