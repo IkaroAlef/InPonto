@@ -203,8 +203,8 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		for (int i = 7; i < 49; i++){
 			componentesDias[i].addMouseListener(this);
 		}
-		jcalendar.getMonthChooser().addPropertyChangeListener(this);
-		jcalendar.getYearChooser().addPropertyChangeListener(this);
+		jcalendar.getMonthChooser().addPropertyChangeListener("month",this);
+		jcalendar.getYearChooser().addPropertyChangeListener("year",this);
 		this.ColorirCalendario(jcalendar.getMonthChooser().getMonth(),jcalendar.getYearChooser().getYear());
 		contentPane.add(jcalendar);
 		
@@ -382,7 +382,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		if(e.getSource().equals(jcalendar.getMonthChooser())){
 			this.ColorirCalendario(jcalendar.getMonthChooser().getMonth(), jcalendar.getYearChooser().getYear());
 		}else{ 
-			if(e.getSource().equals(jcalendar.getYearChooser())		){
+			if(e.getSource().equals(jcalendar.getYearChooser())){
 				this.ColorirCalendario(jcalendar.getMonthChooser().getMonth(), jcalendar.getYearChooser().getYear());
 			}
 		}
