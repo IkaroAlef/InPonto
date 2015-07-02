@@ -30,6 +30,10 @@ import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.EpontoFachada;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.JSeparator;
+import java.awt.Component;
 
 public class FrameFuncionario extends JFrame implements ActionListener, WindowListener {
 
@@ -59,10 +63,11 @@ public class FrameFuncionario extends JFrame implements ActionListener, WindowLi
 	 * Create the frame.
 	 */
 	public FrameFuncionario(Funcionario funcionario) {
+		setResizable(false);
 		this.funcionario = funcionario;
 		setTitle("Bem-Vindo "+funcionario.getNome());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 754, 461);
+		setBounds(100, 100, 900, 417);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -70,103 +75,163 @@ public class FrameFuncionario extends JFrame implements ActionListener, WindowLi
 		addWindowListener(this);
 		
 		btnBaterPonto = new JButton("Bater Ponto");
-		btnBaterPonto.setBounds(275, 388, 117, 23);
+		btnBaterPonto.setBounds(600, 353, 117, 23);
 		contentPane.add(btnBaterPonto);
 		btnBaterPonto.addActionListener(this);
 		
 		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(49, 57, 63, 14);
+		lblNome.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblNome.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNome.setBounds(87, 10, 63, 14);
 		contentPane.add(lblNome);
 		
 		JLabel lblNomeFuncionario = new JLabel(funcionario.getNome());
-		lblNomeFuncionario.setBounds(122, 57, 165, 14);
+		lblNomeFuncionario.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblNomeFuncionario.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNomeFuncionario.setBounds(160, 10, 250, 14);
 		contentPane.add(lblNomeFuncionario);
 		
-		JLabel lblCpf = new JLabel("Cpf:");
-		lblCpf.setBounds(49, 82, 63, 14);
+		JLabel lblCpf = new JLabel("CPF:");
+		lblCpf.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblCpf.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCpf.setBounds(92, 45, 58, 14);
 		contentPane.add(lblCpf);
 		
 		JLabel lblCpfFuncionario = new JLabel(funcionario.getCpf());
-		lblCpfFuncionario.setBounds(122, 82, 165, 14);
+		lblCpfFuncionario.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblCpfFuncionario.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblCpfFuncionario.setBounds(162, 45, 248, 14);
 		contentPane.add(lblCpfFuncionario);
 		
 		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(49, 107, 63, 14);
+		lblEmail.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblEmail.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblEmail.setBounds(88, 80, 62, 14);
 		contentPane.add(lblEmail);
 		
 		JLabel lblEmailFuncionario = new JLabel(funcionario.getEmail());
-		lblEmailFuncionario.setBounds(122, 107, 165, 14);
+		lblEmailFuncionario.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblEmailFuncionario.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblEmailFuncionario.setBounds(162, 80, 248, 14);
 		contentPane.add(lblEmailFuncionario);
 		
 		JLabel lblTelefone = new JLabel("Telefone:");
-		lblTelefone.setBounds(49, 132, 63, 14);
+		lblTelefone.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblTelefone.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTelefone.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTelefone.setBounds(75, 115, 75, 14);
 		contentPane.add(lblTelefone);
 		
 		JLabel lblTelefoneFuncionario = new JLabel(funcionario.getTelefone());
-		lblTelefoneFuncionario.setBounds(122, 132, 165, 14);
+		lblTelefoneFuncionario.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblTelefoneFuncionario.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblTelefoneFuncionario.setBounds(162, 115, 165, 14);
 		contentPane.add(lblTelefoneFuncionario);
 		
 		JLabel lblEmpresa = new JLabel("Empresa:");
-		lblEmpresa.setBounds(49, 157, 63, 14);
+		lblEmpresa.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblEmpresa.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEmpresa.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblEmpresa.setBounds(85, 150, 70, 14);
 		contentPane.add(lblEmpresa);
 		
 		JLabel lblEmpresaFuncionario = new JLabel(funcionario.getEmpresa().getNomeEmpresa());
-		lblEmpresaFuncionario.setBounds(122, 157, 165, 14);
+		lblEmpresaFuncionario.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblEmpresaFuncionario.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblEmpresaFuncionario.setBounds(162, 150, 208, 14);
 		contentPane.add(lblEmpresaFuncionario);
 		
 		JLabel lblCargo = new JLabel("Cargo:");
-		lblCargo.setBounds(49, 182, 63, 14);
+		lblCargo.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblCargo.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCargo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCargo.setBounds(87, 185, 63, 14);
 		contentPane.add(lblCargo);
 		
 		JLabel lblCargoFuncionario = new JLabel(funcionario.getCargo());
-		lblCargoFuncionario.setBounds(122, 182, 165, 14);
+		lblCargoFuncionario.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblCargoFuncionario.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblCargoFuncionario.setBounds(162, 185, 165, 14);
 		contentPane.add(lblCargoFuncionario);
 		
 		JLabel lblEscala = new JLabel("Escala:");
-		lblEscala.setBounds(49, 207, 63, 14);
+		lblEscala.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblEscala.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEscala.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblEscala.setBounds(87, 220, 63, 14);
 		contentPane.add(lblEscala);
 		
 		JLabel lblEscalaFuncionario = new JLabel(funcionario.getEscala());
-		lblEscalaFuncionario.setBounds(122, 207, 165, 14);
+		lblEscalaFuncionario.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblEscalaFuncionario.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblEscalaFuncionario.setBounds(162, 220, 165, 14);
 		contentPane.add(lblEscalaFuncionario);
 		
 		JLabel lblHorarioChegada = new JLabel("Hor\u00E1rio Chegada:");
-		lblHorarioChegada.setBounds(10, 232, 102, 14);
+		lblHorarioChegada.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblHorarioChegada.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblHorarioChegada.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblHorarioChegada.setBounds(24, 255, 126, 14);
 		contentPane.add(lblHorarioChegada);
 		
 		JLabel lblHorarioChegadaFuncionario = new JLabel(funcionario.getChegada().toString());
-		lblHorarioChegadaFuncionario.setBounds(122, 232, 165, 14);
+		lblHorarioChegadaFuncionario.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblHorarioChegadaFuncionario.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblHorarioChegadaFuncionario.setBounds(162, 255, 165, 14);
 		contentPane.add(lblHorarioChegadaFuncionario);
 		
 		JLabel lblHorarioSaida = new JLabel("Hor\u00E1rio Sa\u00EDda:");
-		lblHorarioSaida.setBounds(10, 257, 102, 14);
+		lblHorarioSaida.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblHorarioSaida.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblHorarioSaida.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblHorarioSaida.setBounds(24, 290, 126, 14);
 		contentPane.add(lblHorarioSaida);
 		
 		JLabel lblHorarioSaidaFuncionario = new JLabel(funcionario.getSaida().toString());
-		lblHorarioSaidaFuncionario.setBounds(122, 257, 165, 14);
+		lblHorarioSaidaFuncionario.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblHorarioSaidaFuncionario.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblHorarioSaidaFuncionario.setBounds(162, 290, 165, 14);
 		contentPane.add(lblHorarioSaidaFuncionario);
 		
 		JLabel lblIntervaloSaida = new JLabel("Intervalo Sa\u00EDda:");
-		lblIntervaloSaida.setBounds(10, 282, 102, 14);
+		lblIntervaloSaida.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblIntervaloSaida.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblIntervaloSaida.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblIntervaloSaida.setBounds(48, 325, 102, 14);
 		contentPane.add(lblIntervaloSaida);
 		
 		JLabel lblIntervaloSaidaFuncionario = new JLabel(funcionario.getIntervalo_out().toString());
-		lblIntervaloSaidaFuncionario.setBounds(122, 282, 165, 14);
+		lblIntervaloSaidaFuncionario.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblIntervaloSaidaFuncionario.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblIntervaloSaidaFuncionario.setBounds(162, 325, 165, 14);
 		contentPane.add(lblIntervaloSaidaFuncionario);
 		
 		JLabel lblIntervaloVolta = new JLabel("Intervalo Volta:");
-		lblIntervaloVolta.setBounds(10, 307, 102, 14);
+		lblIntervaloVolta.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblIntervaloVolta.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblIntervaloVolta.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblIntervaloVolta.setBounds(48, 360, 102, 14);
 		contentPane.add(lblIntervaloVolta);
 		
 		JLabel lblIntervaloVoltaFuncionario = new JLabel(funcionario.getIntervalo_in().toString());
-		lblIntervaloVoltaFuncionario.setBounds(122, 307, 165, 14);
+		lblIntervaloVoltaFuncionario.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		lblIntervaloVoltaFuncionario.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblIntervaloVoltaFuncionario.setBounds(162, 360, 165, 14);
 		contentPane.add(lblIntervaloVoltaFuncionario);
 		
 		wCam = Webcam.getDefault();
 		wCam.setViewSize(WebcamResolution.VGA.getSize());
 		wCamPanel = new WebcamPanel(wCam);
-		wCamPanel.setBounds(280, 11, 440, 330);
+		wCamPanel.setBounds(444, 10, 440, 330);
 		contentPane.add(wCamPanel);
+		
+		JSeparator separator = new JSeparator();
+		separator.setOrientation(SwingConstants.VERTICAL);
+		separator.setBounds(421, 16, 1, 360);
+		contentPane.add(separator);
 	}
 
 	@Override

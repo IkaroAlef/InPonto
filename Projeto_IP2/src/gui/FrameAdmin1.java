@@ -30,6 +30,7 @@ import javax.swing.JButton;
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 
 import javax.swing.JComboBox;
+import javax.swing.SwingConstants;
 
 public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener, WindowListener {
 
@@ -91,14 +92,14 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		addWindowListener(this);
 		
 		cmbBxEmpresa = new JComboBox<Empresa>();
-	    cmbBxEmpresa.setBounds(115, 72, 90, 20);
+	    cmbBxEmpresa.setBounds(115, 72, 145, 20);
 	    for (int i = 0; i < admin.getEmpresas().size(); i++){
 	    	cmbBxEmpresa.addItem(admin.getEmpresas().get(i));
 	    }
 	    cmbBxEmpresa.addActionListener(this);
 	    contentPane.add(cmbBxEmpresa);
 
-	    if(admin.getCpf().equals("123"))
+	    if(admin.getCpf().equals("020715"))
 	    		this.preencherTableFuncionariosSuper(null);
 	    else
 	    	this.preencherTableFuncionarios(null);
@@ -109,7 +110,8 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		txtBusca.setColumns(50);
 		
 		JLabel lblProcurar = new JLabel("Pesquisar:");
-		lblProcurar.setBounds(30, 44, 75, 14);
+		lblProcurar.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblProcurar.setBounds(35, 44, 70, 14);
 		contentPane.add(lblProcurar);
 		
 		this.tableFuncionarios = new JTable(modeloTable);
@@ -151,7 +153,8 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	    contentPane.add(btnCadastrarAdministrador);
 	    
 	    lblEmpresa = new JLabel("Empresa:");
-	    lblEmpresa.setBounds(30, 79, 56, 14);
+	    lblEmpresa.setHorizontalAlignment(SwingConstants.RIGHT);
+	    lblEmpresa.setBounds(40, 75, 65, 14);
 	    contentPane.add(lblEmpresa);
 		    
 		}
@@ -256,7 +259,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		
 		else if(e.getSource().equals(btnCadastrarAdministrador))
 			if(EpontoFachada.getInstance().getSizeEmpresas()<1)
-				JOptionPane.showMessageDialog(null, "É necessário cadastrar uma empresa antes de cadastrar um funcionário.");
+				JOptionPane.showMessageDialog(null, "É necessário cadastrar uma empresa antes de cadastrar um Administrador.");
 			else 
 			ControladorDeTelas.getInstance().frameCadastrarAdmin();
 		else if(e.getSource().equals(cmbBxEmpresa)){

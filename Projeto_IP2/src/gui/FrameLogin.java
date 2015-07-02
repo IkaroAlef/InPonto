@@ -56,7 +56,7 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener {
 	public FrameLogin() {
 		
 		setResizable(false);
-		setTitle("Login");
+		setTitle("Login Eponto");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 250, 134);
 		contentPane = new JPanel();
@@ -64,9 +64,9 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblLogin = new JLabel("Login:");
-		lblLogin.setHorizontalAlignment(SwingConstants.LEFT);
-		lblLogin.setBounds(20, 11, 56, 14);
+		JLabel lblLogin = new JLabel("CPF:");
+		lblLogin.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblLogin.setBounds(20, 11, 33, 14);
 		contentPane.add(lblLogin);
 		
 		txtLogin = new JTextField();
