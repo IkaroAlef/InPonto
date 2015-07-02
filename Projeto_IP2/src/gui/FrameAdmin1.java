@@ -40,6 +40,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	private JButton btnMostrarTodos;
 	private JButton btnCadastrarEmpresa;
 	private JButton btnExcluirFuncionrio;
+	private JButton btnCadastrarAdministrador ;
 	
 	/**
 	 * Launch the application.
@@ -130,8 +131,8 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	    btnExcluirFuncionrio.setBounds(580, 527, 151, 23);
 	    contentPane.add(btnExcluirFuncionrio);
 	    
-	    JButton btnCadastrarAdministrador = new JButton("Cadastrar Administrador");
-	    btnCadastrarAdministrador.setBounds(30, 527, 170, 23);
+	    btnCadastrarAdministrador = new JButton("Cadastrar Administrador");
+	    btnCadastrarAdministrador.setBounds(30, 527, 180, 23);
 	    contentPane.add(btnCadastrarAdministrador);
 	    btnExcluirFuncionrio.addActionListener(this);
 		    
@@ -193,6 +194,8 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		else if(e.getSource().equals(btnCadastrarEmpresa)){
 			ControladorDeTelas.getInstance().frameCadastrarEmpresa();
 		}
+		else if(e.getSource().equals(btnCadastrarAdministrador))
+			ControladorDeTelas.getInstance().frameCadastrarAdmin();
 	}
 
 	@Override

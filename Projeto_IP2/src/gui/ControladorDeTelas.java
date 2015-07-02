@@ -14,6 +14,7 @@ public class ControladorDeTelas extends JFrame {
 	private FrameAdminCadastroEmpresa frameAdminCadEmpresa = new FrameAdminCadastroEmpresa();
 	private FrameAdminCadastroFuncionario frameAdminCadFuncionario;
 	private FrameLogin frameLogin = new FrameLogin();
+	private FrameAdminCadastroAdmin frameCadastroAdmin = new FrameAdminCadastroAdmin();
 	
 	public static ControladorDeTelas instance;
 	
@@ -66,6 +67,10 @@ public class ControladorDeTelas extends JFrame {
 	
 	public void frameEditarFuncionario (Funcionario funcionario){
 		new FrameAdminEditarFuncionario(funcionario).setVisible(true);
+	}
+	
+	public void frameCadastrarAdmin(){
+		frameCadastroAdmin.setVisible(true);
 	}
 	
 }

@@ -20,4 +20,5 @@ public interface IRepositorioEmpresas {
 	int tamanhoLista();
 
 	ArrayList<Empresa> getEmpresas(String conteudo);
+	ArrayList<Empresa> getEmpresas();
 }

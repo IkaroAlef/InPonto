@@ -5,30 +5,37 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import negócio.EpontoFachada;
+import negócio.entity_beans.Admin;
 import negócio.entity_beans.Empresa;
-import negócio.entity_beans.exceptionsBeans.CNPJInvalidoException;
-import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
+
+import javax.swing.JPasswordField;
 
 public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField txtNomeEmpresa;
-	private JTextField txtCnpj;
-	private JTextField txtEndereco;
-	private JTextField txtContato;
+	private JTextField txtEmail;
+	private JTextField txtCpf;
 	private JButton btnLimpar;
 	private JButton btnSalvar;
+	private JPasswordField passSenha;
+	private JScrollPane scrllPnLista = new JScrollPane();
+	private JList<Empresa> jListaEmpresas;
+	private DefaultListModel<Empresa> listModel;
 	
 	/**
 	 * Launch the application.
@@ -50,9 +57,10 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public FrameAdminCadastroAdmin() {
-		setTitle("Cadastrar Empresa");
+		setResizable(false);
+		setTitle("Cadastrar Administrador");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 405, 222);
+		setBounds(100, 100, 527, 220);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -67,57 +75,66 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 		txtNomeEmpresa.setColumns(10);
 		contentPane.add(txtNomeEmpresa);
 		
-		JLabel lblCnpj = new JLabel("CNPJ:");
-		lblCnpj.setBounds(117, 104, 63, 14);
-		contentPane.add(lblCnpj);
+		JLabel lblSenha = new JLabel("Senha: ");
+		lblSenha.setBounds(190, 104, 63, 14);
+		contentPane.add(lblSenha);
 		
-		txtCnpj = new JTextField();
-		txtCnpj.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent j) {
-				String caracteres="0987654321";
-				if(!caracteres.contains(j.getKeyChar()+"")){
-				j.consume();
-				}
-			}
-		});
-		txtCnpj.setColumns(10);
-		txtCnpj.setBounds(117, 117, 262, 20);
-		contentPane.add(txtCnpj);
+		txtEmail = new JTextField();
+		txtEmail.setColumns(10);
+		txtEmail.setBounds(10, 73, 369, 20);
+		contentPane.add(txtEmail);
 		
-		txtEndereco = new JTextField();
-		txtEndereco.setColumns(10);
-		txtEndereco.setBounds(10, 73, 369, 20);
-		contentPane.add(txtEndereco);
+		txtCpf = new JTextField();
+		txtCpf.setColumns(10);
+		txtCpf.setBounds(10, 117, 170, 20);
+		contentPane.add(txtCpf);
 		
-		txtContato = new JTextField();
-		txtContato.setColumns(10);
-		txtContato.setBounds(10, 117, 97, 20);
-		contentPane.add(txtContato);
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setBounds(10, 60, 424, 14);
+		contentPane.add(lblEmail);
 		
-		JLabel lblEndereco = new JLabel("Endere\u00E7o:");
-		lblEndereco.setBounds(10, 60, 424, 14);
-		contentPane.add(lblEndereco);
-		
-		JLabel lblContato = new JLabel("Contato:");
+		JLabel lblContato = new JLabel("CPF: ");
 		lblContato.setBounds(10, 104, 75, 14);
 		contentPane.add(lblContato);
 		
 		btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(117, 148, 89, 23);
+		btnSalvar.setBounds(320, 157, 89, 23);
 		btnSalvar.addActionListener(this);
 		contentPane.add(btnSalvar);
 				
 		btnLimpar = new JButton("Limpar");
-		btnLimpar.setBounds(216, 148, 89, 23);
+		btnLimpar.setBounds(419, 157, 89, 23);
 		btnLimpar.addActionListener(this);
 		contentPane.add(btnLimpar);
+		
+		passSenha = new JPasswordField();
+		passSenha.setBounds(190, 117, 189, 20);
+		contentPane.add(passSenha);
+		
+		listModel = new DefaultListModel<>();
+		scrllPnLista = new JScrollPane();
+		ArrayList <Empresa> empresas = EpontoFachada.getInstance().getEmpresas(); 
+		for (int i = 0; i < empresas.size(); i++){
+			listModel.addElement(empresas.get(i));
+		}
+		jListaEmpresas = new JList<Empresa>(listModel);
+		jListaEmpresas.setBounds(10, 163, 98, 98);
+		
+		scrllPnLista.setViewportView(jListaEmpresas);
+		scrllPnLista.setBounds(410, 30, 98, 105);
+		contentPane.add(scrllPnLista);		
+		
+		JLabel lblEmpresas = new JLabel("Empresas:");
+		lblEmpresas.setBounds(410, 11, 75, 14);
+		contentPane.add(lblEmpresas);
+		
 	}
 	
 	private void limparCampos(){
 		txtNomeEmpresa.setText("");
-		txtCnpj.setText("");
-		txtEndereco.setText("");
-		txtContato.setText("");		
+		passSenha.setText("");
+		txtEmail.setText("");
+		txtCpf.setText("");		
 	
 	}
 	
@@ -126,24 +143,20 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 			this.limparCampos();
 		}
 		else if(e.getSource().equals(btnSalvar)){
-			Empresa empresa = null;
-			String nomeEmpresa = txtNomeEmpresa.getText();
-			String cnpj = txtCnpj.getText();
-			String endereco = txtEndereco.getText();
-			String contato = txtContato.getText();
+			Admin admin = null;
+			String nome = txtNomeEmpresa.getText();
+			String cpf = txtCpf.getText();
+			String email = txtEmail.getText();
+			char[] senha = passSenha.getPassword();
 			
-			try{
-				empresa =new Empresa (nomeEmpresa , cnpj , endereco, contato);
-				}catch(NomeInvalidoException e1){
-					JOptionPane.showMessageDialog(null, e1.getMessage() );
-				}catch(CNPJInvalidoException e2){
-					JOptionPane.showMessageDialog(null, e2.getMessage() );
-				}
+			admin =new Admin (nome , cpf , email, senha);
+			List<Empresa>empresas = jListaEmpresas.getSelectedValuesList();
+			admin.adicionarEmpresas(empresas);
 			
-			EpontoFachada.getInstance().adicionarEmpresa(empresa);
+			EpontoFachada.getInstance().adicionarPessoa(admin);
 			JOptionPane.showMessageDialog(null, "Empresa cadastrada com suscesso" );
 			this.limparCampos();
-				}
 			}
 		}
+}
 

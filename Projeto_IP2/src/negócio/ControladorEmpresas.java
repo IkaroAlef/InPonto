@@ -59,5 +59,9 @@ public class ControladorEmpresas {
 	public int tamanhoLista(){
 		return repositorioEmpresas.tamanhoLista();
 	}
+
+	public ArrayList<Empresa> getEmpresas() {
+		return repositorioEmpresas.getEmpresas();
+	}
 }
 

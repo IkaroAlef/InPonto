@@ -114,6 +114,10 @@ public class RepEmpresa implements IRepositorioEmpresas ,Serializable{
 		return retorno;
 	}
 	
+	public ArrayList<Empresa> getEmpresas() {
+		return empresas;
+	}
+
 	private static RepEmpresa lerDoArquivo() {
         RepEmpresa instanciaLocal = null;
 

@@ -150,6 +150,10 @@ public class EpontoFachada {
 		empresas.buscarIndiceCNPJ(cnpj);
 	}
 
+	public ArrayList<Empresa> getEmpresas() {
+		return empresas.getEmpresas();
+	}
+
 	public void adicionarRegistro(RegPonto ponto) {
 		pontos.adicionarRegistro(ponto);
 	}
