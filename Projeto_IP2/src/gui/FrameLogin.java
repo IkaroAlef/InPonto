@@ -86,6 +86,9 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener {
 		passSenha.addKeyListener(this);
 		contentPane.add(passSenha);
 		
+		this.txtLogin.setText("");
+		this.passSenha.setText("");
+		
 		btnOk = new JButton("OK");
 		btnOk.setBounds(76, 71, 89, 23);
 		contentPane.add(btnOk);

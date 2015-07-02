@@ -17,6 +17,13 @@ public class Admin extends Pessoa implements Serializable{
 		return empresas;
 	}
 	
+	public String getStringEmpresas(){
+		String retorno = "";
+		for (int i = 0; i<empresas.size(); i++)
+			retorno+=empresas.get(i).getNomeEmpresa()+", ";
+		return retorno;
+	}
+	
 	public void adicionarEmpresa(Empresa empresa){
 		empresas.add(empresa);
 	}

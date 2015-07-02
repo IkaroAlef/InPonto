@@ -3,6 +3,8 @@ package gui;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
@@ -32,7 +34,7 @@ import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 
-public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener, WindowListener {
+public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener, WindowListener, FocusListener {
 
 	private Admin admin;
 	private JPanel contentPane;
@@ -48,6 +50,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	private JButton btnCadastrarAdministrador;
 	private JComboBox<Empresa> cmbBxEmpresa;
 	private JLabel lblEmpresa;
+	private static final String AdminSuper= EpontoFachada.getInstance().getPessoas(null).get(0).getCpf();
 	
 	/**
 	 * Launch the application.
@@ -56,7 +59,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameAdmin1 frame = new FrameAdmin1((Admin) EpontoFachada.getInstance().buscarPessoaCpf("123"));
+					FrameAdmin1 frame = new FrameAdmin1((Admin) EpontoFachada.getInstance().buscarPessoaCpf(AdminSuper));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -99,7 +102,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	    cmbBxEmpresa.addActionListener(this);
 	    contentPane.add(cmbBxEmpresa);
 
-	    if(admin.getCpf().equals("020715"))
+	    if(admin.getCpf().equals(AdminSuper))
 	    		this.preencherTableFuncionariosSuper(null);
 	    else
 	    	this.preencherTableFuncionarios(null);
@@ -202,7 +205,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 				linha[2] = pessoas.get(i).getEmail();
 				linha[3] = "";
 				linha[4] = "";
-				linha[5] = "";
+				linha[5] = ((Admin) pessoas.get(i)).getStringEmpresas();
 				modeloTable.addRow(linha);
 			}
 		}
@@ -219,7 +222,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource().equals(btnPesquisar)){
-			if (admin.getCpf().equals("123"))
+			if (admin.getCpf().equals(AdminSuper))
 				this.preencherTableFuncionariosSuper(txtBusca.getText());
 			else
 				this.preencherTableFuncionarios(txtBusca.getText());
@@ -233,24 +236,28 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		}
 		
 		else if(e.getSource().equals(btnMostrarTodos)){
-			if(admin.getCpf().equals("123"))
+			if(admin.getCpf().equals(AdminSuper))
 				this.preencherTableFuncionariosSuper(null);
 			else 
 				this.preencherTableFuncionarios(null);
 		} 	
 		
 		else if(e.getSource().equals(btnExcluirFuncionrio)){
-			String nomes[] = new String[tableFuncionarios.getSelectedRowCount()];
-			for (int i = 0; i < tableFuncionarios.getSelectedRowCount(); i++){
-				nomes[i] = tableFuncionarios.getValueAt(i, 0).toString();
+			if(tableFuncionarios.getSelectedRowCount()==0)
+				JOptionPane.showMessageDialog(null, "Por favor, selecione pelo menos um funcionário.");
+			else{
+				String nomes[] = new String[tableFuncionarios.getSelectedRowCount()];
+				for (int i = 0; i < tableFuncionarios.getSelectedRowCount(); i++){
+					nomes[i] = tableFuncionarios.getValueAt(i, 0).toString();
+				}
+				try {
+					EpontoFachada.getInstance().deletarPessoas(nomes);
+				} catch (FuncionarioNaoEncontradoException e1) {
+				// 	TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				JOptionPane.showMessageDialog(null, "Funcionário (s) excluído (s) com sucesso.");
 			}
-			try {
-				EpontoFachada.getInstance().deletarPessoas(nomes);
-			} catch (FuncionarioNaoEncontradoException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			JOptionPane.showMessageDialog(null, "Funcionário (s) excluído (s) com sucesso.");
 		}
 		
 		else if(e.getSource().equals(btnCadastrarEmpresa)){
@@ -265,6 +272,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		else if(e.getSource().equals(cmbBxEmpresa)){
 			this.preencherTableFuncionarios(null);
 		}
+		
 	}
 
 	@Override
@@ -344,6 +352,18 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 
 	@Override
 	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void focusGained(FocusEvent arg0) {
+		this.preencherTableFuncionarios(null);
+		
+	}
+
+	@Override
+	public void focusLost(FocusEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
