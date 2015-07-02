@@ -23,13 +23,14 @@ public class RepPessoas implements Serializable,IRepositorioPessoas {
 	
 	public RepPessoas(){
 		pessoas = new ArrayList<Pessoa>(); //instancia o arrayList
+
+		char[] senha = {'1','2','3','4'};
+    	Pessoa pessoa = new Admin("AdminSuper","123","ikaroalef@gmail.com",senha);
+    	RepPessoas.getInstance().adicionarPessoa(pessoa);
 	}
 	
 	public RepPessoas(ArrayList<Pessoa> pessoas){
-		this.pessoas = pessoas;
-		char[] senha = {'1','2','3','4'};
-    	Pessoa pessoa = new Admin("AdminSuper","123","ikaroalef@gmail.com",senha);
-    	RepPessoas.getInstance().adicionarPessoa(pessoa);	
+		this.pessoas = pessoas;	
         
 	}
 	
