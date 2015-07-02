@@ -27,7 +27,7 @@ import javax.swing.JPasswordField;
 public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JTextField txtNomeEmpresa;
+	private JTextField txtNome;
 	private JTextField txtEmail;
 	private JTextField txtCpf;
 	private JButton btnLimpar;
@@ -66,14 +66,14 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel label = new JLabel("Nome:");
-		label.setBounds(10, 11, 424, 14);
-		contentPane.add(label);
+		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setBounds(10, 11, 135, 14);
+		contentPane.add(lblNome);
 		
-		txtNomeEmpresa = new JTextField();
-		txtNomeEmpresa.setBounds(10, 25, 369, 20);
-		txtNomeEmpresa.setColumns(10);
-		contentPane.add(txtNomeEmpresa);
+		txtNome = new JTextField();
+		txtNome.setBounds(10, 25, 369, 20);
+		txtNome.setColumns(10);
+		contentPane.add(txtNome);
 		
 		JLabel lblSenha = new JLabel("Senha: ");
 		lblSenha.setBounds(190, 104, 63, 14);
@@ -93,9 +93,9 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 		lblEmail.setBounds(10, 60, 424, 14);
 		contentPane.add(lblEmail);
 		
-		JLabel lblContato = new JLabel("CPF: ");
-		lblContato.setBounds(10, 104, 75, 14);
-		contentPane.add(lblContato);
+		JLabel lblCpf = new JLabel("CPF: ");
+		lblCpf.setBounds(10, 104, 75, 14);
+		contentPane.add(lblCpf);
 		
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(320, 157, 89, 23);
@@ -131,7 +131,7 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 	}
 	
 	private void limparCampos(){
-		txtNomeEmpresa.setText("");
+		txtNome.setText("");
 		passSenha.setText("");
 		txtEmail.setText("");
 		txtCpf.setText("");		
@@ -144,7 +144,7 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 		}
 		else if(e.getSource().equals(btnSalvar)){
 			Admin admin = null;
-			String nome = txtNomeEmpresa.getText();
+			String nome = txtNome.getText();
 			String cpf = txtCpf.getText();
 			String email = txtEmail.getText();
 			char[] senha = passSenha.getPassword();

@@ -27,14 +27,15 @@ public class RepPessoas implements Serializable,IRepositorioPessoas {
 	
 	public RepPessoas(ArrayList<Pessoa> pessoas){
 		this.pessoas = pessoas;
+		char[] senha = {'1','2','3','4'};
+    	Pessoa pessoa = new Admin("Admin","123","ika",senha);
+    	RepPessoas.getInstance().adicionarPessoa(pessoa);	
+        
 	}
 	
 	public static IRepositorioPessoas getInstance() {
         if (instance == null) {
-        	char[] senha = {'1','2','3','4'};
-        	Pessoa pessoa = new Admin("Admin","123","ika",senha);
-        	RepPessoas.getInstance().adicionarPessoa(pessoa);	
-            instance = lerDoArquivo();
+        	instance = lerDoArquivo();
         }
         return instance;
     }
