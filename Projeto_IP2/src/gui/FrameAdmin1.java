@@ -112,7 +112,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	    contentPane.add(btnPesquisar);
 	    
 	    btnCadastrarFuncionario = new JButton("Cadastrar Funcionario");
-	    btnCadastrarFuncionario.setBounds(30, 527, 170, 23);
+	    btnCadastrarFuncionario.setBounds(220, 527, 170, 23);
 	    btnCadastrarFuncionario.addActionListener(this);
 	    contentPane.add(btnCadastrarFuncionario);
 	    
@@ -122,13 +122,17 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	    contentPane.add(btnMostrarTodos);
 	    
 	    btnCadastrarEmpresa = new JButton("Cadastrar Empresa");
-	    btnCadastrarEmpresa.setBounds(210, 527, 170, 23);
+	    btnCadastrarEmpresa.setBounds(400, 527, 170, 23);
 	    contentPane.add(btnCadastrarEmpresa);
 	    btnCadastrarEmpresa.addActionListener(this );
 	    
 	    btnExcluirFuncionrio = new JButton("Excluir Funcion\u00E1rio");
-	    btnExcluirFuncionrio.setBounds(390, 527, 151, 23);
+	    btnExcluirFuncionrio.setBounds(580, 527, 151, 23);
 	    contentPane.add(btnExcluirFuncionrio);
+	    
+	    JButton btnCadastrarAdministrador = new JButton("Cadastrar Administrador");
+	    btnCadastrarAdministrador.setBounds(30, 527, 170, 23);
+	    contentPane.add(btnCadastrarAdministrador);
 	    btnExcluirFuncionrio.addActionListener(this);
 		    
 		}
