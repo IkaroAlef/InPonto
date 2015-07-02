@@ -15,8 +15,8 @@ public class TestePrincipal{
 		
 		char[] senha = {'1','2','3','4'};
 		Empresa empresa = new Empresa("UFRPE","2414","25","235");
-		Funcionario funcionario3 = new Funcionario("Lima","123","lima@gmail",senha,"telefone", empresa,"Estudante","8h/dia",LocalTime.of(8,0),LocalTime.of(12,0),LocalTime.of(10,0),LocalTime.of(10,15));
-		fachada.adicionarPessoa(funcionario3);
+//		Funcionario funcionario3 = new Funcionario("Lima","123456","lima@gmail",senha,"telefone", empresa,"Estudante","8h/dia",LocalTime.of(8,0),LocalTime.of(12,0),LocalTime.of(10,0),LocalTime.of(10,15));
+//		fachada.adicionarPessoa(funcionario3);
 		int op;
 		boolean sair=false;
 		do{

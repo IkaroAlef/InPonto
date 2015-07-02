@@ -90,13 +90,8 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener {
 		btnOk.setBounds(76, 71, 89, 23);
 		contentPane.add(btnOk);
 		btnOk.addActionListener(this);
+		btnOk.addKeyListener(this);
 
-		 if( EpontoFachada.getInstance().getSizePessoas() == 0){
-				 char[] senha = {'1','2','3','4'};
-	    	Pessoa pessoa = new Admin("AdminSuper","123","ikaroalef@gmail.com",senha);
-	    	RepPessoas.getInstance().adicionarPessoa(pessoa);
-	    	}
-		
 	}
 	
 	public void validarLogin(){
@@ -106,16 +101,20 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener {
 				this.setVisible(false);
 				ControladorDeTelas.getInstance().loginProximaTela(EpontoFachada.getInstance().buscarPessoaCpf(txtLogin.getText()));
 			}
-			else 
+			else {
+				passSenha.requestFocusInWindow();
 				JOptionPane.showMessageDialog(null, "Senha incorreta.");
+				passSenha.setText("");
+			}
 		} catch (HeadlessException e1) {
 			System.out.println("Exception");
 			e1.printStackTrace();
 		} catch (FuncionarioNaoEncontradoException e1) {
 			JOptionPane.showMessageDialog(null, "Usuário não encontrado.");
+			txtLogin.requestFocus();
+			txtLogin.setText("");
+			passSenha.setText("");
 		}
-		txtLogin.setText("");
-		passSenha.setText("");
 	}
 	
 	@Override
@@ -127,14 +126,14 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-
+		if (e.getKeyCode() == KeyEvent.VK_ENTER){
+			this.validarLogin();
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_ENTER){
-			this.validarLogin();
-		}
+		
 	}
 
 	@Override

@@ -13,6 +13,11 @@ public class ControladorPessoas {
 
 	public ControladorPessoas(){
 		this.repositorioPessoas = RepPessoas.getInstance();
+		 if(repositorioPessoas.tamanhoLista() == 0){
+			 char[] senha = {'1','2','3','6','9'};
+    	Pessoa pessoa = new Admin("AdminSuper","020715","ikaroalef@gmail.com",senha);
+    	RepPessoas.getInstance().adicionarPessoa(pessoa);
+    	}
 	}
 	
 	public ArrayList<Pessoa> getPessoas(String conteudo) {

@@ -196,18 +196,6 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		lblIntervaloVoltaFuncionario.setBounds(679, 558, 165, 14);
 		contentPane.add(lblIntervaloVoltaFuncionario);
 		
-		jcalendar = new JCalendar();
-		jcalendar.getDayChooser().setAutoscrolls(true);
-		jcalendar.setBounds(10, 11, 500, 350);
-		Component[] componentesDias = jcalendar.getDayChooser().getDayPanel().getComponents();
-		for (int i = 7; i < 49; i++){
-			componentesDias[i].addMouseListener(this);
-		}
-		jcalendar.getMonthChooser().addPropertyChangeListener("month",this);
-		jcalendar.getYearChooser().addPropertyChangeListener("year",this);
-		this.ColorirCalendario(jcalendar.getMonthChooser().getMonth(),jcalendar.getYearChooser().getYear());
-		contentPane.add(jcalendar);
-		
 		btnIniciarFerias = new JButton("Iniciar Férias ou Licença");
 		btnIniciarFerias.setBounds(563, 585, 177, 23);
 		btnIniciarFerias.addActionListener(this);
@@ -267,7 +255,17 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		btnEditar.addActionListener(this);
 		contentPane.add(btnEditar);
 		
-		
+		jcalendar = new JCalendar();
+		jcalendar.getDayChooser().setAutoscrolls(true);
+		jcalendar.setBounds(10, 11, 500, 350);
+		Component[] componentesDias = jcalendar.getDayChooser().getDayPanel().getComponents();
+		for (int i = 7; i < 49; i++){
+			componentesDias[i].addMouseListener(this);
+		}
+		jcalendar.getMonthChooser().addPropertyChangeListener("month",this);
+		jcalendar.getYearChooser().addPropertyChangeListener("year",this);
+		contentPane.add(jcalendar);
+		this.ColorirCalendario(jcalendar.getMonthChooser().getMonth(),jcalendar.getYearChooser().getYear());
 		}
 	
 	public void ColorirCalendario(int mes, int ano){
@@ -369,7 +367,6 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 						else if(component[i].getBackground().equals(Color.red))
 							totalRed++;
 					}
-//					System.out.println(String.valueOf(totalGreen + "\n"));
 					lblTotalGreen.setText(String.valueOf(totalGreen));
 					lblTotalYellow.setText(String.valueOf(totalYellow));
 					lblTotalRed.setText(String.valueOf(totalRed));
@@ -378,11 +375,11 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		}
 		
 	@Override
-	public void propertyChange(PropertyChangeEvent e) {
-		if(e.getSource().equals(jcalendar.getMonthChooser())){
+	public void propertyChange(PropertyChangeEvent e) { 
+		if(e.getSource().equals(jcalendar.getMonthChooser())){ //para atualizar o calendario caso o mes seja mudado
 			this.ColorirCalendario(jcalendar.getMonthChooser().getMonth(), jcalendar.getYearChooser().getYear());
 		}else{ 
-			if(e.getSource().equals(jcalendar.getYearChooser())){
+			if(e.getSource().equals(jcalendar.getYearChooser())){ //para atualizar o calendario caso o ano seja mudado
 				this.ColorirCalendario(jcalendar.getMonthChooser().getMonth(), jcalendar.getYearChooser().getYear());
 			}
 		}
@@ -390,6 +387,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		
 		if (arg0.getSource().equals(btnIniciarFerias)){
 			DateTimeFormatter formatador =  DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			int qtdDias = Integer.parseInt(JOptionPane.showInputDialog("Digite a quantidade de Dias: "));
