@@ -66,8 +66,8 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 				try {
 					FrameAdmin2 frame = new FrameAdmin2((Funcionario) EpontoFachada.getInstance().getPessoaNome("Ikaro Alef"));
 					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (FuncionarioNaoEncontradoException e1){
+					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 			}
 		});
@@ -277,10 +277,6 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		ArrayList <RegPonto> pontosDoFuncionario = null;
 		try {
 			pontosDoFuncionario = EpontoFachada.getInstance().getPontosDoFuncionario(funcionario.getCpf(),mes,ano);
-		} catch (FuncionarioNaoEncontradoException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}finally{
 			
 			int qtdComponentesInvisiveis=0; //qntd de Components Invisiveis da primeira semana do mês (já que nem sempre o dia 1 começa no Domingo, e quando nao começa, os componentes continuam existindo porém invisíveis)
 			for (int i=7; i<=13;i++){
@@ -317,7 +313,6 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 						comeca = diaPrimeiroPonto + qtdComponentesInvisiveis; //representa o indice do componente em que se deve começar a Colorir
 					}
 					for (int j = 0; j < pontosDoFuncionario.size(); j+=4){			
-						try {
 							if(EpontoFachada.getInstance().isDiaCorreto(funcionario.getCpf(), pontosDoFuncionario.get(j).getAgora().getDayOfMonth(), mes, ano)){
 								int i = pontosDoFuncionario.get(j).getAgora().getDayOfMonth() + qtdComponentesInvisiveis + 6;
 								component[i].setBackground(Color.green);
@@ -326,10 +321,6 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 								int i = pontosDoFuncionario.get(j).getAgora().getDayOfMonth() + qtdComponentesInvisiveis + 6;
 								component[i].setBackground(Color.yellow);
 							}
-						} catch (FuncionarioNaoEncontradoException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} 
 					}
 					if(funcionario.getEscala().equals("Seg. à Sex")){
 						int max=49;
@@ -352,18 +343,11 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 					}
 					//Mostrar a quantidade Total de pontos corretos, atrasos e faltas.
 					int totalGreen=0;
-					try {
+					
 						totalGreen = EpontoFachada.getInstance().getTotalDiasAtrasado(funcionario.getCpf(), mes, ano);
-					} catch (FuncionarioNaoEncontradoException e) {
-						JOptionPane.showMessageDialog(null, e.getMessage());
-					}
 					
 					int totalYellow=0;
-					try {
 						totalYellow = EpontoFachada.getInstance().getTotalDiasAtrasado(funcionario.getCpf(), mes, ano);
-					} catch (FuncionarioNaoEncontradoException e) {
-						JOptionPane.showMessageDialog(null, e.getMessage());
-					}
 					
 					int totalRed=0;
 					int qtdComponentesInvUltimaLinha=0; //qntd de Components Invisiveis da primeira semana do mês (já que nem sempre o dia 1 começa no Domingo, e quando nao começa, os componentes continuam existindo porém invisíveis)
@@ -380,7 +364,10 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 					lblTotalYellow.setText(String.valueOf(totalYellow));
 					lblTotalRed.setText(String.valueOf(totalRed));
 					}
-			}
+		}catch (FuncionarioNaoEncontradoException e1) {
+			JOptionPane.showMessageDialog(null, e1.getMessage());
+		}
+		
 		}
 		
 	@Override
@@ -430,8 +417,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 				try {
 					pontos = EpontoFachada.getInstance().getPontosDoFuncionario(funcionario.getCpf(), dia, mes, ano);
 				} catch (FuncionarioNaoEncontradoException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 
 				if(pontos.size()==0) //se nao houver pontos registrados

@@ -263,11 +263,10 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 				}
 				try {
 					EpontoFachada.getInstance().deletarPessoas(nomes);
+					JOptionPane.showMessageDialog(null, "Funcionário (s) excluído (s) com sucesso.");
 				} catch (FuncionarioNaoEncontradoException e1) {
-				// 	TODO Auto-generated catch block
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
-				JOptionPane.showMessageDialog(null, "Funcionário (s) excluído (s) com sucesso.");
 			}
 		}
 		
@@ -295,8 +294,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 			try {
 				pessoaSelecionada = EpontoFachada.getInstance().getPessoaNome((String) target.getValueAt(row, 0));
 			} catch (FuncionarioNaoEncontradoException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, e1.getMessage());
 			}
 		      if(pessoaSelecionada instanceof Funcionario)
 				  ControladorDeTelas.getInstance().frameAdmin2((Funcionario) pessoaSelecionada);

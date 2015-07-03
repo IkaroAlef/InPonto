@@ -43,9 +43,14 @@ public class ControladorPontos {
 			throws FuncionarioNaoEncontradoException {
 		int total = 0;
 		ArrayList <RegPonto> pontos = getPontosDoFuncionario(cpf, mes, ano);
+		int dia = pontos.get(0).getAgora().getDayOfMonth();
 		for (int i = 0; i < pontos.size(); i++){
-			if(pontos.get(0).isChegadaCorreta() && pontos.get(1).isIntervalo_OutCorreta() && pontos.get(2).isIntervalo_InCorreta() && pontos.get(3).isSaidaCorreta())
-				total++;
+			if(pontos.get(i).getAgora().getDayOfMonth() == dia){
+				if(pontos.get(0).isChegadaCorreta() && pontos.get(1).isIntervalo_OutCorreta() && pontos.get(2).isIntervalo_InCorreta() && pontos.get(3).isSaidaCorreta()){
+					total++;
+					dia++;
+				}
+			}
 		}
 		 return total;
 	}

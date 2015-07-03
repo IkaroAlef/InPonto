@@ -289,26 +289,32 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 			String telefone = txtTelefone.getText();
 			String cargo = txtCargo.getText();
 			Empresa empresa = null;
+			LocalTime horaChegada = null; 
+			LocalTime horaSaida = null ;
+			LocalTime horaChegadaIntervalo = null;
+			LocalTime horaSaidaIntervalo = null ;
+			
 			try {
 				empresa = (Empresa) EpontoFachada.getInstance().buscaEmpresaNome(cmbBxEmpresa.getSelectedItem().toString());
-			} catch (EmpresaNaoEncontradaException e3) {
-				JOptionPane.showMessageDialog(null, e3.getMessage());
-			}
-			LocalTime horaChegada = LocalTime.of( Integer.parseInt(txtHoraChegada.getText()) , Integer.parseInt( txtMinutosChegada.getText()) );
-			LocalTime horaSaida = LocalTime.of( Integer.parseInt(txtHoraSaida.getText()) , Integer.parseInt( txtMinutosSaida.getText()) );
-			LocalTime horaChegadaIntervalo = LocalTime.of( Integer.parseInt(txtHoraChegadaIntervalo.getText()) , Integer.parseInt( txtMinutosChegadaIntervalo.getText()) );
-			LocalTime horaSaidaIntervalo = LocalTime.of( Integer.parseInt(txtHoraSaidaIntervalo.getText()) , Integer.parseInt( txtMinutosSaidaIntervalo.getText()) );
-			try{
+				horaChegada = LocalTime.of( Integer.parseInt(txtHoraChegada.getText()) , Integer.parseInt( txtMinutosChegada.getText()) );
+				horaSaida = LocalTime.of( Integer.parseInt(txtHoraSaida.getText()) , Integer.parseInt( txtMinutosSaida.getText()) );
+				horaChegadaIntervalo = LocalTime.of( Integer.parseInt(txtHoraChegadaIntervalo.getText()) , Integer.parseInt( txtMinutosChegadaIntervalo.getText()) );
+				horaSaidaIntervalo = LocalTime.of( Integer.parseInt(txtHoraSaidaIntervalo.getText()) , Integer.parseInt( txtMinutosSaidaIntervalo.getText()) );
 				funcionario = new Funcionario(nome, cpf, email, senha, telefone, empresa, cargo, "Seg. à Sex", horaChegada, horaSaida, horaChegadaIntervalo, horaSaidaIntervalo);
 				funcionario.setFotoPadrao(new ImageIcon(wCam.getImage()));
-//				File file= new File (String.format("Imagem %s.jpg", funcionario.getNome()));
-//				ImageIO.write(wCam.getImage(), "JPG", file);
+
+				EpontoFachada.getInstance().adicionarPessoa(funcionario);
+				JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso" );
+				this.limparCampos();
+				
+			} catch (EmpresaNaoEncontradaException e3) {
+				JOptionPane.showMessageDialog(null, e3.getMessage());
+			}catch(NumberFormatException e2){
+				JOptionPane.showMessageDialog(null, "Por favor, digite apenas números.");
+				txtHoraChegada.requestFocus();
 			}catch(NomeInvalidoException e1){
 				JOptionPane.showMessageDialog(null, e1.getMessage() );
 			}
-			EpontoFachada.getInstance().adicionarPessoa(funcionario);
-			JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso" );
-			this.limparCampos();
 		}
 	}
 

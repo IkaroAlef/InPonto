@@ -109,7 +109,6 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener, F
 				passSenha.setText("");
 			}
 		} catch (HeadlessException e1) {
-			System.out.println("Exception");
 			e1.printStackTrace();
 		} catch (FuncionarioNaoEncontradoException e1) {
 			JOptionPane.showMessageDialog(null, "Usuário não encontrado.");
@@ -145,8 +144,8 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener, F
 
 	@Override
 	public void focusGained(FocusEvent arg0) {
-		txtLogin.setText("");
-		passSenha.setText("");
+//		txtLogin.setText("");
+//		passSenha.setText("");
 	}
 
 	@Override
