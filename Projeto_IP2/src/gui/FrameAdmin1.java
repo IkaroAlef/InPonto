@@ -186,8 +186,8 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 				linha[0] = pessoas.get(i).getNome();
 				linha[1] = pessoas.get(i).getCpf();
 				linha[2] = pessoas.get(i).getEmail();
-				linha[3] = ((Funcionario) pessoas.get(i)).getTelefone();
-				linha[4] = ((Funcionario) pessoas.get(i)).getCargo();
+				linha[3] = "";
+				linha[4] = "";
 				linha[5] = ((Admin) pessoas.get(i)).getStringEmpresas();
 				modeloTable.addRow(linha);
 			}
