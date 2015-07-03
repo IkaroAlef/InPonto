@@ -80,22 +80,22 @@ public class EpontoFachada {
 		return pessoas.getObject(i);
 	}
 
-	public int buscarIndiceNome(String nome)
+	public int getIndiceNome(String nome)
 			throws FuncionarioNaoEncontradoException {
 		return pessoas.buscarIndiceNome(nome);
 	}
 
-	public int buscarIndiceCpf(String cpf)
+	public int getIndiceCpf(String cpf)
 			throws FuncionarioNaoEncontradoException {
 		return pessoas.buscarIndiceCpf(cpf);
 	}
 
-	public Pessoa buscarPessoaNome(String nome)
+	public Pessoa getPessoaNome(String nome)
 			throws FuncionarioNaoEncontradoException {
 		return pessoas.buscarPessoaNome(nome);
 	}
 
-	public Pessoa buscarPessoaCpf(String cpf)
+	public Pessoa getPessoaCpf(String cpf)
 			throws FuncionarioNaoEncontradoException {
 		return pessoas.buscarPessoaCpf(cpf);
 	}
@@ -108,7 +108,7 @@ public class EpontoFachada {
 		pessoas.deletarPessoa(i);
 	}
 
-	public void editar(int i, Pessoa pessoa) {
+	public void editarPessoa(int i, Pessoa pessoa) {
 		pessoas.editar(i, pessoa);
 	}
 

@@ -64,7 +64,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameAdmin2 frame = new FrameAdmin2((Funcionario) EpontoFachada.getInstance().buscarPessoaNome("Ikaro Alef"));
+					FrameAdmin2 frame = new FrameAdmin2((Funcionario) EpontoFachada.getInstance().getPessoaNome("Ikaro Alef"));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

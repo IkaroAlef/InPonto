@@ -102,7 +102,7 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener {
 			if (EpontoFachada.getInstance().validarLogin(txtLogin.getText(), passSenha.getPassword() ) ){
 				JOptionPane.showMessageDialog(null, "Login efetuado com sucesso.");
 				this.setVisible(false);
-				ControladorDeTelas.getInstance().loginProximaTela(EpontoFachada.getInstance().buscarPessoaCpf(txtLogin.getText()));
+				ControladorDeTelas.getInstance().loginProximaTela(EpontoFachada.getInstance().getPessoaCpf(txtLogin.getText()));
 			}
 			else {
 				passSenha.requestFocusInWindow();

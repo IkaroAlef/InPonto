@@ -24,7 +24,9 @@ import negócio.entity_beans.Empresa;
 
 import javax.swing.JPasswordField;
 
-public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
+import dados.exceptionsDados.FuncionarioNaoEncontradoException;
+
+public class FrameAdminEditarAdmin extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField txtNome;
@@ -36,15 +38,17 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 	private JScrollPane scrllPnLista = new JScrollPane();
 	private JList<Empresa> jListaEmpresas;
 	private DefaultListModel<Empresa> listModel;
+	private Admin admin;
 	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		char[] senha = {'1','1','2'};
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameAdminCadastroAdmin frame = new FrameAdminCadastroAdmin();
+					FrameAdminEditarAdmin frame = new FrameAdminEditarAdmin(new Admin("ikaro","123456t","iajfaijf",senha));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,15 +60,17 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public FrameAdminCadastroAdmin() {
+	public FrameAdminEditarAdmin(Admin admin) {
 		setResizable(false);
-		setTitle("Cadastrar Administrador");
+		setTitle("Editar Administrador");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 527, 220);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		this.admin=admin;
 		
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setBounds(10, 11, 135, 14);
@@ -73,6 +79,7 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 		txtNome = new JTextField();
 		txtNome.setBounds(10, 25, 369, 20);
 		txtNome.setColumns(10);
+		txtNome.setText(admin.getNome());
 		contentPane.add(txtNome);
 		
 		JLabel lblSenha = new JLabel("Senha: ");
@@ -82,11 +89,13 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
 		txtEmail.setBounds(10, 73, 369, 20);
+		txtEmail.setText(admin.getEmail());
 		contentPane.add(txtEmail);
 		
 		txtCpf = new JTextField();
 		txtCpf.setColumns(10);
 		txtCpf.setBounds(10, 117, 170, 20);
+		txtCpf.setText(admin.getCpf());
 		contentPane.add(txtCpf);
 		
 		JLabel lblEmail = new JLabel("Email:");
@@ -113,11 +122,13 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 		
 		listModel = new DefaultListModel<>();
 		scrllPnLista = new JScrollPane();
+		scrllPnLista.setToolTipText("N\u00E3o \u00E9 necess\u00E1rio selecionar uma empresa caso n\u00E3o queria alterar.");
 		ArrayList <Empresa> empresas = EpontoFachada.getInstance().getEmpresas(); 
 		for (int i = 0; i < empresas.size(); i++){
 			listModel.addElement(empresas.get(i));
 		}
 		jListaEmpresas = new JList<Empresa>(listModel);
+		jListaEmpresas.setToolTipText("N\u00E3o \u00E9 necess\u00E1rio selecionar uma empresa caso n\u00E3o queria alterar.");
 		jListaEmpresas.setBounds(10, 163, 98, 98);
 		
 		scrllPnLista.setViewportView(jListaEmpresas);
@@ -146,18 +157,27 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 			if(jListaEmpresas.getSelectedIndices().length==0){
 				JOptionPane.showMessageDialog(null, "Por favor, selecione pelo menos uma Empresa.");
 			}else{
-				Admin admin = null;
+				Admin adminNew = null;
 				String nome = txtNome.getText();
 				String cpf = txtCpf.getText();
 				String email = txtEmail.getText();
 				char[] senha = passSenha.getPassword();
 				
-				admin =new Admin (nome , cpf , email, senha);
-				List<Empresa>empresas = jListaEmpresas.getSelectedValuesList();
-				admin.adicionarEmpresas(empresas);
+				adminNew =new Admin (nome , cpf , email, senha);
 				
-				EpontoFachada.getInstance().adicionarPessoa(admin);
-				JOptionPane.showMessageDialog(null, "Cadastro realizado com suscesso!");
+				if(jListaEmpresas.getSelectedIndices().length==0)
+					adminNew.adicionarEmpresas(admin.getEmpresas());
+				else{
+					List<Empresa>empresas = jListaEmpresas.getSelectedValuesList();
+					adminNew.adicionarEmpresas(empresas);
+				}
+				try {
+					EpontoFachada.getInstance().editarPessoa(EpontoFachada.getInstance().getIndiceCpf(admin.getCpf()),(adminNew));
+				} catch (FuncionarioNaoEncontradoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				JOptionPane.showMessageDialog(null, "Dados atualizados com suscesso!");
 				this.limparCampos();
 				}
 			}

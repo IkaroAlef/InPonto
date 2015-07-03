@@ -20,7 +20,10 @@ public class Admin extends Pessoa implements Serializable{
 	public String getStringEmpresas(){
 		String retorno = "";
 		for (int i = 0; i<empresas.size(); i++)
-			retorno+=empresas.get(i).getNomeEmpresa()+", ";
+			if(empresas.size()==1)
+				retorno=empresas.get(i).getNomeEmpresa();
+			else
+				retorno+=empresas.get(i).getNomeEmpresa()+", ";
 		return retorno;
 	}
 	

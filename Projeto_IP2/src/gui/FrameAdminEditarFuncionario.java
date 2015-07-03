@@ -72,7 +72,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameAdminEditarFuncionario frame = new FrameAdminEditarFuncionario((Funcionario) EpontoFachada.getInstance().buscarPessoaNome("Ikaro"));
+					FrameAdminEditarFuncionario frame = new FrameAdminEditarFuncionario((Funcionario) EpontoFachada.getInstance().getPessoaNome("Ikaro"));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -325,7 +325,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 				JOptionPane.showMessageDialog(null, e1.getMessage() );
 			}
 			try {
-				EpontoFachada.getInstance().editar(EpontoFachada.getInstance().buscarIndiceCpf(funcionario.getCpf()),funcionarioNew);
+				EpontoFachada.getInstance().editarPessoa(EpontoFachada.getInstance().getIndiceCpf(funcionario.getCpf()),funcionarioNew);
 			} catch (FuncionarioNaoEncontradoException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

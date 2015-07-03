@@ -60,7 +60,7 @@ public class TestePrincipal{
 		case 2: 
 			System.out.print("Nome do funcionario que deseja buscar: ");
 			try{
-			System.out.println(fachada.getString(fachada.buscarIndiceNome(sc.nextLine())));
+			System.out.println(fachada.getString(fachada.getIndiceNome(sc.nextLine())));
 			}catch (FuncionarioNaoEncontradoException e){
 				System.out.println(e.getMessage());
 			}
@@ -72,7 +72,7 @@ public class TestePrincipal{
 			RegPonto ponto = new RegPonto();
 			System.out.println("CPF que deseja registrar ponto: ");
 			String cpf = sc.nextLine();
-			ponto.registrarPonto((Funcionario) fachada.buscarPessoaCpf(cpf));
+			ponto.registrarPonto((Funcionario) fachada.getPessoaCpf(cpf));
 			fachada.adicionarRegistro(ponto);
 			System.out.println("Sair?");
 			if(sc.nextLine().equals("sim"))
@@ -106,20 +106,20 @@ public class TestePrincipal{
 			sc.nextLine();
 			System.out.println("CPF do funcionario: ");
 			cpf = sc.nextLine();
-			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,1,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
-			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,2,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
-			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,3,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
-			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,8,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
-			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,9,hora2+1,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
-			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,10,hora2+1,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
-			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,13,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
-			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,14,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
-			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,15,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
-			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,16,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
-			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,17,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
-			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,20,hora2,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
-			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,21,hora2+1,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
-			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,22,hora2+1,0),((Funcionario) fachada.buscarPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,1,hora2,0),((Funcionario) fachada.getPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,2,hora2,0),((Funcionario) fachada.getPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,3,hora2,0),((Funcionario) fachada.getPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,8,hora2,0),((Funcionario) fachada.getPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,9,hora2+1,0),((Funcionario) fachada.getPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,10,hora2+1,0),((Funcionario) fachada.getPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,13,hora2,0),((Funcionario) fachada.getPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,14,hora2,0),((Funcionario) fachada.getPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,15,hora2,0),((Funcionario) fachada.getPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,16,hora2,0),((Funcionario) fachada.getPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,17,hora2,0),((Funcionario) fachada.getPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,20,hora2,0),((Funcionario) fachada.getPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,21,hora2+1,0),((Funcionario) fachada.getPessoaCpf(cpf))));
+			fachada.adicionarRegistro(new RegPonto(LocalDateTime.of(2015,05,22,hora2+1,0),((Funcionario) fachada.getPessoaCpf(cpf))));
 			
 			System.out.println("Sair?");
 			if(sc.nextLine().equals("sim"))

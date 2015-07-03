@@ -73,4 +73,8 @@ public class ControladorDeTelas extends JFrame {
 		new FrameAdminCadastroAdmin().setVisible(true);
 	}
 	
+	public void frameEditarAdmin(Admin admin){
+		new FrameAdminEditarAdmin(admin).setVisible(true);
+	}
+	
 }

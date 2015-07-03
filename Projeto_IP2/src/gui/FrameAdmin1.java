@@ -59,7 +59,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameAdmin1 frame = new FrameAdmin1((Admin) EpontoFachada.getInstance().buscarPessoaCpf(AdminSuper));
+					FrameAdmin1 frame = new FrameAdmin1((Admin) EpontoFachada.getInstance().getPessoaCpf(AdminSuper));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -181,6 +181,16 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 				linha[5] = ((Funcionario) pessoas.get(i)).getEmpresa().getNomeEmpresa();
 				modeloTable.addRow(linha);
 			}
+			if (pessoas.get(i) instanceof Admin && 
+					((Admin)pessoas.get(i)).getEmpresas().contains(cmbBxEmpresa.getSelectedItem())){
+				linha[0] = pessoas.get(i).getNome();
+				linha[1] = pessoas.get(i).getCpf();
+				linha[2] = pessoas.get(i).getEmail();
+				linha[3] = ((Funcionario) pessoas.get(i)).getTelefone();
+				linha[4] = ((Funcionario) pessoas.get(i)).getCargo();
+				linha[5] = ((Admin) pessoas.get(i)).getStringEmpresas();
+				modeloTable.addRow(linha);
+			}
 		}
 	}
 	
@@ -280,14 +290,18 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		if (e.getClickCount() == 2) {
 		      JTable target = (JTable)e.getSource();
 		      int row = target.getSelectedRow();
-		      //DAQUI PRA BAIXO, O CÓDIGO
-		      try {
-		    	  if(EpontoFachada.getInstance().buscarPessoaNome((String) target.getValueAt(row, 0)) instanceof Funcionario)
-		    		  ControladorDeTelas.getInstance().frameAdmin2((Funcionario) EpontoFachada.getInstance().buscarPessoaNome((String) target.getValueAt(row, 0)));
-			} catch (FuncionarioNaoEncontradoException e2) {
+		      Pessoa pessoaSelecionada = null;
+			try {
+				pessoaSelecionada = EpontoFachada.getInstance().getPessoaNome((String) target.getValueAt(row, 0));
+			} catch (FuncionarioNaoEncontradoException e1) {
 				// TODO Auto-generated catch block
-				e2.printStackTrace();
+				e1.printStackTrace();
 			}
+		      if(pessoaSelecionada instanceof Funcionario)
+				  ControladorDeTelas.getInstance().frameAdmin2((Funcionario) pessoaSelecionada);
+			  else if(pessoaSelecionada instanceof Admin)
+				  ControladorDeTelas.getInstance().frameEditarAdmin((Admin) pessoaSelecionada);
+		      
 		}
 	}
 

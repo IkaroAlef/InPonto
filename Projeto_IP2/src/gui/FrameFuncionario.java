@@ -240,7 +240,7 @@ public class FrameFuncionario extends JFrame implements ActionListener, WindowLi
 			RegPonto ponto = new RegPonto();
 			ponto.registrarPonto(funcionario);
 			try {
-				ponto.registrarPonto((Funcionario)EpontoFachada.getInstance().buscarPessoaCpf(funcionario.getCpf()),new ImageIcon(wCam.getImage()));
+				ponto.registrarPonto((Funcionario)EpontoFachada.getInstance().getPessoaCpf(funcionario.getCpf()),new ImageIcon(wCam.getImage()));
 			} catch (FuncionarioNaoEncontradoException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
