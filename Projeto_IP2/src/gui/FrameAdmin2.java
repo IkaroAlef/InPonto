@@ -234,7 +234,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		contentPane.add(txtBlue);
 		
 		JLabel lblLegenda = new JLabel("Legenda: ");
-		lblLegenda.setToolTipText("Passe o mouse em cima das cores");
+		lblLegenda.setToolTipText("Passe o mouse sobre as cores");
 		lblLegenda.setBounds(350, 364, 63, 14);
 		contentPane.add(lblLegenda);
 		
@@ -274,31 +274,52 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		JPanel jPanelDays = jcalendar.getDayChooser().getDayPanel();
 		Component component[] = jPanelDays.getComponents(); //componnentes do quadro Dias
 		
+		int qtdComponentesInvisiveis=0; //qntd de Components Invisiveis da primeira semana do mês (já que nem sempre o dia 1 começa no Domingo, e quando nao começa, os componentes continuam existindo porém invisíveis)
+		for (int i=7; i<=13;i++){
+			if(!component[i].isVisible())
+				qtdComponentesInvisiveis++;
+		}
+		
+		int totalGreen = 0; //armazenará o total de dias sem atraso no mes e ano
+		int totalYellow = 0; //armazenará o total de dias cem atraso no mes e ano
+		lblTotalGreen.setText("0");
+		lblTotalYellow.setText("0");
+		lblTotalRed.setText("0");
+		
 		ArrayList <RegPonto> pontosDoFuncionario = null;
 		try {
 			pontosDoFuncionario = EpontoFachada.getInstance().getPontosDoFuncionario(funcionario.getCpf(),mes,ano);
 			
-			int qtdComponentesInvisiveis=0; //qntd de Components Invisiveis da primeira semana do mês (já que nem sempre o dia 1 começa no Domingo, e quando nao começa, os componentes continuam existindo porém invisíveis)
-			for (int i=7; i<=13;i++){
-				if(!component[i].isVisible())
-					qtdComponentesInvisiveis++;
-			}
-			
 			 if(EpontoFachada.getInstance().dispensaContains(funcionario)){
-//					System.out.println("teste");
 					ArrayList <Dispensa> dispensas = EpontoFachada.getInstance().getDispensas(funcionario);
 					for (int j = 0; j < dispensas.size(); j++){
 						LocalDateTime dataInicio = dispensas.get(j).getInicio();
 						int qtdDias = dispensas.get(j).getQtdDias();
 						int inicio = dataInicio.getDayOfMonth() + 6 + qtdComponentesInvisiveis;
 						int fim = dataInicio.plusDays(qtdDias-1).getDayOfMonth() + 6 + qtdComponentesInvisiveis; //-1 pq o primeiro dia já conta como dispensa.
-					
+					/*
 						if(mes == dataInicio.getMonthValue()){
 							component[inicio].setBackground(Color.blue);
 						}
 						if(mes == dataInicio.plusDays(qtdDias).getMonthValue()){
 							component[fim].setBackground(Color.blue);
 						}
+						*/
+						
+						if (mes == dataInicio.getMonthValue()){
+							if (dataInicio.getMonthValue() < dataInicio.plusDays(qtdDias).getMonthValue()){
+								for(int i = inicio ; i < fim ; i++)
+									component[i].setBackground(Color.blue);
+							}else
+								for(int i = inicio ; i < 49 ; i++)
+									component[i].setBackground(Color.blue);
+							
+						}
+						else if	(mes == dataInicio.plusDays(qtdDias).getMonthValue()){
+							for(int i = 7 ; i < fim ; i++)
+								component[i].setBackground(Color.blue);
+						}
+								
 					}
 				}
 			
@@ -321,14 +342,20 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 								int i = pontosDoFuncionario.get(j).getAgora().getDayOfMonth() + qtdComponentesInvisiveis + 6;
 								component[i].setBackground(Color.yellow);
 							}
+						
 					}
 					if(funcionario.getEscala().equals("Seg. à Sex")){
 						int max=49;
-						if(jcalendar.getMonthChooser().getMonth()+1==LocalDateTime.now().getMonthValue())
-							max = LocalDateTime.now().getDayOfMonth()+6+qtdComponentesInvisiveis;
+						if(EpontoFachada.getInstance().getPontosDoFuncionario(funcionario.getCpf(), mes-1, ano).isEmpty())
 							comeca = diaPrimeiroPonto + qtdComponentesInvisiveis;
+						else 
+							comeca = 7;
+						
+						if(mes==LocalDateTime.now().getMonthValue() )
+							max = LocalDateTime.now().getDayOfMonth()+6+qtdComponentesInvisiveis;
+							
 						for (int i = comeca; i < max; i++) {
-							if( i % 7!=0  //tirar sabados e domingos
+							if( i % 7!=0  //tirar sabados e domingos e componentes ja coloridos
 								&& i!=13 
 								&& i!=20 
 								&& i!=27 
@@ -342,13 +369,9 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 						}
 					}
 					//Mostrar a quantidade Total de pontos corretos, atrasos e faltas.
-					int totalGreen=0;
 					
-						totalGreen = EpontoFachada.getInstance().getTotalDiasAtrasado(funcionario.getCpf(), mes, ano);
-					
-					int totalYellow=0;
-						totalYellow = EpontoFachada.getInstance().getTotalDiasAtrasado(funcionario.getCpf(), mes, ano);
-					
+					totalGreen = EpontoFachada.getInstance().getTotalDiasCorretos(this.funcionario.getCpf(), mes, ano);
+					totalYellow = EpontoFachada.getInstance().getTotalDiasAtrasado(this.funcionario.getCpf(), mes, ano);
 					int totalRed=0;
 					int qtdComponentesInvUltimaLinha=0; //qntd de Components Invisiveis da primeira semana do mês (já que nem sempre o dia 1 começa no Domingo, e quando nao começa, os componentes continuam existindo porém invisíveis)
 					for (int i=35; i<49;i++){

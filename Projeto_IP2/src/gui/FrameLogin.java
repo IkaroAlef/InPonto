@@ -26,7 +26,7 @@ import javax.swing.SwingConstants;
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.EpontoFachada;
 
-public class FrameLogin extends JFrame implements ActionListener, KeyListener, FocusListener {
+public class FrameLogin extends JFrame implements ActionListener, KeyListener{
 	
 	private JPanel contentPane;
 	private JButton btnOk;
@@ -102,6 +102,8 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener, F
 				JOptionPane.showMessageDialog(null, "Login efetuado com sucesso.");
 				this.setVisible(false);
 				ControladorDeTelas.getInstance().loginProximaTela(EpontoFachada.getInstance().getPessoaCpf(txtLogin.getText()));
+				txtLogin.setText("");
+				passSenha.setText("");
 			}
 			else {
 				passSenha.requestFocusInWindow();
@@ -142,16 +144,5 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener, F
 
 	}
 
-	@Override
-	public void focusGained(FocusEvent arg0) {
-//		txtLogin.setText("");
-//		passSenha.setText("");
-	}
-
-	@Override
-	public void focusLost(FocusEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

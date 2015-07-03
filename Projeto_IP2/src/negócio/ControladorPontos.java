@@ -43,15 +43,11 @@ public class ControladorPontos {
 			throws FuncionarioNaoEncontradoException {
 		int total = 0;
 		ArrayList <RegPonto> pontos = getPontosDoFuncionario(cpf, mes, ano);
-		int dia = pontos.get(0).getAgora().getDayOfMonth();
-		for (int i = 0; i < pontos.size(); i++){
-			if(pontos.get(i).getAgora().getDayOfMonth() == dia){
-				if(pontos.get(0).isChegadaCorreta() && pontos.get(1).isIntervalo_OutCorreta() && pontos.get(2).isIntervalo_InCorreta() && pontos.get(3).isSaidaCorreta()){
+
+		for (int i = 0; i < pontos.size(); i+=4){
+			if(isDiaCorreto(cpf, pontos.get(i).getAgora().getDayOfMonth(), mes, ano))
 					total++;
-					dia++;
-				}
 			}
-		}
 		 return total;
 	}
 	
@@ -59,12 +55,13 @@ public class ControladorPontos {
 			throws FuncionarioNaoEncontradoException {
 		int total = 0;
 		ArrayList <RegPonto> pontos = getPontosDoFuncionario(cpf, mes, ano);
-		for (int i = 0; i < pontos.size(); i++){
-			if(pontos.get(0).isChegadaAtrasada() || pontos.get(1).isIntervalo_OutAtrasada() || pontos.get(2).isIntervalo_InAtrasada() || pontos.get(3).isSaidaAtrasada())
-				total++;
-		}
+
+		for (int i = 0; i < pontos.size(); i+=4){
+			if(isDiaAtrasado(cpf, pontos.get(i).getAgora().getDayOfMonth(), mes, ano))
+					total++;
+			}
 		 return total;
-	}
+	}	
 
 	public boolean isDiaAtrasado(String cpf, int dia, int mes, int ano)
 			throws FuncionarioNaoEncontradoException {
