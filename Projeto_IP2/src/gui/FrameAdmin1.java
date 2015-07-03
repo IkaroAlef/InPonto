@@ -257,8 +257,9 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 				JOptionPane.showMessageDialog(null, "Por favor, selecione pelo menos um funcionário.");
 			else{
 				String nomes[] = new String[tableFuncionarios.getSelectedRowCount()];
+				int[] linhasSelecionadas = tableFuncionarios.getSelectedColumns();
 				for (int i = 0; i < tableFuncionarios.getSelectedRowCount(); i++){
-					nomes[i] = tableFuncionarios.getValueAt(i, 0).toString();
+					nomes[i] = (String) tableFuncionarios.getValueAt(linhasSelecionadas[i], 0);
 				}
 				try {
 					EpontoFachada.getInstance().deletarPessoas(nomes);
