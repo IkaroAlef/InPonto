@@ -183,6 +183,16 @@ public class EpontoFachada {
 		return pontos.isDiaAtrasado(cpf, dia, mes, ano);
 	}
 
+	public int getTotalDiasCorretos(String cpf, int mes, int ano)
+			throws FuncionarioNaoEncontradoException {
+		return pontos.getTotalDiasCorretos(cpf, mes, ano);
+	}
+
+	public int getTotalDiasAtrasado(String cpf, int mes, int ano)
+			throws FuncionarioNaoEncontradoException {
+		return pontos.getTotalDiasAtrasado(cpf, mes, ano);
+	}
+
 	public int totalChegadaCorreta(String cpf)
 			throws FuncionarioNaoEncontradoException {
 		return pontos.totalChegadaCorreta(cpf);

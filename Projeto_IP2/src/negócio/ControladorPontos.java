@@ -1,5 +1,6 @@
 package negócio;
 
+import java.time.Month;
 import java.util.ArrayList;
 
 import negócio.entity_beans.RegPonto;
@@ -36,6 +37,28 @@ public class ControladorPontos {
 	public boolean isDiaCorreto(String cpf, int dia, int mes, int ano)
 			throws FuncionarioNaoEncontradoException {
 		return pontos.isDiaCorreto(cpf, dia, mes, ano);
+	}
+	
+	public int getTotalDiasCorretos(String cpf, int mes, int ano)
+			throws FuncionarioNaoEncontradoException {
+		int total = 0;
+		ArrayList <RegPonto> pontos = getPontosDoFuncionario(cpf, mes, ano);
+		for (int i = 0; i < pontos.size(); i++){
+			if(pontos.get(0).isChegadaCorreta() && pontos.get(1).isIntervalo_OutCorreta() && pontos.get(2).isIntervalo_InCorreta() && pontos.get(3).isSaidaCorreta())
+				total++;
+		}
+		 return total;
+	}
+	
+	public int getTotalDiasAtrasado(String cpf, int mes, int ano)
+			throws FuncionarioNaoEncontradoException {
+		int total = 0;
+		ArrayList <RegPonto> pontos = getPontosDoFuncionario(cpf, mes, ano);
+		for (int i = 0; i < pontos.size(); i++){
+			if(pontos.get(0).isChegadaAtrasada() || pontos.get(1).isIntervalo_OutAtrasada() || pontos.get(2).isIntervalo_InAtrasada() || pontos.get(3).isSaidaAtrasada())
+				total++;
+		}
+		 return total;
 	}
 
 	public boolean isDiaAtrasado(String cpf, int dia, int mes, int ano)

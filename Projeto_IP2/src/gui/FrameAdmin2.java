@@ -295,7 +295,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 						LocalDateTime dataInicio = dispensas.get(j).getInicio();
 						int qtdDias = dispensas.get(j).getQtdDias();
 						int inicio = dataInicio.getDayOfMonth() + 6 + qtdComponentesInvisiveis;
-						int fim = dataInicio.plusDays(qtdDias).getDayOfMonth() + 6 + qtdComponentesInvisiveis;
+						int fim = dataInicio.plusDays(qtdDias-1).getDayOfMonth() + 6 + qtdComponentesInvisiveis; //-1 pq o primeiro dia já conta como dispensa.
 					
 						if(mes == dataInicio.getMonthValue()){
 							component[inicio].setBackground(Color.blue);
@@ -352,7 +352,19 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 					}
 					//Mostrar a quantidade Total de pontos corretos, atrasos e faltas.
 					int totalGreen=0;
+					try {
+						totalGreen = EpontoFachada.getInstance().getTotalDiasAtrasado(funcionario.getCpf(), mes, ano);
+					} catch (FuncionarioNaoEncontradoException e) {
+						JOptionPane.showMessageDialog(null, e.getMessage());
+					}
+					
 					int totalYellow=0;
+					try {
+						totalYellow = EpontoFachada.getInstance().getTotalDiasAtrasado(funcionario.getCpf(), mes, ano);
+					} catch (FuncionarioNaoEncontradoException e) {
+						JOptionPane.showMessageDialog(null, e.getMessage());
+					}
+					
 					int totalRed=0;
 					int qtdComponentesInvUltimaLinha=0; //qntd de Components Invisiveis da primeira semana do mês (já que nem sempre o dia 1 começa no Domingo, e quando nao começa, os componentes continuam existindo porém invisíveis)
 					for (int i=35; i<49;i++){
@@ -361,11 +373,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 					}
 					
 					for (int i = 7 + qtdComponentesInvisiveis; i < 49 - qtdComponentesInvUltimaLinha; i++){
-						if(component[i].getBackground().equals(Color.green))
-							totalGreen++;
-						else if(component[i].getBackground().equals(Color.yellow))
-							totalYellow++;
-						else if(component[i].getBackground().equals(Color.red))
+						if(component[i].getBackground().equals(Color.red))
 							totalRed++;
 					}
 					lblTotalGreen.setText(String.valueOf(totalGreen));
