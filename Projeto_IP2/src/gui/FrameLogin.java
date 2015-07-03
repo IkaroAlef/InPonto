@@ -13,8 +13,6 @@ import javax.swing.JTextField;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -23,11 +21,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-import dados.RepPessoas;
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.EpontoFachada;
-import negócio.entity_beans.Admin;
-import negócio.entity_beans.Pessoa;
 
 public class FrameLogin extends JFrame implements ActionListener, KeyListener {
 	

@@ -344,7 +344,8 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 								&& i!=34 
 								&& i!=41 
 								&& !component[i].getBackground().equals(Color.green) 
-								&& !component[i].getBackground().equals(Color.yellow)) 
+								&& !component[i].getBackground().equals(Color.yellow)
+								&& !component[i].getBackground().equals(Color.blue)) 
 								component[i].setBackground(Color.red);	
 							
 						}
