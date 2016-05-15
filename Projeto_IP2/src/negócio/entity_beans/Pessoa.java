@@ -2,7 +2,6 @@ package negócio.entity_beans;
 
 import java.io.Serializable;
 
-import javafx.scene.control.PasswordField;
 import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 
 public abstract class Pessoa implements Serializable{

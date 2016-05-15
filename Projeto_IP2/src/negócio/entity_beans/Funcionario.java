@@ -8,7 +8,6 @@ import java.time.LocalTime;
 import javax.swing.ImageIcon;
 
 import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
-import javafx.scene.control.PasswordField;
 
 public class Funcionario extends Pessoa implements Serializable {
 	private String telefone;

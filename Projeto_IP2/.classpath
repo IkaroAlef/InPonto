@@ -4,5 +4,14 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JCalendar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/WebCam"/>
+	<classpathentry kind="lib" path="jars Externos/jCalendar/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="jars Externos/jCalendar/jgoodies-common-1.2.0.jar"/>
+	<classpathentry kind="lib" path="jars Externos/jCalendar/jgoodies-looks-2.4.1.jar"/>
+	<classpathentry kind="lib" path="jars Externos/jCalendar/junit-4.6.jar"/>
+	<classpathentry kind="lib" path="jars Externos/webCam/bridj-0.6.2.jar"/>
+	<classpathentry kind="lib" path="jars Externos/webCam/logback-classic-1.0.13.jar"/>
+	<classpathentry kind="lib" path="jars Externos/webCam/logback-core-1.0.13.jar"/>
+	<classpathentry kind="lib" path="jars Externos/webCam/slf4j-api-1.7.2.jar"/>
+	<classpathentry kind="lib" path="jars Externos/webCam/webcam-capture-0.3.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
