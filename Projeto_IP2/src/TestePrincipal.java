@@ -8,6 +8,7 @@ import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 
+//teste
 public class TestePrincipal{
 	private static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args)throws Exception {
