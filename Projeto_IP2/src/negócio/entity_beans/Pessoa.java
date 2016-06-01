@@ -2,6 +2,7 @@ package negócio.entity_beans;
 
 import java.io.Serializable;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 
 public abstract class Pessoa implements Serializable{
@@ -66,5 +67,5 @@ public abstract class Pessoa implements Serializable{
 				return true;
 		else return false;
 	}
-
+	
 }

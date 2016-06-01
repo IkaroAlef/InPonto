@@ -14,11 +14,13 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
 
@@ -101,7 +103,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		lblNewLabel.setBounds(10, 61, 46, 14);
 		contentPane.add(lblNewLabel);
 		
-		txtCPF = new JTextField();
+		txtCPF = new JFormattedTextField(createFormatter("###.###.###-##"));
 		txtCPF.setColumns(10);
 		txtCPF.setBounds(10, 76, 220, 20);
 		contentPane.add(txtCPF);
@@ -139,7 +141,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		lblTelefone.setBounds(152, 153, 78, 14);
 		contentPane.add(lblTelefone);
 		
-		txtTelefone = new JTextField();
+		txtTelefone = new JFormattedTextField(createFormatter("(##)#####-####"));
 		txtTelefone.setBounds(152, 167, 151, 20);
 		contentPane.add(txtTelefone);
 		txtTelefone.setColumns(10);
@@ -257,6 +259,17 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(wCamPanel);
 	}
 	
+	protected MaskFormatter createFormatter(String s) {
+		MaskFormatter formatter = null;
+	    try {
+	        formatter = new MaskFormatter(s);
+	    } catch (java.text.ParseException exc) {
+	        System.err.println("formatter is bad: " + exc.getMessage());
+	        System.exit(-1);
+	    }
+	    return formatter;
+	}
+
 	private void limparCampos(){
 		txtNome.setText("");
 		txtCPF.setText("");
