@@ -23,6 +23,8 @@ import negócio.entity_beans.Admin;
 import negócio.entity_beans.Empresa;
 
 import javax.swing.JPasswordField;
+import java.awt.Color;
+import java.awt.Font;
 
 public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 
@@ -36,6 +38,7 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 	private JScrollPane scrllPnLista = new JScrollPane();
 	private JList<Empresa> jListaEmpresas;
 	private DefaultListModel<Empresa> listModel;
+	private JLabel lblCadastroAdministrador;
 	
 	/**
 	 * Launch the application.
@@ -60,55 +63,66 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 		setResizable(false);
 		setTitle("Cadastrar Administrador");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 527, 220);
+		setBounds(100, 100, 646, 398);
 		contentPane = new JPanel();
+		contentPane.setForeground(new Color(105, 105, 105));
+		contentPane.setBackground(new Color(169, 169, 169));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(10, 11, 135, 14);
+		lblNome.setForeground(new Color(255, 255, 255));
+		lblNome.setBackground(new Color(211, 211, 211));
+		lblNome.setBounds(62, 129, 135, 14);
 		contentPane.add(lblNome);
 		
 		txtNome = new JTextField();
-		txtNome.setBounds(10, 25, 369, 20);
+		txtNome.setBounds(100, 126, 340, 20);
 		txtNome.setColumns(10);
 		contentPane.add(txtNome);
 		
 		JLabel lblSenha = new JLabel("Senha: ");
-		lblSenha.setBounds(190, 104, 63, 14);
+		lblSenha.setForeground(new Color(255, 255, 255));
+		lblSenha.setBounds(219, 188, 63, 14);
 		contentPane.add(lblSenha);
 		
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
-		txtEmail.setBounds(10, 73, 369, 20);
+		txtEmail.setBounds(96, 157, 340, 20);
 		contentPane.add(txtEmail);
 		
 		txtCpf = new JTextField();
 		txtCpf.setColumns(10);
-		txtCpf.setBounds(10, 117, 170, 20);
+		txtCpf.setBounds(96, 185, 113, 20);
 		contentPane.add(txtCpf);
 		
 		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(10, 60, 424, 14);
+		lblEmail.setForeground(new Color(255, 255, 255));
+		lblEmail.setBounds(62, 160, 424, 14);
 		contentPane.add(lblEmail);
 		
 		JLabel lblCpf = new JLabel("CPF: ");
-		lblCpf.setBounds(10, 104, 75, 14);
+		lblCpf.setForeground(new Color(255, 255, 255));
+		lblCpf.setBounds(62, 188, 75, 14);
 		contentPane.add(lblCpf);
 		
 		btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(320, 157, 89, 23);
+		btnSalvar.setForeground(new Color(0,0,0));
+		btnSalvar.setBounds(96, 249, 89, 23);
 		btnSalvar.addActionListener(this);
+		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		contentPane.add(btnSalvar);
 				
 		btnLimpar = new JButton("Limpar");
-		btnLimpar.setBounds(419, 157, 89, 23);
+		btnLimpar.setForeground(new Color(0,0,0));
+		btnLimpar.setBounds(195, 249, 89, 23);
 		btnLimpar.addActionListener(this);
+		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		contentPane.add(btnLimpar);
 		
 		passSenha = new JPasswordField();
-		passSenha.setBounds(190, 117, 189, 20);
+		passSenha.setBounds(260, 185, 176, 20);
 		contentPane.add(passSenha);
 		
 		listModel = new DefaultListModel<>();
@@ -117,16 +131,29 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 		for (int i = 0; i < empresas.size(); i++){
 			listModel.addElement(empresas.get(i));
 		}
-		jListaEmpresas = new JList<Empresa>(listModel);
-		jListaEmpresas.setBounds(10, 163, 98, 98);
-		
-		scrllPnLista.setViewportView(jListaEmpresas);
-		scrllPnLista.setBounds(410, 30, 98, 105);
+		scrllPnLista.setBounds(462, 96, 156, 202);
 		contentPane.add(scrllPnLista);		
 		
 		JLabel lblEmpresas = new JLabel("Empresas:");
-		lblEmpresas.setBounds(410, 11, 75, 14);
+		lblEmpresas.setForeground(new Color(255, 255, 255));
+		lblEmpresas.setBounds(513, 76, 75, 14);
 		contentPane.add(lblEmpresas);
+		jListaEmpresas = new JList<Empresa>(listModel);
+		contentPane.add(jListaEmpresas);
+		jListaEmpresas.setBounds(462, 103, 156, 195);
+		
+		lblCadastroAdministrador = new JLabel("CADASTRO ADMINISTRADOR");
+		lblCadastroAdministrador.setForeground(new Color(255, 255, 255));
+		lblCadastroAdministrador.setBackground(new Color(128, 128, 128));
+		lblCadastroAdministrador.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblCadastroAdministrador.setBounds(142, 60, 242, 14);
+		contentPane.add(lblCadastroAdministrador);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setForeground(new Color(0,0,0));
+		btnCancelar.setBounds(295, 249, 89, 23);
+		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		contentPane.add(btnCancelar);
 		
 	}
 	

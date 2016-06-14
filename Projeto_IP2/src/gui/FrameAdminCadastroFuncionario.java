@@ -34,6 +34,8 @@ import negócio.entity_beans.Empresa;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.exceptionsBeans.CNPJInvalidoException;
 import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
+import java.awt.Color;
+import java.awt.Font;
 
 public class FrameAdminCadastroFuncionario extends JFrame implements ActionListener, WindowListener {
 
@@ -60,6 +62,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 	//webcam
 	private Webcam wCam;
 	private WebcamPanel wCamPanel;
+	private JButton btnNewButton;
 
 	/**
 	 * Launch the application.
@@ -83,14 +86,17 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 	public FrameAdminCadastroFuncionario() {
 		setTitle("Cadastrar Funcion\u00E1rio");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 814, 366);
+		setBounds(100, 100, 810, 423);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(169, 169, 169));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		addWindowListener(this);
 		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setForeground(new Color(255, 255, 255));
+		lblNome.setBackground(new Color(255, 255, 255));
 		lblNome.setBounds(10, 11, 46, 14);
 		contentPane.add(lblNome);
 		
@@ -100,6 +106,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		txtNome.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("CPF:");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setBounds(10, 61, 46, 14);
 		contentPane.add(lblNewLabel);
 		
@@ -109,6 +116,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(txtCPF);
 		
 		JLabel lblSenha = new JLabel("Senha:");
+		lblSenha.setForeground(new Color(255, 255, 255));
 		lblSenha.setBounds(257, 61, 46, 14);
 		contentPane.add(lblSenha);
 		
@@ -118,6 +126,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(txtSenha);
 		
 		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setForeground(new Color(255, 255, 255));
 		lblEmail.setBounds(10, 107, 46, 14);
 		contentPane.add(lblEmail);
 		
@@ -127,6 +136,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		txtEmail.setColumns(10);
 		
 		JLabel lblEmpresa = new JLabel("Empresa:");
+		lblEmpresa.setForeground(new Color(255, 255, 255));
 		lblEmpresa.setBounds(10, 153, 72, 14);
 		contentPane.add(lblEmpresa);
 		
@@ -138,6 +148,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		}
 		
 		JLabel lblTelefone = new JLabel("Telefone:");
+		lblTelefone.setForeground(new Color(255, 255, 255));
 		lblTelefone.setBounds(152, 153, 78, 14);
 		contentPane.add(lblTelefone);
 		
@@ -147,6 +158,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		txtTelefone.setColumns(10);
 		
 		JLabel lblCargo = new JLabel("Cargo");
+		lblCargo.setForeground(new Color(255, 255, 255));
 		lblCargo.setBounds(322, 153, 58, 14);
 		contentPane.add(lblCargo);
 		
@@ -156,6 +168,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		txtCargo.setColumns(10);
 		
 		JLabel lblEscala = new JLabel("Escala");
+		lblEscala.setForeground(new Color(255, 255, 255));
 		lblEscala.setBounds(10, 198, 46, 14);
 		contentPane.add(lblEscala);
 		
@@ -170,6 +183,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(separator);
 		
 		JLabel lblHorrioChegada = new JLabel("Hor\u00E1rio Chegada:");
+		lblHorrioChegada.setForeground(new Color(255, 255, 255));
 		lblHorrioChegada.setBounds(10, 259, 104, 14);
 		contentPane.add(lblHorrioChegada);
 		
@@ -188,6 +202,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(lbl2ptChegada);
 		
 		JLabel lblHorarioSaida = new JLabel("Hor\u00E1rio Sa\u00EDda:");
+		lblHorarioSaida.setForeground(new Color(255, 255, 255));
 		lblHorarioSaida.setBounds(120, 259, 88, 14);
 		contentPane.add(lblHorarioSaida);
 		
@@ -206,6 +221,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(txtMinutosSaida);
 		
 		JLabel lblHorarioSaidaIntervalo = new JLabel("Hor\u00E1rio Sa\u00EDda Intervalo:");
+		lblHorarioSaidaIntervalo.setForeground(new Color(255, 255, 255));
 		lblHorarioSaidaIntervalo.setBounds(218, 259, 137, 14);
 		contentPane.add(lblHorarioSaidaIntervalo);
 		
@@ -224,6 +240,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(txtMinutosSaidaIntervalo);
 		
 		JLabel lblHorrioChegadaIntervalo = new JLabel("Hor\u00E1rio Chegada Intervalo:");
+		lblHorrioChegadaIntervalo.setForeground(new Color(255, 255, 255));
 		lblHorrioChegadaIntervalo.setBounds(355, 259, 150, 14);
 		contentPane.add(lblHorrioChegadaIntervalo);
 		
@@ -242,12 +259,16 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(txtMinutosChegadaIntervalo);
 		
 		btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(552, 283, 89, 23);
+		btnSalvar.setForeground(new Color(0,0,0));
+		btnSalvar.setBounds(585, 259, 149, 23);
 		btnSalvar.addActionListener(this);
+		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		contentPane.add(btnSalvar);
 		
 		btnLimpar = new JButton("Limpar");
-		btnLimpar.setBounds(681, 283, 89, 23);
+		btnLimpar.setForeground(new Color(0, 0, 0));
+		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnLimpar.setBounds(585, 293, 149, 23);
 		btnLimpar.addActionListener(this);
 		contentPane.add(btnLimpar);
 		
@@ -257,6 +278,12 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		wCamPanel = new WebcamPanel(wCam);
 		wCamPanel.setBounds(520, 8, 260, 240);
 		contentPane.add(wCamPanel);
+		
+		btnNewButton = new JButton("Cancelar");
+		btnNewButton.setForeground(new Color(0, 0, 0));
+		btnNewButton.setBounds(585, 327, 149, 23);
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		contentPane.add(btnNewButton);
 	}
 	
 	protected MaskFormatter createFormatter(String s) {

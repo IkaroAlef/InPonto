@@ -25,6 +25,8 @@ import negócio.entity_beans.Empresa;
 import javax.swing.JPasswordField;
 
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
+import java.awt.Font;
+import java.awt.Color;
 
 public class FrameAdminEditarAdmin extends JFrame implements ActionListener {
 
@@ -39,6 +41,8 @@ public class FrameAdminEditarAdmin extends JFrame implements ActionListener {
 	private JList<Empresa> jListaEmpresas;
 	private DefaultListModel<Empresa> listModel;
 	private Admin admin;
+	private JButton btnNewButton;
+	private JLabel lblEditarAdministrador;
 	
 	/**
 	 * Launch the application.
@@ -64,8 +68,9 @@ public class FrameAdminEditarAdmin extends JFrame implements ActionListener {
 		setResizable(false);
 		setTitle("Editar Administrador");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 527, 220);
+		setBounds(100, 100, 646, 398);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(169, 169, 169));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -73,51 +78,59 @@ public class FrameAdminEditarAdmin extends JFrame implements ActionListener {
 		this.admin=admin;
 		
 		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(10, 11, 135, 14);
+		lblNome.setForeground(new Color(255, 255, 255));
+		lblNome.setBounds(25, 82, 135, 14);
 		contentPane.add(lblNome);
 		
 		txtNome = new JTextField();
-		txtNome.setBounds(10, 25, 369, 20);
+		txtNome.setBounds(25, 107, 369, 20);
 		txtNome.setColumns(10);
 		txtNome.setText(admin.getNome());
 		contentPane.add(txtNome);
 		
 		JLabel lblSenha = new JLabel("Senha: ");
-		lblSenha.setBounds(190, 104, 63, 14);
+		lblSenha.setForeground(new Color(255, 255, 255));
+		lblSenha.setBounds(205, 193, 63, 14);
 		contentPane.add(lblSenha);
 		
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
-		txtEmail.setBounds(10, 73, 369, 20);
+		txtEmail.setBounds(25, 162, 369, 20);
 		txtEmail.setText(admin.getEmail());
 		contentPane.add(txtEmail);
 		
 		txtCpf = new JTextField();
 		txtCpf.setColumns(10);
-		txtCpf.setBounds(10, 117, 170, 20);
+		txtCpf.setBounds(25, 218, 170, 20);
 		txtCpf.setText(admin.getCpf());
 		contentPane.add(txtCpf);
 		
 		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(10, 60, 424, 14);
+		lblEmail.setForeground(new Color(255, 255, 255));
+		lblEmail.setBounds(25, 138, 424, 14);
 		contentPane.add(lblEmail);
 		
 		JLabel lblCpf = new JLabel("CPF: ");
-		lblCpf.setBounds(10, 104, 75, 14);
+		lblCpf.setForeground(new Color(255, 255, 255));
+		lblCpf.setBounds(25, 193, 75, 14);
 		contentPane.add(lblCpf);
 		
 		btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(320, 157, 89, 23);
+		btnSalvar.setForeground(new Color(0, 0, 0));
+		btnSalvar.setBounds(31, 260, 111, 23);
 		btnSalvar.addActionListener(this);
+		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		contentPane.add(btnSalvar);
 				
 		btnLimpar = new JButton("Limpar");
-		btnLimpar.setBounds(419, 157, 89, 23);
+		btnLimpar.setForeground(new Color(0, 0, 0));
+		btnLimpar.setBounds(152, 260, 111, 23);
 		btnLimpar.addActionListener(this);
+		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		contentPane.add(btnLimpar);
 		
 		passSenha = new JPasswordField();
-		passSenha.setBounds(190, 117, 189, 20);
+		passSenha.setBounds(205, 218, 189, 20);
 		contentPane.add(passSenha);
 		
 		listModel = new DefaultListModel<>();
@@ -127,17 +140,29 @@ public class FrameAdminEditarAdmin extends JFrame implements ActionListener {
 		for (int i = 0; i < empresas.size(); i++){
 			listModel.addElement(empresas.get(i));
 		}
-		jListaEmpresas = new JList<Empresa>(listModel);
-		jListaEmpresas.setToolTipText("N\u00E3o \u00E9 necess\u00E1rio selecionar uma empresa caso n\u00E3o queria alterar.");
-		jListaEmpresas.setBounds(10, 163, 98, 98);
-		
-		scrllPnLista.setViewportView(jListaEmpresas);
-		scrllPnLista.setBounds(410, 30, 98, 105);
+		scrllPnLista.setBounds(441, 88, 148, 195);
 		contentPane.add(scrllPnLista);		
 		
 		JLabel lblEmpresas = new JLabel("Empresas:");
-		lblEmpresas.setBounds(410, 11, 75, 14);
+		lblEmpresas.setForeground(new Color(255, 255, 255));
+		lblEmpresas.setBounds(484, 63, 75, 14);
 		contentPane.add(lblEmpresas);
+		jListaEmpresas = new JList<Empresa>(listModel);
+		contentPane.add(jListaEmpresas);
+		jListaEmpresas.setToolTipText("N\u00E3o \u00E9 necess\u00E1rio selecionar uma empresa caso n\u00E3o queria alterar.");
+		jListaEmpresas.setBounds(441, 88, 148, 195);
+		
+		btnNewButton = new JButton("Cancelar");
+		btnNewButton.setForeground(new Color(0, 0, 0));
+		btnNewButton.setBounds(273, 260, 111, 23);
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		contentPane.add(btnNewButton);
+		
+		lblEditarAdministrador = new JLabel("EDITAR ADMINISTRADOR");
+		lblEditarAdministrador.setForeground(new Color(255, 255, 255));
+		lblEditarAdministrador.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblEditarAdministrador.setBounds(100, 37, 215, 14);
+		contentPane.add(lblEditarAdministrador);
 		
 	}
 	

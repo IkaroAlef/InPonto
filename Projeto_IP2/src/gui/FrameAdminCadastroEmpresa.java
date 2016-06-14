@@ -19,6 +19,8 @@ import negócio.EpontoFachada;
 import negócio.entity_beans.Empresa;
 import negócio.entity_beans.exceptionsBeans.CNPJInvalidoException;
 import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
+import java.awt.Font;
+import java.awt.Color;
 
 public class FrameAdminCadastroEmpresa extends JFrame implements ActionListener {
 
@@ -29,6 +31,8 @@ public class FrameAdminCadastroEmpresa extends JFrame implements ActionListener 
 	private JTextField txtContato;
 	private JButton btnLimpar;
 	private JButton btnSalvar;
+	private JButton btnNewButton;
+	private JLabel lblCadastrarEmpresa;
 	
 	/**
 	 * Launch the application.
@@ -52,23 +56,27 @@ public class FrameAdminCadastroEmpresa extends JFrame implements ActionListener 
 	public FrameAdminCadastroEmpresa() {
 		setTitle("Cadastrar Empresa");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 405, 222);
+		setBounds(100, 100, 646, 398);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(169, 169, 169));
+		contentPane.setForeground(new Color(169, 169, 169));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel label = new JLabel("Nome:");
-		label.setBounds(10, 11, 424, 14);
+		label.setForeground(new Color(255, 255, 255));
+		label.setBounds(78, 115, 424, 14);
 		contentPane.add(label);
 		
 		txtNomeEmpresa = new JTextField();
-		txtNomeEmpresa.setBounds(10, 25, 369, 20);
+		txtNomeEmpresa.setBounds(117, 112, 425, 20);
 		txtNomeEmpresa.setColumns(10);
 		contentPane.add(txtNomeEmpresa);
 		
 		JLabel lblCnpj = new JLabel("CNPJ:");
-		lblCnpj.setBounds(117, 104, 63, 14);
+		lblCnpj.setForeground(new Color(255, 255, 255));
+		lblCnpj.setBounds(78, 206, 63, 14);
 		contentPane.add(lblCnpj);
 		
 		txtCnpj = new JTextField();
@@ -81,36 +89,55 @@ public class FrameAdminCadastroEmpresa extends JFrame implements ActionListener 
 			}
 		});
 		txtCnpj.setColumns(10);
-		txtCnpj.setBounds(117, 117, 262, 20);
+		txtCnpj.setBounds(280, 203, 262, 20);
 		contentPane.add(txtCnpj);
 		
 		txtEndereco = new JTextField();
 		txtEndereco.setColumns(10);
-		txtEndereco.setBounds(10, 73, 369, 20);
+		txtEndereco.setBounds(120, 158, 425, 20);
 		contentPane.add(txtEndereco);
 		
 		txtContato = new JTextField();
 		txtContato.setColumns(10);
-		txtContato.setBounds(10, 117, 97, 20);
+		txtContato.setBounds(117, 203, 100, 20);
 		contentPane.add(txtContato);
 		
 		JLabel lblEndereco = new JLabel("Endere\u00E7o:");
-		lblEndereco.setBounds(10, 60, 424, 14);
+		lblEndereco.setForeground(new Color(255, 255, 255));
+		lblEndereco.setBounds(63, 161, 424, 14);
 		contentPane.add(lblEndereco);
 		
 		JLabel lblContato = new JLabel("Contato:");
-		lblContato.setBounds(10, 104, 75, 14);
+		lblContato.setForeground(new Color(255, 255, 255));
+		lblContato.setBounds(229, 206, 75, 14);
 		contentPane.add(lblContato);
 		
 		btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(117, 148, 89, 23);
+		btnSalvar.setForeground(new Color(0,0,0));
+		btnSalvar.setBounds(151, 273, 100, 23);
 		btnSalvar.addActionListener(this);
+		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		contentPane.add(btnSalvar);
 				
 		btnLimpar = new JButton("Limpar");
-		btnLimpar.setBounds(216, 148, 89, 23);
+		btnLimpar.setForeground(new Color(0,0,0));
+		btnLimpar.setBounds(261, 273, 100, 23);
 		btnLimpar.addActionListener(this);
+		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		contentPane.add(btnLimpar);
+		
+		btnNewButton = new JButton("Cancelar");
+		btnNewButton.setForeground(new Color(0, 0, 0));
+		btnNewButton.setBounds(371, 273, 100, 23);
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		contentPane.add(btnNewButton);
+		
+		lblCadastrarEmpresa = new JLabel("CADASTRAR EMPRESA");
+		lblCadastrarEmpresa.setForeground(new Color(255, 255, 255));
+		lblCadastrarEmpresa.setBackground(new Color(128, 128, 128));
+		lblCadastrarEmpresa.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblCadastrarEmpresa.setBounds(212, 54, 247, 14);
+		contentPane.add(lblCadastrarEmpresa);
 	}
 	
 	private void limparCampos(){

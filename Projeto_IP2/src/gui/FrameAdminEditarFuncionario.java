@@ -2,6 +2,7 @@
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -37,6 +38,8 @@ import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.exceptionsBeans.CNPJInvalidoException;
 import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 
+import java.awt.Color;
+
 public class FrameAdminEditarFuncionario extends JFrame implements ActionListener, WindowListener, ItemListener {
 
 	private JPanel contentPane;
@@ -64,6 +67,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 	//webcam
 	private Webcam wCam;
 	private WebcamPanel wCamPanel;
+	private JButton btnCancelar;
 
 	/**
 	 * Launch the application.
@@ -72,7 +76,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameAdminEditarFuncionario frame = new FrameAdminEditarFuncionario((Funcionario) EpontoFachada.getInstance().getPessoaNome("Ikaro"));
+					FrameAdminEditarFuncionario frame = new FrameAdminEditarFuncionario((Funcionario) EpontoFachada.getInstance().getPessoaNome("Ikaro Alef"));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -89,6 +93,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 814, 366);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(169, 169, 169));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -98,6 +103,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		this.funcionario=funcionario;
 		
 		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setForeground(new Color(255, 255, 255));
 		lblNome.setBounds(10, 11, 46, 14);
 		contentPane.add(lblNome);
 		
@@ -107,6 +113,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		txtNome.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("CPF:");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setBounds(10, 61, 46, 14);
 		contentPane.add(lblNewLabel);
 		
@@ -117,6 +124,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setBounds(257, 61, 46, 14);
+		lblSenha.setForeground(new Color(255, 255, 255));
 		contentPane.add(lblSenha);
 		
 		txtSenha = new JTextField();
@@ -126,6 +134,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		contentPane.add(txtSenha);
 		
 		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setForeground(new Color(255, 255, 255));
 		lblEmail.setBounds(10, 107, 46, 14);
 		contentPane.add(lblEmail);
 		
@@ -135,6 +144,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		txtEmail.setColumns(10);
 		
 		JLabel lblEmpresa = new JLabel("Empresa:");
+		lblEmpresa.setForeground(new Color(255, 255, 255));
 		lblEmpresa.setBounds(10, 153, 72, 14);
 		contentPane.add(lblEmpresa);
 		
@@ -146,6 +156,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		}
 		
 		JLabel lblTelefone = new JLabel("Telefone:");
+		lblTelefone.setForeground(new Color(255, 255, 255));
 		lblTelefone.setBounds(152, 153, 78, 14);
 		contentPane.add(lblTelefone);
 		
@@ -155,15 +166,17 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		txtTelefone.setColumns(10);
 		
 		JLabel lblCargo = new JLabel("Cargo");
+		lblCargo.setForeground(new Color(255, 255, 255));
 		lblCargo.setBounds(322, 153, 58, 14);
 		contentPane.add(lblCargo);
 		
 		txtCargo = new JTextField(funcionario.getCargo());
-		txtCargo.setBounds(321, 167, 155, 20);
+		txtCargo.setBounds(321, 167, 179, 20);
 		contentPane.add(txtCargo);
 		txtCargo.setColumns(10);
 		
 		JLabel lblEscala = new JLabel("Escala");
+		lblEscala.setForeground(new Color(255, 255, 255));
 		lblEscala.setBounds(10, 198, 46, 14);
 		contentPane.add(lblEscala);
 		
@@ -178,6 +191,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		contentPane.add(separator);
 		
 		JLabel lblHorrioChegada = new JLabel("Hor\u00E1rio Chegada:");
+		lblHorrioChegada.setForeground(new Color(255, 255, 255));
 		lblHorrioChegada.setBounds(10, 259, 104, 14);
 		contentPane.add(lblHorrioChegada);
 		
@@ -196,6 +210,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		contentPane.add(lbl2ptChegada);
 		
 		JLabel lblHorarioSaida = new JLabel("Hor\u00E1rio Sa\u00EDda:");
+		lblHorarioSaida.setForeground(new Color(255, 255, 255));
 		lblHorarioSaida.setBounds(120, 259, 88, 14);
 		contentPane.add(lblHorarioSaida);
 		
@@ -214,6 +229,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		contentPane.add(txtMinutosSaida);
 		
 		JLabel lblHorarioSaidaIntervalo = new JLabel("Hor\u00E1rio Sa\u00EDda Intervalo:");
+		lblHorarioSaidaIntervalo.setForeground(new Color(255, 255, 255));
 		lblHorarioSaidaIntervalo.setBounds(218, 259, 137, 14);
 		contentPane.add(lblHorarioSaidaIntervalo);
 		
@@ -232,6 +248,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		contentPane.add(txtMinutosSaidaIntervalo);
 		
 		JLabel lblHorrioChegadaIntervalo = new JLabel("Hor\u00E1rio Chegada Intervalo:");
+		lblHorrioChegadaIntervalo.setForeground(new Color(255, 255, 255));
 		lblHorrioChegadaIntervalo.setBounds(355, 259, 150, 14);
 		contentPane.add(lblHorrioChegadaIntervalo);
 		
@@ -250,20 +267,35 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		contentPane.add(txtMinutosChegadaIntervalo);
 		
 		btnSalvar = new JButton("Salvar");
-		btnSalvar.setBounds(552, 283, 89, 23);
+		btnSalvar.setForeground(new Color(128, 128, 128));
+		btnSalvar.setBounds(529, 283, 72, 23);
+		btnSalvar.setForeground(new Color(0, 0, 0));
 		btnSalvar.addActionListener(this);
+		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		contentPane.add(btnSalvar);
 		
 		btnLimpar = new JButton("Limpar");
-		btnLimpar.setBounds(681, 283, 89, 23);
+		btnLimpar.setForeground(new Color(128, 128, 128));
+		btnLimpar.setBounds(611, 283, 75, 23);
+		btnLimpar.setForeground(new Color(0, 0, 0));
 		btnLimpar.addActionListener(this);
+		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		contentPane.add(btnLimpar);
 		
 		chkbxAlterarFoto = new JCheckBox("Alterar Foto", false);
+		chkbxAlterarFoto.setBackground(new Color(169, 169, 169));
 		chkbxAlterarFoto.setSize(100, 20);
-		chkbxAlterarFoto.setLocation(620, 255);
+		chkbxAlterarFoto.setLocation(620, 246);
 		chkbxAlterarFoto.addItemListener(this);
+		chkbxAlterarFoto.setForeground(new Color(255, 255, 255));
 		contentPane.add(chkbxAlterarFoto);
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setForeground(new Color(128, 128, 128));
+		btnCancelar.setBounds(693, 283, 85, 23);
+		btnCancelar.setForeground(new Color(0, 0, 0));
+		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		contentPane.add(btnCancelar);
 		
 		}
 	

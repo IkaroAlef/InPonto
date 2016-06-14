@@ -33,6 +33,8 @@ import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
+import java.awt.Color;
+import java.awt.Font;
 
 public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener, WindowListener, FocusListener {
 
@@ -51,6 +53,8 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	private JComboBox<Empresa> cmbBxEmpresa;
 	private JLabel lblEmpresa;
 	private static final String AdminSuper= EpontoFachada.getInstance().getPessoas(null).get(0).getCpf();
+	private JLabel lblModoAdministrador;
+	private JLabel lblBuscarFuncionrio;
 	
 	/**
 	 * Launch the application.
@@ -89,13 +93,14 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(3, 100, 1360, 600);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(211, 211, 211));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		addWindowListener(this);
 		
 		cmbBxEmpresa = new JComboBox<Empresa>();
-	    cmbBxEmpresa.setBounds(115, 72, 145, 20);
+	    cmbBxEmpresa.setBounds(515, 144, 145, 20);
 	    for (int i = 0; i < admin.getEmpresas().size(); i++){
 	    	cmbBxEmpresa.addItem(admin.getEmpresas().get(i));
 	    }
@@ -108,57 +113,88 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	    	this.preencherTableFuncionarios(null);
 		
 		this.txtBusca = new JTextField();
-		txtBusca.setBounds(115, 41, 600, 20);
+		txtBusca.setBounds(515, 113, 241, 20);
 		contentPane.add(txtBusca);
 		txtBusca.setColumns(50);
 		
 		JLabel lblProcurar = new JLabel("Pesquisar:");
+		lblProcurar.setForeground(new Color(0, 0, 0));
 		lblProcurar.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblProcurar.setBounds(35, 44, 70, 14);
+		lblProcurar.setBounds(435, 116, 70, 14);
 		contentPane.add(lblProcurar);
 		
 		this.tableFuncionarios = new JTable(modeloTable);
 		tableFuncionarios.addMouseListener(this);
 
 	    this.scrllPnFuncionarios = new JScrollPane(tableFuncionarios);
-	    scrllPnFuncionarios.setLocation(30, 104);
-		scrllPnFuncionarios.setSize(1290, 360);
+	    scrllPnFuncionarios.setLocation(376, 190);
+		scrllPnFuncionarios.setSize(811, 360);
 	    contentPane.add(scrllPnFuncionarios);
 	    
 	    btnPesquisar = new JButton("Pesquisar");
-	    btnPesquisar.setBounds(747, 40, 102, 23);
+	    btnPesquisar.setForeground(new Color(0, 0, 0));
+	    btnPesquisar.setBounds(781, 112, 102, 23);
 	    btnPesquisar.addActionListener(this);
 	    contentPane.add(btnPesquisar);
 	    
-	    btnCadastrarFuncionario = new JButton("Cadastrar Funcionario");
-	    btnCadastrarFuncionario.setBounds(220, 527, 170, 23);
-	    btnCadastrarFuncionario.addActionListener(this);
-	    contentPane.add(btnCadastrarFuncionario);
-	    
 	    btnMostrarTodos = new JButton("Mostrar Todos");
-	    btnMostrarTodos.setBounds(874, 40, 118, 23);
+	    btnMostrarTodos.setForeground(new Color(0, 0, 0));
+	    btnMostrarTodos.setBounds(895, 112, 118, 23);
 	    btnMostrarTodos.addActionListener(this);
 	    contentPane.add(btnMostrarTodos);
 	    
+	    lblEmpresa = new JLabel("Empresa:");
+	    lblEmpresa.setForeground(new Color(0, 0, 0));
+	    lblEmpresa.setHorizontalAlignment(SwingConstants.RIGHT);
+	    lblEmpresa.setBounds(434, 147, 65, 14);
+	    contentPane.add(lblEmpresa);
+	    
+	    JPanel panel = new JPanel();
+	    panel.setBackground(new Color(105, 105, 105));
+	    panel.setBounds(0, 0, 241, 561);
+	    contentPane.add(panel);
+	    panel.setLayout(null);
+	    
 	    btnCadastrarEmpresa = new JButton("Cadastrar Empresa");
-	    btnCadastrarEmpresa.setBounds(400, 527, 170, 23);
-	    contentPane.add(btnCadastrarEmpresa);
-	    btnCadastrarEmpresa.addActionListener(this );
+	    btnCadastrarEmpresa.setForeground(new Color(0, 0, 0));
+	    btnCadastrarEmpresa.setBounds(28, 306, 180, 39);
+	    panel.add(btnCadastrarEmpresa);
 	    
 	    btnExcluirFuncionrio = new JButton("Excluir Funcion\u00E1rio");
-	    btnExcluirFuncionrio.setBounds(580, 527, 151, 23);
-	    btnExcluirFuncionrio.addActionListener(this);
-	    contentPane.add(btnExcluirFuncionrio);
+	    btnExcluirFuncionrio.setForeground(new Color(0, 0, 0));
+	    btnExcluirFuncionrio.setBounds(28, 356, 180, 39);
+	    panel.add(btnExcluirFuncionrio);
+	    
+	    btnCadastrarFuncionario = new JButton("Cadastrar Funcionario");
+	    btnCadastrarFuncionario.setForeground(new Color(0, 0, 0));
+	    btnCadastrarFuncionario.setBounds(28, 256, 180, 39);
+	    panel.add(btnCadastrarFuncionario);
 	    
 	    btnCadastrarAdministrador = new JButton("Cadastrar Administrador");
-	    btnCadastrarAdministrador.setBounds(30, 527, 180, 23);
-	    btnCadastrarAdministrador.addActionListener(this);
-	    contentPane.add(btnCadastrarAdministrador);
+	    btnCadastrarAdministrador.setForeground(new Color(0, 0, 0));
+	    btnCadastrarAdministrador.setBounds(28, 206, 180, 39);
+	    panel.add(btnCadastrarAdministrador);
 	    
-	    lblEmpresa = new JLabel("Empresa:");
-	    lblEmpresa.setHorizontalAlignment(SwingConstants.RIGHT);
-	    lblEmpresa.setBounds(40, 75, 65, 14);
-	    contentPane.add(lblEmpresa);
+	    JLabel lblInponto = new JLabel("inPonto");
+	    lblInponto.setFont(new Font("Tw Cen MT Condensed", Font.PLAIN, 29));
+	    lblInponto.setForeground(new Color(143, 188, 143));
+	    lblInponto.setBounds(74, 133, 98, 22);
+	    panel.add(lblInponto);
+	    
+	    lblModoAdministrador = new JLabel("Modo Administrador");
+	    lblModoAdministrador.setForeground(new Color(169, 169, 169));
+	    lblModoAdministrador.setBounds(53, 451, 129, 14);
+	    panel.add(lblModoAdministrador);
+	    
+	    lblBuscarFuncionrio = new JLabel("BUSCAR FUNCION\u00C1RIO");
+	    lblBuscarFuncionrio.setForeground(new Color(0,0,0));
+	    lblBuscarFuncionrio.setFont(new Font("Tahoma", Font.BOLD, 16));
+	    lblBuscarFuncionrio.setBounds(645, 44, 200, 20);
+	    contentPane.add(lblBuscarFuncionrio);
+	    btnCadastrarAdministrador.addActionListener(this);
+	    btnCadastrarFuncionario.addActionListener(this);
+	    btnExcluirFuncionrio.addActionListener(this);
+	    btnCadastrarEmpresa.addActionListener(this );
 		    
 		}
 

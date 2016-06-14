@@ -33,6 +33,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 
 public class FrameAdmin2 extends JFrame implements PropertyChangeListener, ActionListener, MouseListener, WindowListener{
@@ -85,121 +89,12 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 900, 658);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(169, 169, 169));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		fotoPadrao = funcionario.getFotoPadrao();
-		lblFoto = new JLabel(fotoPadrao);
-		lblFoto.setLocation(551, 9);
-		lblFoto.setSize(323, 277);
-		contentPane.add(lblFoto);
-		
-		lblTotalGreen = new JLabel();
-		lblTotalGreen.setBounds(138, 383, 46, 14);
-		contentPane.add(lblTotalGreen);
-		
-		lblTotalYellow = new JLabel();
-		lblTotalYellow.setBounds(138, 408, 46, 14);
-		contentPane.add(lblTotalYellow);
-		
-		lblTotalRed = new JLabel();
-		lblTotalRed.setBounds(138, 433, 46, 14);
-		contentPane.add(lblTotalRed);
-		
-		
-		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(606, 308, 46, 14);
-		contentPane.add(lblNome);
-		
-		JLabel lblNomeFuncionario = new JLabel(funcionario.getNome());
-		lblNomeFuncionario.setBounds(679, 308, 165, 14);
-		contentPane.add(lblNomeFuncionario);
-		
-		JLabel lblCpf = new JLabel("Cpf:");
-		lblCpf.setBounds(616, 333, 46, 14);
-		contentPane.add(lblCpf);
-		
-		JLabel lblCpfFuncionario = new JLabel(funcionario.getCpf());
-		lblCpfFuncionario.setBounds(679, 333, 165, 14);
-		contentPane.add(lblCpfFuncionario);
-		
-		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(606, 358, 46, 14);
-		contentPane.add(lblEmail);
-		
-		JLabel lblEmailFuncionario = new JLabel(funcionario.getEmail());
-		lblEmailFuncionario.setBounds(679, 358, 165, 14);
-		contentPane.add(lblEmailFuncionario);
-		
-		JLabel lblTelefone = new JLabel("Telefone:");
-		lblTelefone.setBounds(589, 383, 63, 14);
-		contentPane.add(lblTelefone);
-		
-		JLabel lblTelefoneFuncionario = new JLabel(funcionario.getTelefone());
-		lblTelefoneFuncionario.setBounds(679, 383, 165, 14);
-		contentPane.add(lblTelefoneFuncionario);
-		
-		JLabel lblEmpresa = new JLabel("Empresa:");
-		lblEmpresa.setBounds(589, 408, 63, 14);
-		contentPane.add(lblEmpresa);
-		
-		JLabel lblEmpresaFuncionario = new JLabel(funcionario.getEmpresa().getNomeEmpresa());
-		lblEmpresaFuncionario.setBounds(679, 408, 165, 14);
-		contentPane.add(lblEmpresaFuncionario);
-		
-		JLabel lblCargo = new JLabel("Cargo:");
-		lblCargo.setBounds(606, 433, 46, 14);
-		contentPane.add(lblCargo);
-		
-		JLabel lblCargoFuncionario = new JLabel(funcionario.getCargo());
-		lblCargoFuncionario.setBounds(679, 433, 165, 14);
-		contentPane.add(lblCargoFuncionario);
-		
-		JLabel lblEscala = new JLabel("Escala:");
-		lblEscala.setBounds(606, 458, 46, 14);
-		contentPane.add(lblEscala);
-		
-		JLabel lblEscalaFuncionario = new JLabel(funcionario.getEscala());
-		lblEscalaFuncionario.setBounds(679, 458, 165, 14);
-		contentPane.add(lblEscalaFuncionario);
-		
-		JLabel lblHorarioChegada = new JLabel("Hor\u00E1rio Chegada:");
-		lblHorarioChegada.setBounds(551, 483, 102, 14);
-		contentPane.add(lblHorarioChegada);
-		
-		JLabel lblHorarioChegadaFuncionario = new JLabel(funcionario.getChegada().toString());
-		lblHorarioChegadaFuncionario.setBounds(679, 483, 165, 14);
-		contentPane.add(lblHorarioChegadaFuncionario);
-		
-		JLabel lblHorarioSaida = new JLabel("Hor\u00E1rio Sa\u00EDda:");
-		lblHorarioSaida.setBounds(567, 508, 102, 14);
-		contentPane.add(lblHorarioSaida);
-		
-		JLabel lblHorarioSaidaFuncionario = new JLabel(funcionario.getSaida().toString());
-		lblHorarioSaidaFuncionario.setBounds(679, 508, 165, 14);
-		contentPane.add(lblHorarioSaidaFuncionario);
-		
-		JLabel lblIntervaloSaida = new JLabel("Intervalo Sa\u00EDda:");
-		lblIntervaloSaida.setBounds(567, 533, 102, 14);
-		contentPane.add(lblIntervaloSaida);
-		
-		JLabel lblIntervaloSaidaFuncionario = new JLabel(funcionario.getIntervalo_out().toString());
-		lblIntervaloSaidaFuncionario.setBounds(679, 533, 165, 14);
-		contentPane.add(lblIntervaloSaidaFuncionario);
-		
-		JLabel lblIntervaloVolta = new JLabel("Intervalo Volta:");
-		lblIntervaloVolta.setBounds(567, 558, 85, 14);
-		contentPane.add(lblIntervaloVolta);
-		
-		JLabel lblIntervaloVoltaFuncionario = new JLabel(funcionario.getIntervalo_in().toString());
-		lblIntervaloVoltaFuncionario.setBounds(679, 558, 165, 14);
-		contentPane.add(lblIntervaloVoltaFuncionario);
-		
-		btnIniciarFerias = new JButton("Iniciar Férias ou Licença");
-		btnIniciarFerias.setBounds(563, 585, 177, 23);
-		btnIniciarFerias.addActionListener(this);
-		contentPane.add(btnIniciarFerias);
 		
 		txtGreen = new JTextField();
 		txtGreen.setEditable(false);
@@ -234,28 +129,13 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		contentPane.add(txtBlue);
 		
 		JLabel lblLegenda = new JLabel("Legenda: ");
+		lblLegenda.setForeground(new Color(255, 255, 255));
 		lblLegenda.setToolTipText("Passe o mouse sobre as cores");
-		lblLegenda.setBounds(350, 364, 63, 14);
+		lblLegenda.setBounds(368, 364, 63, 14);
 		contentPane.add(lblLegenda);
 		
-		JLabel lblTotalSemAtrasos = new JLabel("Total Sem Atrasos: ");
-		lblTotalSemAtrasos.setBounds(10, 383, 118, 14);
-		contentPane.add(lblTotalSemAtrasos);
-		
-		JLabel lblTotalComAtrasos = new JLabel("Total Com Atrasos: ");
-		lblTotalComAtrasos.setBounds(10, 408, 118, 14);
-		contentPane.add(lblTotalComAtrasos);
-		
-		JLabel lblTotalFaltas = new JLabel("Total Faltas: ");
-		lblTotalFaltas.setBounds(10, 433, 118, 14);
-		contentPane.add(lblTotalFaltas);
-		
-		btnEditar = new JButton("Editar");
-		btnEditar.setBounds(755, 583, 89, 23);
-		btnEditar.addActionListener(this);
-		contentPane.add(btnEditar);
-		
 		jcalendar = new JCalendar();
+		jcalendar.getDayChooser().getDayPanel().setBackground(new Color(211, 211, 211));
 		jcalendar.getDayChooser().setAutoscrolls(true);
 		jcalendar.setBounds(10, 11, 500, 350);
 		Component[] componentesDias = jcalendar.getDayChooser().getDayPanel().getComponents();
@@ -265,6 +145,198 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		jcalendar.getMonthChooser().addPropertyChangeListener("month",this);
 		jcalendar.getYearChooser().addPropertyChangeListener("year",this);
 		contentPane.add(jcalendar);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(211, 211, 211));
+		panel.setBounds(538, 39, 325, 524);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		
+		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setForeground(new Color(128, 128, 128));
+		lblNome.setBounds(27, 247, 46, 14);
+		panel.add(lblNome);
+		
+		JLabel lblCpf = new JLabel("Cpf:");
+		lblCpf.setForeground(new Color(128, 128, 128));
+		lblCpf.setBounds(27, 266, 46, 14);
+		panel.add(lblCpf);
+		
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setForeground(new Color(128, 128, 128));
+		lblEmail.setBounds(27, 283, 46, 22);
+		panel.add(lblEmail);
+		
+		JLabel lblTelefone = new JLabel("Telefone:");
+		lblTelefone.setForeground(new Color(128, 128, 128));
+		lblTelefone.setBounds(27, 307, 63, 14);
+		panel.add(lblTelefone);
+		
+		JLabel lblEmpresa = new JLabel("Empresa:");
+		lblEmpresa.setForeground(new Color(128, 128, 128));
+		lblEmpresa.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblEmpresa.setBounds(27, 324, 63, 22);
+		panel.add(lblEmpresa);
+		
+		JLabel lblCargo = new JLabel("Cargo:");
+		lblCargo.setForeground(new Color(128, 128, 128));
+		lblCargo.setBounds(27, 350, 46, 14);
+		panel.add(lblCargo);
+		
+		JLabel lblEscala = new JLabel("Escala:");
+		lblEscala.setForeground(new Color(128, 128, 128));
+		lblEscala.setBounds(27, 367, 46, 22);
+		panel.add(lblEscala);
+		
+		JLabel lblHorarioChegada = new JLabel("Hor\u00E1rio Chegada:");
+		lblHorarioChegada.setForeground(new Color(128, 128, 128));
+		lblHorarioChegada.setBounds(27, 392, 102, 14);
+		panel.add(lblHorarioChegada);
+		
+		JLabel lblHorarioSaida = new JLabel("Hor\u00E1rio Sa\u00EDda:");
+		lblHorarioSaida.setForeground(new Color(128, 128, 128));
+		lblHorarioSaida.setBounds(27, 412, 102, 14);
+		panel.add(lblHorarioSaida);
+		
+		JLabel lblIntervaloSaida = new JLabel("Intervalo Sa\u00EDda:");
+		lblIntervaloSaida.setForeground(new Color(128, 128, 128));
+		lblIntervaloSaida.setBounds(27, 434, 102, 14);
+		panel.add(lblIntervaloSaida);
+		
+		JLabel lblIntervaloVolta = new JLabel("Intervalo Volta:");
+		lblIntervaloVolta.setForeground(new Color(128, 128, 128));
+		lblIntervaloVolta.setBounds(27, 459, 85, 14);
+		panel.add(lblIntervaloVolta);
+		
+		JLabel lblNomeFuncionario = new JLabel(funcionario.getNome());
+		lblNomeFuncionario.setBounds(139, 247, 165, 14);
+		panel.add(lblNomeFuncionario);
+		
+		JLabel lblCpfFuncionario = new JLabel(funcionario.getCpf());
+		lblCpfFuncionario.setBounds(139, 266, 165, 14);
+		panel.add(lblCpfFuncionario);
+		
+		JLabel lblEmailFuncionario = new JLabel(funcionario.getEmail());
+		lblEmailFuncionario.setBounds(139, 287, 165, 14);
+		panel.add(lblEmailFuncionario);
+		
+		JLabel lblTelefoneFuncionario = new JLabel(funcionario.getTelefone());
+		lblTelefoneFuncionario.setBounds(139, 307, 165, 14);
+		panel.add(lblTelefoneFuncionario);
+		
+		JLabel lblEmpresaFuncionario = new JLabel(funcionario.getEmpresa().getNomeEmpresa());
+		lblEmpresaFuncionario.setBounds(139, 328, 165, 14);
+		panel.add(lblEmpresaFuncionario);
+		
+		JLabel lblCargoFuncionario = new JLabel(funcionario.getCargo());
+		lblCargoFuncionario.setBounds(139, 350, 165, 14);
+		panel.add(lblCargoFuncionario);
+		
+		JLabel lblEscalaFuncionario = new JLabel(funcionario.getEscala());
+		lblEscalaFuncionario.setBounds(139, 371, 165, 14);
+		panel.add(lblEscalaFuncionario);
+		
+		JLabel lblHorarioChegadaFuncionario = new JLabel(funcionario.getChegada().toString());
+		lblHorarioChegadaFuncionario.setBounds(139, 392, 165, 14);
+		panel.add(lblHorarioChegadaFuncionario);
+		
+		JLabel lblHorarioSaidaFuncionario = new JLabel(funcionario.getSaida().toString());
+		lblHorarioSaidaFuncionario.setBounds(139, 412, 165, 14);
+		panel.add(lblHorarioSaidaFuncionario);
+		
+		JLabel lblIntervaloSaidaFuncionario = new JLabel(funcionario.getIntervalo_out().toString());
+		lblIntervaloSaidaFuncionario.setBounds(139, 434, 165, 14);
+		panel.add(lblIntervaloSaidaFuncionario);
+		
+		JLabel lblIntervaloVoltaFuncionario = new JLabel(funcionario.getIntervalo_in().toString());
+		lblIntervaloVoltaFuncionario.setBounds(139, 459, 165, 14);
+		panel.add(lblIntervaloVoltaFuncionario);
+		lblFoto = new JLabel(fotoPadrao);
+		lblFoto.setBounds(53, 11, 232, 208);
+		panel.add(lblFoto);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(245, 245, 245));
+		panel_1.setBounds(538, 11, 325, 28);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblInformaes = new JLabel("INFORMA\u00C7\u00D5ES");
+		lblInformaes.setForeground(new Color(0, 0, 0));
+		lblInformaes.setBounds(133, 0, 107, 25);
+		panel_1.add(lblInformaes);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setForeground(new Color(169, 169, 169));
+		panel_2.setBackground(new Color(169, 169, 169));
+		panel_2.setBounds(53, 432, 433, 130);
+		contentPane.add(panel_2);
+		panel_2.setLayout(null);
+		
+		JSeparator separator = new JSeparator();
+		separator.setOrientation(SwingConstants.VERTICAL);
+		separator.setBounds(225, 121, -39, -108);
+		panel_2.add(separator);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setForeground(new Color(0, 0, 0));
+		separator_1.setOrientation(SwingConstants.VERTICAL);
+		separator_1.setBounds(225, 101, -21, -56);
+		panel_2.add(separator_1);
+		
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setOrientation(SwingConstants.VERTICAL);
+		separator_2.setForeground(new Color(192, 192, 192));
+		separator_2.setBounds(205, 11, 10, 108);
+		panel_2.add(separator_2);
+		
+		btnIniciarFerias = new JButton("Iniciar Férias ou Licença");
+		btnIniciarFerias.setForeground(new Color(0, 0, 0));
+		btnIniciarFerias.setBounds(230, 22, 185, 23);
+		btnIniciarFerias.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		panel_2.add(btnIniciarFerias);
+		
+		btnEditar = new JButton("Editar");
+		btnEditar.setForeground(new Color(0, 0, 0));
+		btnEditar.setBounds(230, 56, 185, 23);
+		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		panel_2.add(btnEditar);
+		
+		JLabel lblTotalFaltas = new JLabel("Total Faltas: ");
+		lblTotalFaltas.setForeground(new Color(255, 0, 0));
+		lblTotalFaltas.setBounds(20, 42, 96, 18);
+		panel_2.add(lblTotalFaltas);
+		
+		JLabel lblTotalComAtrasos = new JLabel("Total Com Atrasos: ");
+		lblTotalComAtrasos.setForeground(new Color(255, 255, 0));
+		lblTotalComAtrasos.setBounds(20, 80, 119, 14);
+		panel_2.add(lblTotalComAtrasos);
+		
+		JLabel lblTotalSemAtrasos = new JLabel("Total Sem Atrasos: ");
+		lblTotalSemAtrasos.setForeground(new Color(0, 128, 0));
+		lblTotalSemAtrasos.setBounds(20, 57, 119, 23);
+		panel_2.add(lblTotalSemAtrasos);
+		
+		lblTotalRed = new JLabel();
+		lblTotalRed.setBounds(101, 44, 25, 14);
+		panel_2.add(lblTotalRed);
+		
+		lblTotalYellow = new JLabel();
+		lblTotalYellow.setBounds(135, 80, 46, 14);
+		panel_2.add(lblTotalYellow);
+		
+		lblTotalGreen = new JLabel();
+		lblTotalGreen.setBounds(135, 58, 46, 18);
+		panel_2.add(lblTotalGreen);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setForeground(new Color(0, 0, 0));
+		btnCancelar.setBounds(230, 90, 187, 23);
+		panel_2.add(btnCancelar);
+		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnEditar.addActionListener(this);
+		btnIniciarFerias.addActionListener(this);
 		this.ColorirCalendario(jcalendar.getMonthChooser().getMonth(),jcalendar.getYearChooser().getYear());
 		}
 	

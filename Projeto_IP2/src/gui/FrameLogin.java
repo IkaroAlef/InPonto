@@ -25,6 +25,8 @@ import javax.swing.SwingConstants;
 
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.EpontoFachada;
+import java.awt.Font;
+import java.awt.Color;
 
 public class FrameLogin extends JFrame implements ActionListener, KeyListener{
 	
@@ -32,6 +34,8 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener{
 	private JButton btnOk;
 	private JTextField txtLogin;
 	private JPasswordField passSenha;
+	private JLabel lblInponto;
+	private JButton btnNewButton;
 	
 	/**
 	 * Launch the application.
@@ -55,33 +59,36 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener{
 	public FrameLogin() {
 		
 		setResizable(false);
-		setTitle("Login Eponto");
+		setTitle("Login inPonto");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 250, 134);
+		setBounds(100, 100, 379, 213);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(105, 105, 105));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblLogin = new JLabel("CPF:");
+		lblLogin.setForeground(new Color(255, 255, 255));
 		lblLogin.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblLogin.setBounds(20, 11, 33, 14);
+		lblLogin.setBounds(71, 64, 33, 14);
 		contentPane.add(lblLogin);
 		
 		txtLogin = new JTextField();
 		txtLogin.setHorizontalAlignment(SwingConstants.LEFT);
-		txtLogin.setBounds(76, 8, 150, 20);
+		txtLogin.setBounds(114, 61, 166, 20);
 		contentPane.add(txtLogin);
 		txtLogin.setColumns(10);
 		
 		JLabel lblSenha = new JLabel("Senha:");
+		lblSenha.setForeground(new Color(255, 255, 255));
 		lblSenha.setHorizontalAlignment(SwingConstants.LEFT);
-		lblSenha.setBounds(20, 42, 56, 14);
+		lblSenha.setBounds(72, 95, 64, 14);
 		contentPane.add(lblSenha);
 		
 		passSenha = new JPasswordField();
 		passSenha.setHorizontalAlignment(SwingConstants.LEFT);
-		passSenha.setBounds(76, 39, 150, 20);
+		passSenha.setBounds(114, 92, 166, 20);
 		passSenha.addKeyListener(this);
 		contentPane.add(passSenha);
 		
@@ -89,8 +96,22 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener{
 		this.passSenha.setText("");
 		
 		btnOk = new JButton("OK");
-		btnOk.setBounds(76, 71, 89, 23);
+		btnOk.setForeground(new Color(0, 0, 0));
+		btnOk.setBounds(114, 133, 78, 23);
 		contentPane.add(btnOk);
+		btnOk.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		
+		lblInponto = new JLabel("inPonto");
+		lblInponto.setForeground(new Color(143, 188, 143));
+		lblInponto.setFont(new Font("Tw Cen MT Condensed", Font.PLAIN, 28));
+		lblInponto.setBounds(136, 11, 107, 39);
+		contentPane.add(lblInponto);
+		
+		btnNewButton = new JButton("Cancela");
+		btnNewButton.setForeground(new Color(0, 0, 0));
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnNewButton.setBounds(202, 133, 78, 23);
+		contentPane.add(btnNewButton);
 		btnOk.addActionListener(this);
 		btnOk.addKeyListener(this);
 
