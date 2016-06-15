@@ -34,6 +34,8 @@ import negócio.entity_beans.Empresa;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.exceptionsBeans.CNPJInvalidoException;
 import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
+import qrCode.GerarQRCode;
+
 import java.awt.Color;
 import java.awt.Font;
 
@@ -344,6 +346,8 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 				funcionario.setFotoPadrao(new ImageIcon(wCam.getImage()));
 
 				EpontoFachada.getInstance().adicionarPessoa(funcionario);
+				
+				GerarQRCode.gerar(funcionario);
 				JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso" );
 				this.limparCampos();
 				
@@ -354,6 +358,8 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 				txtHoraChegada.requestFocus();
 			}catch(NomeInvalidoException e1){
 				JOptionPane.showMessageDialog(null, e1.getMessage() );
+			}catch (Exception e1) {
+				e1.printStackTrace();
 			}
 		}
 	}

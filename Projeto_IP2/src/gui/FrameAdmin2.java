@@ -27,6 +27,7 @@ import negócio.EpontoFachada;
 import negócio.entity_beans.Dispensa;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
+import qrCode.GerarQRCode;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -59,6 +60,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 	private JLabel lblTotalGreen;
 	private JLabel lblTotalYellow;
 	private JLabel lblTotalRed;
+	private JButton btnQrCode;
 	
 	
 	/**
@@ -330,11 +332,13 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		lblTotalGreen.setBounds(135, 58, 46, 18);
 		panel_2.add(lblTotalGreen);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setForeground(new Color(0, 0, 0));
-		btnCancelar.setBounds(230, 90, 187, 23);
-		panel_2.add(btnCancelar);
-		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnQrCode = new JButton("Gerar QRCode");
+		btnQrCode.setForeground(new Color(0, 0, 0));
+		btnQrCode.setBounds(230, 90, 187, 23);
+		panel_2.add(btnQrCode);
+		btnQrCode.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnQrCode.addActionListener(this);
+		
 		btnEditar.addActionListener(this);
 		btnIniciarFerias.addActionListener(this);
 		this.ColorirCalendario(jcalendar.getMonthChooser().getMonth(),jcalendar.getYearChooser().getYear());
@@ -488,6 +492,15 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		}
 		else if(arg0.getSource().equals(btnEditar)){
 			ControladorDeTelas.getInstance().frameEditarFuncionario(funcionario);
+		}
+		else if(arg0.getSource().equals(btnQrCode)){
+			try {
+				GerarQRCode.gerar(funcionario);
+				JOptionPane.showMessageDialog(null, "QRCode gerado com sucesso na sua pasta de Imagens.");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}
