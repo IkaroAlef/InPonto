@@ -3,12 +3,13 @@ package gui;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
+import java.util.StringTokenizer;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 import javax.swing.JFrame;
-import javax.swing.JTextArea;
+import javax.swing.JOptionPane;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
@@ -21,6 +22,10 @@ import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 
+import dados.exceptionsDados.FuncionarioNaoEncontradoException;
+import negócio.EpontoFachada;
+import qrCode.GerarQRCode;
+
 
 public class WebcamQRCodeExample extends JFrame implements Runnable, ThreadFactory {
 
@@ -30,39 +35,39 @@ public class WebcamQRCodeExample extends JFrame implements Runnable, ThreadFacto
 
 	private Webcam webcam = null;
 	private WebcamPanel panel = null;
-	private JTextArea textarea = null;
 	
-	private Pessoa a;
+	
+	private String a;
 
 	public WebcamQRCodeExample() {
 		super();
 
-		setLayout(new FlowLayout());
-		setTitle("Read QR / Bar Code With Webcam");
+		getContentPane().setLayout(new FlowLayout());
+		setTitle("Login por QRCode");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		Dimension size = WebcamResolution.QVGA.getSize();
 
 //		a = null;
-		
 		webcam = Webcam.getWebcams().get(0);
 		webcam.setViewSize(size);
 
 		panel = new WebcamPanel(webcam);
 		panel.setPreferredSize(size);
 
-		textarea = new JTextArea();
-		textarea.setEditable(false);
-		textarea.setPreferredSize(size);
-
-		add(panel);
-		add(textarea);
+		getContentPane().add(panel);
 
 		pack();
 		setVisible(true);
 
 		executor.execute(this);
+		
 	}
+	
+	public void closeWeb(){
+		this.webcam.close();
+	}
+	
 
 	@Override
 	public void run() {
@@ -95,15 +100,27 @@ public class WebcamQRCodeExample extends JFrame implements Runnable, ThreadFacto
 			}
 
 			if (result != null) {
-				textarea.setText(result.getText());
-				Pessoa aux;
-				aux = Pessoa.descriptografar(result.getText());
+				String aux;
+				aux = GerarQRCode.descriptografar(result.getText());
 				this.setPessoa(aux);
-//				if (!result.getText().equals("erro!")){
-//					this.setResultado(result.getText());
-//					
-//					break;
-//				}
+				StringTokenizer st = new StringTokenizer(this.getPessoa(), "+", false);
+				String cpf = null;
+				char[] senha = null;
+				while(st.hasMoreTokens()){
+					cpf = st.nextToken();
+					senha = st.nextToken().toCharArray();
+				}
+				try {
+					if(EpontoFachada.getInstance().validarLogin(cpf, senha)){
+						webcam.close();
+						JOptionPane.showMessageDialog(null, "Login efetuado com sucesso.");
+						ControladorDeTelas.getInstance().loginProximaTela(EpontoFachada.getInstance().getPessoaCpf(cpf));
+						this.setVisible(false);
+					}
+				} catch (FuncionarioNaoEncontradoException e) {
+					JOptionPane.showMessageDialog(null, "Funcionário não encontrado");
+				}
+				
 			}
 
 		} while (true);
@@ -116,11 +133,11 @@ public class WebcamQRCodeExample extends JFrame implements Runnable, ThreadFacto
 		return t;
 	}
 	
-	public void setPessoa(Pessoa a){
+	public void setPessoa(String a){
 		this.a = a;
 	}
 	
-	public Pessoa getPessoa(){
+	public String getPessoa(){
 		return this.a;
 	}
 

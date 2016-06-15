@@ -17,6 +17,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -36,6 +37,7 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener{
 	private JPasswordField passSenha;
 	private JLabel lblInponto;
 	private JButton btnNewButton;
+	private static WebcamQRCodeExample frameQR;
 	
 	/**
 	 * Launch the application.
@@ -46,6 +48,9 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener{
 				try {
 					FrameLogin frame = new FrameLogin();
 					frame.setVisible(true);
+					frameQR = new WebcamQRCodeExample();
+					frameQR.setVisible(true);
+						
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -95,7 +100,7 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener{
 		this.txtLogin.setText("");
 		this.passSenha.setText("");
 		
-		btnOk = new JButton("OK");
+		btnOk = new JButton("Entrar");
 		btnOk.setForeground(new Color(0, 0, 0));
 		btnOk.setBounds(114, 133, 78, 23);
 		contentPane.add(btnOk);
@@ -122,6 +127,7 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener{
 			if (EpontoFachada.getInstance().validarLogin(txtLogin.getText(), passSenha.getPassword() ) ){
 				JOptionPane.showMessageDialog(null, "Login efetuado com sucesso.");
 				this.setVisible(false);
+				frameQR.closeWeb();
 				ControladorDeTelas.getInstance().loginProximaTela(EpontoFachada.getInstance().getPessoaCpf(txtLogin.getText()));
 				txtLogin.setText("");
 				passSenha.setText("");

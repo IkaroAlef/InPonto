@@ -21,6 +21,7 @@ import java.util.List;
 import negócio.EpontoFachada;
 import negócio.entity_beans.Admin;
 import negócio.entity_beans.Empresa;
+import qrCode.GerarQRCode;
 
 import javax.swing.JPasswordField;
 
@@ -41,7 +42,7 @@ public class FrameAdminEditarAdmin extends JFrame implements ActionListener {
 	private JList<Empresa> jListaEmpresas;
 	private DefaultListModel<Empresa> listModel;
 	private Admin admin;
-	private JButton btnNewButton;
+	private JButton btnQrCode;
 	private JLabel lblEditarAdministrador;
 	
 	/**
@@ -152,11 +153,12 @@ public class FrameAdminEditarAdmin extends JFrame implements ActionListener {
 		jListaEmpresas.setToolTipText("N\u00E3o \u00E9 necess\u00E1rio selecionar uma empresa caso n\u00E3o queria alterar.");
 		jListaEmpresas.setBounds(441, 88, 148, 195);
 		
-		btnNewButton = new JButton("Cancelar");
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setBounds(273, 260, 111, 23);
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		contentPane.add(btnNewButton);
+		btnQrCode = new JButton("Gerar QRCode");
+		btnQrCode.setForeground(new Color(0, 0, 0));
+		btnQrCode.setBounds(273, 260, 111, 23);
+		btnQrCode.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnQrCode.addActionListener(this);
+		contentPane.add(btnQrCode);
 		
 		lblEditarAdministrador = new JLabel("EDITAR ADMINISTRADOR");
 		lblEditarAdministrador.setForeground(new Color(255, 255, 255));
@@ -177,6 +179,15 @@ public class FrameAdminEditarAdmin extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(btnLimpar)){
 			this.limparCampos();
+		}
+		else if(e.getSource().equals(btnQrCode)){
+			try {
+				GerarQRCode.gerar(admin);
+				JOptionPane.showMessageDialog(null, "QRCode gerado com sucesso na sua pasta de Imagens.");
+			} catch (Exception z) {
+				// TODO Auto-generated catch block
+				z.printStackTrace();
+			}
 		}
 		else if(e.getSource().equals(btnSalvar)){
 			if(jListaEmpresas.getSelectedIndices().length==0){

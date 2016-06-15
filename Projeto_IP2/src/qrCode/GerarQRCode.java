@@ -59,7 +59,7 @@ public class GerarQRCode {
 	}
 	
 	//Faz a descriptografia da string passada como parametro, nela contem o cpf e a senha do funcionario
-/*	public static String descriptografar(String info){
+	public static String descriptografar(String info){
 			String crip = info;
 			char[] nova = new char[crip.length()];
 			int inversao;
@@ -77,13 +77,14 @@ public class GerarQRCode {
 				//System.out.println(fim);
 			}
 			
-			StringTokenizer st = new StringTokenizer(fim, "+", false);
-			String cpf;
-			char senha[];
-			
-			cpf = st.nextToken();
-			senha = st.nextToken().toCharArray();
+//			StringTokenizer st = new StringTokenizer(fim, "+", false);
+//			String cpf;
+//			char senha[];
+//			while(st.hasMoreTokens()){
+//				cpf = st.nextToken();
+//				senha = st.nextToken().toCharArray();
+//			}
 			return fim;
 			
-		}*/
+		}
 }

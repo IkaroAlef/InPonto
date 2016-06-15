@@ -383,15 +383,14 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 						*/
 						
 						if (mes == dataInicio.getMonthValue()){
-							if (dataInicio.getMonthValue() < dataInicio.plusDays(qtdDias).getMonthValue()){
+							if (dataInicio.getMonthValue() > dataInicio.plusDays(qtdDias).getMonthValue()){
 								for(int i = inicio ; i < fim ; i++)
 									component[i].setBackground(Color.blue);
 							}else
 								for(int i = inicio ; i < 49 ; i++)
 									component[i].setBackground(Color.blue);
 							
-						}
-						else if	(mes == dataInicio.plusDays(qtdDias).getMonthValue()){
+						}else if (mes == dataInicio.plusDays(qtdDias).getMonthValue()){
 							for(int i = 7 ; i < fim ; i++)
 								component[i].setBackground(Color.blue);
 						}
