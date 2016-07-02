@@ -60,8 +60,8 @@ public class EpontoFachada {
 		pessoas.adicionarPessoa(pessoa);
 	}
 
-	public boolean validarLogin(String nome, char[] senhaDigitada) throws FuncionarioNaoEncontradoException {
-		return pessoas.validarLogin(nome, senhaDigitada);
+	public boolean validarLogin(String cpf, char[] senhaDigitada) throws FuncionarioNaoEncontradoException {
+		return pessoas.validarLogin(cpf, senhaDigitada);
 	}
 
 	public int getSizePessoas() {

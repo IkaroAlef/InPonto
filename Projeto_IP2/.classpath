@@ -17,5 +17,6 @@
 	<classpathentry kind="lib" path="jars Externos/QRCode/zxing-core-1.6.jar"/>
 	<classpathentry kind="lib" path="jars Externos/QRCode/barcode.jar"/>
 	<classpathentry kind="lib" path="jars Externos/QRCode/javase-3.2.1.jar"/>
+	<classpathentry kind="lib" path="jars Externos/JDBC/mysql-connector-java-6.0.2-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

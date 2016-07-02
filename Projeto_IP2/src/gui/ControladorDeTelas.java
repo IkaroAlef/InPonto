@@ -1,11 +1,17 @@
 package gui;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import negócio.entity_beans.Admin;
 
 import javax.swing.JFrame;
 
+import com.mysql.cj.api.jdbc.Statement;
+
+import conexaoBD.FabricaDeConexao;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.Pessoa;
 import negócio.entity_beans.RegPonto;
@@ -33,13 +39,58 @@ public class ControladorDeTelas extends JFrame {
 		this.frameLogin.setVisible(true);
 	}
 	
-	public void loginProximaTela (Pessoa pessoa){
-		if (pessoa instanceof Funcionario)
-			frameFuncionario((Funcionario) pessoa);
-		else 
-			new FrameAdmin1((Admin) pessoa).setVisible(true);	
+	public void offLogin(){
+		this.frameLogin.setVisible(false);
 	}
 	
+	public void loginProximaTela (Pessoa pessoa){
+		boolean logou = false;
+		String cpf = pessoa.getCpf();
+		String dbCPF;
+		try {
+			FabricaDeConexao bd = new FabricaDeConexao();
+            Connection con = bd.getConexao("login", "bancodedados");
+            Statement stmt = (Statement) con.createStatement();
+            ResultSet rsFunc = stmt.executeQuery("SELECT CPF FROM FUNCIONARIO; ");
+            ResultSet rsGerente = stmt.executeQuery("SELECT CPF FROM GERENTE; ");
+            ResultSet rsCoord = stmt.executeQuery("SELECT CPF FROM COORDENADOR; ");
+            while (logou==false && rsFunc.next()){
+            	dbCPF = rsFunc.getString("CPF");
+            	if (dbCPF.equals(cpf)){
+            		logou = true;
+            		frameFuncionario((Funcionario) pessoa);
+            		break;
+            	}
+            }
+            while (logou==false && rsGerente.next()){
+            	while (rsGerente.next()){
+                	dbCPF = rsFunc.getString("CPF");
+                	if (dbCPF.equals(cpf)){
+                		logou = true;
+                		frameFuncionario((Funcionario) pessoa);
+                		break;
+                	}
+                }
+            }
+            while (logou==false && rsCoord.next()){
+            	while (rsCoord.next()){
+                	dbCPF = rsFunc.getString("CPF");
+                	if (dbCPF.equals(cpf)){
+                		logou = true;
+                		frameFuncionario((Funcionario) pessoa);
+                		break;
+                	}
+                }
+            }
+            
+//		if (pessoa instanceof Funcionario)
+//			frameFuncionario((Funcionario) pessoa);
+//		else 
+//			new FrameAdmin1((Admin) pessoa).setVisible(true);	
+		}catch (SQLException e){
+			
+		}
+	}
 	public void frameFuncionario(Funcionario funcionario){
 		new FrameFuncionario(funcionario).setVisible(true);
 	}

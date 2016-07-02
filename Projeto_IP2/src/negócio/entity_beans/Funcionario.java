@@ -1,8 +1,8 @@
 //Classe para representar Funcionario
 package negócio.entity_beans;
 
-import java.awt.Image;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.swing.ImageIcon;
@@ -10,7 +10,12 @@ import javax.swing.ImageIcon;
 import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 
 public class Funcionario extends Pessoa implements Serializable {
-	private String telefone;
+	protected String CPF_Coord;
+	protected String CTPS;
+	protected String PIS;
+	protected LocalDate dt_admissao;
+	protected LocalDate dt_demiissao;
+	protected char[] senha;
 	private Empresa empresa;
 	private String cargo;
 	private String escala;

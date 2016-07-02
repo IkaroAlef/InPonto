@@ -8,8 +8,20 @@ import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 public abstract class Pessoa implements Serializable{
 	protected String nome;
 	protected String cpf;
+	protected int matricula;
+	protected String rg;
+	protected String telefone;
 	protected String email;
 	protected char[] senha;
+	protected int cargo;
+	protected int codDept;
+	protected String rua;
+	protected int numero;
+	protected String complemento;
+	protected String bairro;
+	protected String cidade;
+	protected String estado;
+	protected String cep;
 	
 	protected Pessoa(String nome, String cpf, String email, char[] senha) {
 		this.setNome(nome);

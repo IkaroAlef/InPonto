@@ -113,6 +113,7 @@ public class WebcamQRCodeExample extends JFrame implements Runnable, ThreadFacto
 				try {
 					if(EpontoFachada.getInstance().validarLogin(cpf, senha)){
 						webcam.close();
+						ControladorDeTelas.getInstance().offLogin();
 						JOptionPane.showMessageDialog(null, "Login efetuado com sucesso.");
 						ControladorDeTelas.getInstance().loginProximaTela(EpontoFachada.getInstance().getPessoaCpf(cpf));
 						this.setVisible(false);

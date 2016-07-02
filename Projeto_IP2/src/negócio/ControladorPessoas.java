@@ -1,8 +1,15 @@
 package negócio;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.mysql.cj.api.jdbc.Statement;
+
+import conexaoBD.FabricaDeConexao;
 import dados.IRepositorioPessoas;
 import dados.RepPessoas;
 import dados.exceptionsDados.*;
@@ -34,15 +41,33 @@ public class ControladorPessoas {
 	}
 
 	public boolean validarLogin(String dado, char[] senhaDigitada) throws FuncionarioNaoEncontradoException{
-		boolean estaCorreto=true;
-		
-		if(senhaDigitada.length != repositorioPessoas.buscarPessoaCpf(dado).getSenha().length)
-			estaCorreto=false;
-			
-		else
-			estaCorreto=Arrays.equals(senhaDigitada, repositorioPessoas.buscarPessoaCpf(dado).getSenha());
-		
+		boolean estaCorreto=false;
+		String dbCPF, dbSenha;
+		try {
+			FabricaDeConexao bd = new FabricaDeConexao();
+            Connection con = bd.getConexao("login", "bancodedados");
+            Statement stmt = (Statement) con.createStatement();
+            //stmt.executeQuery("SELECT CPF, senha FROM pessoa;");
+            ResultSet rs = stmt.executeQuery("SELECT CPF, senha FROM pessoa;");	//stmt.getResultSet();
+            while(rs.next()){
+                dbCPF = rs.getString("CPF");
+                dbSenha = rs.getString("senha");
+                if(dbCPF.equals(dado) && Arrays.equals(senhaDigitada, dbSenha.toCharArray())){
+                    estaCorreto = true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 		return estaCorreto;
+		
+//		versão antiga com os repositorios em arquivo
+//		if(senhaDigitada.length != repositorioPessoas.buscarPessoaCpf(dado).getSenha().length)
+//			estaCorreto=false;
+//			
+//		else
+//			estaCorreto=Arrays.equals(senhaDigitada, repositorioPessoas.buscarPessoaCpf(dado).getSenha());
+//		
 	}
 	
 	public int tamanhoLista(){
