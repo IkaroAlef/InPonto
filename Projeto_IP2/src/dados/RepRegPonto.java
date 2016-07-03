@@ -13,6 +13,7 @@ import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.EpontoFachada;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
+import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 
 
 public class RepRegPonto implements Serializable,IRepositorioPontos {
@@ -36,7 +37,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 		salvarArquivo();
 	}
 	
-	public ArrayList <RegPonto> getPontosDoFuncionario(String cpf) throws FuncionarioNaoEncontradoException{ //procurar pontos desse CPF
+	public ArrayList <RegPonto> getPontosDoFuncionario(String cpf) throws FuncionarioNaoEncontradoException, NomeInvalidoException{ //procurar pontos desse CPF
 		ArrayList <RegPonto> pontosDoFuncionario = new ArrayList <RegPonto>();
 		Funcionario funcionario = (Funcionario) EpontoFachada.getInstance().getPessoaCpf(cpf);
 		for (int i=0;i<this.repositorio.size();i++){
@@ -47,7 +48,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 		return pontosDoFuncionario;
 	}
 	
-	public ArrayList <RegPonto> getPontosDoFuncionario(String cpf, int mes, int ano) throws FuncionarioNaoEncontradoException{ //procurar pontos desse CPF nesse mes e ano
+	public ArrayList <RegPonto> getPontosDoFuncionario(String cpf, int mes, int ano) throws FuncionarioNaoEncontradoException, NomeInvalidoException{ //procurar pontos desse CPF nesse mes e ano
 		ArrayList <RegPonto> pontosDoFuncionario = new ArrayList <RegPonto>();
 		Funcionario funcionario = (Funcionario) EpontoFachada.getInstance().getPessoaCpf(cpf);
 		for (int i=0;i<this.repositorio.size();i++){
@@ -58,7 +59,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 		return pontosDoFuncionario;
 	}
 	
-	public ArrayList <RegPonto> getPontosDoFuncionario(String cpf,int dia, int mes, int ano) throws FuncionarioNaoEncontradoException{ //procurar pontos desse CPF nesse mes e ano
+	public ArrayList <RegPonto> getPontosDoFuncionario(String cpf,int dia, int mes, int ano) throws FuncionarioNaoEncontradoException, NomeInvalidoException{ //procurar pontos desse CPF nesse mes e ano
 		ArrayList <RegPonto> pontosDoFuncionario = new ArrayList <RegPonto>();
 		Funcionario funcionario = (Funcionario) EpontoFachada.getInstance().getPessoaCpf(cpf);
 		for (int i=0;i<this.repositorio.size();i++){
@@ -70,7 +71,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 	}
 	
 	
-	public int totalChegadaCorreta(String cpf) throws FuncionarioNaoEncontradoException{ //retorna o total de pontos de chegada corretos (Sem atrasos e Sem faltas)
+	public int totalChegadaCorreta(String cpf) throws FuncionarioNaoEncontradoException, NomeInvalidoException{ //retorna o total de pontos de chegada corretos (Sem atrasos e Sem faltas)
 		int cont=0;
 		ArrayList <RegPonto> pontosDoFuncionario = this.getPontosDoFuncionario(cpf);
 		for (int i=0; i < pontosDoFuncionario.size(); i++){
@@ -81,7 +82,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 		return cont;
 	}
 	
-	public int totalSaidaCorreta(String cpf) throws FuncionarioNaoEncontradoException{ //retorna o total de pontos de saida corretos (Sem atrasos e Sem faltas)
+	public int totalSaidaCorreta(String cpf) throws FuncionarioNaoEncontradoException, NomeInvalidoException{ //retorna o total de pontos de saida corretos (Sem atrasos e Sem faltas)
 		int cont=0;
 		ArrayList <RegPonto> pontosDoFuncionario = this.getPontosDoFuncionario(cpf);
 		for (int i=0;i<pontosDoFuncionario.size();i++){
@@ -91,7 +92,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 		return cont;
 	}
 	
-	public int totalIntervalo_InCorreta(String cpf) throws FuncionarioNaoEncontradoException{ //retorna o total de pontos de Volta do Intervalo corretos (Sem atrasos e Sem faltas)
+	public int totalIntervalo_InCorreta(String cpf) throws FuncionarioNaoEncontradoException, NomeInvalidoException{ //retorna o total de pontos de Volta do Intervalo corretos (Sem atrasos e Sem faltas)
 		int cont=0;
 		ArrayList <RegPonto> pontosDoFuncionario = this.getPontosDoFuncionario(cpf);
 		for (int i=0;i<pontosDoFuncionario.size();i++){
@@ -101,7 +102,7 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 		return cont;
 	}
 	
-	public int totalIntervalo_OutCorreta(String cpf) throws FuncionarioNaoEncontradoException{ //retorna o total de pontos de Saída pro Intervalo corretos (Sem atrasos e Sem faltas)
+	public int totalIntervalo_OutCorreta(String cpf) throws FuncionarioNaoEncontradoException, NomeInvalidoException{ //retorna o total de pontos de Saída pro Intervalo corretos (Sem atrasos e Sem faltas)
 		int cont=0;
 		ArrayList <RegPonto> pontosDoFuncionario = this.getPontosDoFuncionario(cpf);
 		for (int i=0;i<pontosDoFuncionario.size();i++){
@@ -111,14 +112,14 @@ public class RepRegPonto implements Serializable,IRepositorioPontos {
 		return cont;
 	}
 	
-	public boolean isDiaCorreto(String cpf, int dia, int mes, int ano) throws FuncionarioNaoEncontradoException{
+	public boolean isDiaCorreto(String cpf, int dia, int mes, int ano) throws FuncionarioNaoEncontradoException, NomeInvalidoException{
 		boolean retorno=false;
 		ArrayList <RegPonto> pontos = getPontosDoFuncionario(cpf, dia, mes, ano);
 		retorno = pontos.get(0).isChegadaCorreta() && pontos.get(1).isIntervalo_OutCorreta() && pontos.get(2).isIntervalo_InCorreta() && pontos.get(3).isSaidaCorreta();
 		return retorno;
 	}
 
-	public boolean isDiaAtrasado(String cpf, int dia, int mes, int ano) throws FuncionarioNaoEncontradoException{
+	public boolean isDiaAtrasado(String cpf, int dia, int mes, int ano) throws FuncionarioNaoEncontradoException, NomeInvalidoException{
 		boolean retorno=false;
 			retorno = !isDiaCorreto(cpf, dia, mes, ano);
 		return retorno;

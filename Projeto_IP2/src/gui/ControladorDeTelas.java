@@ -50,10 +50,10 @@ public class ControladorDeTelas extends JFrame {
 		try {
 			FabricaDeConexao bd = new FabricaDeConexao();
             Connection con = bd.getConexao("login", "bancodedados");
-            Statement stmt = (Statement) con.createStatement();
-            ResultSet rsFunc = stmt.executeQuery("SELECT CPF FROM FUNCIONARIO; ");
-            ResultSet rsGerente = stmt.executeQuery("SELECT CPF FROM GERENTE; ");
-            ResultSet rsCoord = stmt.executeQuery("SELECT CPF FROM COORDENADOR; ");
+//            Statement stmt = (Statement) con.createStatement();
+            ResultSet rsFunc = con.createStatement().executeQuery("SELECT CPF FROM FUNCIONARIO; ");
+            ResultSet rsGerente = con.createStatement().executeQuery("SELECT CPF FROM GERENTE; ");
+            ResultSet rsCoord = con.createStatement().executeQuery("SELECT CPF FROM COORDENADOR; ");
             while (logou==false && rsFunc.next()){
             	dbCPF = rsFunc.getString("CPF");
             	if (dbCPF.equals(cpf)){
@@ -67,7 +67,7 @@ public class ControladorDeTelas extends JFrame {
                 	dbCPF = rsFunc.getString("CPF");
                 	if (dbCPF.equals(cpf)){
                 		logou = true;
-                		frameFuncionario((Funcionario) pessoa);
+                		new FrameAdmin1((Admin) pessoa).setVisible(true);
                 		break;
                 	}
                 }
@@ -77,7 +77,7 @@ public class ControladorDeTelas extends JFrame {
                 	dbCPF = rsFunc.getString("CPF");
                 	if (dbCPF.equals(cpf)){
                 		logou = true;
-                		frameFuncionario((Funcionario) pessoa);
+                		new FrameAdmin1((Admin) pessoa).setVisible(true);
                 		break;
                 	}
                 }

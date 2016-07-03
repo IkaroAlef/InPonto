@@ -7,6 +7,7 @@ import negócio.entity_beans.Empresa;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.Pessoa;
 import negócio.entity_beans.RegPonto;
+import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 import dados.exceptionsDados.CnpjNaoEncontradoException;
 import dados.exceptionsDados.EmpresaNaoEncontradaException;
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
@@ -95,8 +96,7 @@ public class EpontoFachada {
 		return pessoas.buscarPessoaNome(nome);
 	}
 
-	public Pessoa getPessoaCpf(String cpf)
-			throws FuncionarioNaoEncontradoException {
+	public Pessoa getPessoaCpf(String cpf) throws FuncionarioNaoEncontradoException, NomeInvalidoException {
 		return pessoas.buscarPessoaCpf(cpf);
 	}
 
@@ -159,57 +159,57 @@ public class EpontoFachada {
 	}
 
 	public ArrayList<RegPonto> getPontosDoFuncionario(String cpf)
-			throws FuncionarioNaoEncontradoException {
+			throws FuncionarioNaoEncontradoException, NomeInvalidoException {
 		return pontos.getPontosDoFuncionario(cpf);
 	}
 	
 	public ArrayList<RegPonto> getPontosDoFuncionario(String cpf, int mes, int ano)
-			throws FuncionarioNaoEncontradoException{
+			throws FuncionarioNaoEncontradoException, NomeInvalidoException{
 		return pontos.getPontosDoFuncionario(cpf, mes, ano);
 	}
 	
 	public ArrayList<RegPonto> getPontosDoFuncionario(String cpf, int dia, int mes, int ano)
-			throws FuncionarioNaoEncontradoException{
+			throws FuncionarioNaoEncontradoException, NomeInvalidoException{
 		return pontos.getPontosDoFuncionario(cpf, dia, mes, ano);
 	}
 
 	public boolean isDiaCorreto(String cpf, int dia, int mes, int ano)
-			throws FuncionarioNaoEncontradoException {
+			throws FuncionarioNaoEncontradoException, NomeInvalidoException {
 		return pontos.isDiaCorreto(cpf, dia, mes, ano);
 	}
 
 	public boolean isDiaAtrasado(String cpf, int dia, int mes, int ano)
-			throws FuncionarioNaoEncontradoException {
+			throws FuncionarioNaoEncontradoException, NomeInvalidoException {
 		return pontos.isDiaAtrasado(cpf, dia, mes, ano);
 	}
 
 	public int getTotalDiasCorretos(String cpf, int mes, int ano)
-			throws FuncionarioNaoEncontradoException {
+			throws FuncionarioNaoEncontradoException, NomeInvalidoException {
 		return pontos.getTotalDiasCorretos(cpf, mes, ano);
 	}
 
 	public int getTotalDiasAtrasado(String cpf, int mes, int ano)
-			throws FuncionarioNaoEncontradoException {
+			throws FuncionarioNaoEncontradoException, NomeInvalidoException {
 		return pontos.getTotalDiasAtrasado(cpf, mes, ano);
 	}
 
 	public int totalChegadaCorreta(String cpf)
-			throws FuncionarioNaoEncontradoException {
+			throws FuncionarioNaoEncontradoException, NomeInvalidoException {
 		return pontos.totalChegadaCorreta(cpf);
 	}
 
 	public int totalSaidaCorreta(String cpf)
-			throws FuncionarioNaoEncontradoException {
+			throws FuncionarioNaoEncontradoException, NomeInvalidoException {
 		return pontos.totalSaidaCorreta(cpf);
 	}
 
 	public int totalIntervalo_InCorreta(String cpf)
-			throws FuncionarioNaoEncontradoException {
+			throws FuncionarioNaoEncontradoException, NomeInvalidoException {
 		return pontos.totalIntervalo_InCorreta(cpf);
 	}
 
 	public int totalIntervalo_OutCorreta(String cpf)
-			throws FuncionarioNaoEncontradoException {
+			throws FuncionarioNaoEncontradoException, NomeInvalidoException {
 		return pontos.totalIntervalo_OutCorreta(cpf);
 	}
 	

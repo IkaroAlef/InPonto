@@ -26,6 +26,8 @@ import javax.swing.SwingConstants;
 
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.EpontoFachada;
+import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
+
 import java.awt.Font;
 import java.awt.Color;
 
@@ -144,6 +146,9 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener{
 			txtLogin.requestFocus();
 			txtLogin.setText("");
 			passSenha.setText("");
+		} catch (NomeInvalidoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

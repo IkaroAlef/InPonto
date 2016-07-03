@@ -27,6 +27,7 @@ import negócio.EpontoFachada;
 import negócio.entity_beans.Dispensa;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
+import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 import qrCode.GerarQRCode;
 
 import java.time.LocalDateTime;
@@ -462,7 +463,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 					lblTotalYellow.setText(String.valueOf(totalYellow));
 					lblTotalRed.setText(String.valueOf(totalRed));
 					}
-		}catch (FuncionarioNaoEncontradoException e1) {
+		}catch (FuncionarioNaoEncontradoException | NomeInvalidoException e1) {
 			JOptionPane.showMessageDialog(null, e1.getMessage());
 		}
 		
@@ -523,7 +524,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 				ArrayList<RegPonto> pontos = null;
 				try {
 					pontos = EpontoFachada.getInstance().getPontosDoFuncionario(funcionario.getCpf(), dia, mes, ano);
-				} catch (FuncionarioNaoEncontradoException e1) {
+				} catch (FuncionarioNaoEncontradoException | NomeInvalidoException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 

@@ -30,6 +30,8 @@ import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.EpontoFachada;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
+import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
@@ -241,7 +243,7 @@ public class FrameFuncionario extends JFrame implements ActionListener, WindowLi
 			ponto.registrarPonto(funcionario);
 			try {
 				ponto.registrarPonto((Funcionario)EpontoFachada.getInstance().getPessoaCpf(funcionario.getCpf()),new ImageIcon(wCam.getImage()));
-			} catch (FuncionarioNaoEncontradoException e1) {
+			} catch (FuncionarioNaoEncontradoException | NomeInvalidoException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}

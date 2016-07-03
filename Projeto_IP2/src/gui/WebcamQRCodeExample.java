@@ -24,6 +24,7 @@ import com.google.zxing.common.HybridBinarizer;
 
 import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.EpontoFachada;
+import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 import qrCode.GerarQRCode;
 
 
@@ -118,7 +119,7 @@ public class WebcamQRCodeExample extends JFrame implements Runnable, ThreadFacto
 						ControladorDeTelas.getInstance().loginProximaTela(EpontoFachada.getInstance().getPessoaCpf(cpf));
 						this.setVisible(false);
 					}
-				} catch (FuncionarioNaoEncontradoException e) {
+				} catch (FuncionarioNaoEncontradoException | NomeInvalidoException e) {
 					JOptionPane.showMessageDialog(null, "Funcionário não encontrado");
 				}
 				
