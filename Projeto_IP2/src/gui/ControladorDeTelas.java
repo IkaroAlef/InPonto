@@ -82,6 +82,10 @@ public class ControladorDeTelas extends JFrame {
                 	}
                 }
             }
+            rsFunc.close();
+            rsGerente.close();
+            rsCoord.close();
+            con.close();
             
 //		if (pessoa instanceof Funcionario)
 //			frameFuncionario((Funcionario) pessoa);

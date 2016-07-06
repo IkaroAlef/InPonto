@@ -1,14 +1,17 @@
 package negócio;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.mysql.cj.api.jdbc.Statement;
+//import com.mysql.cj.jdbc.PreparedStatement;
 
 import conexaoBD.FabricaDeConexao;
 import dados.IRepositorioPessoas;
@@ -35,7 +38,38 @@ public class ControladorPessoas {
 		
 	
 	public void adicionarPessoa(Pessoa pessoa){
-		repositorioPessoas.adicionarPessoa(pessoa);
+		FabricaDeConexao bd = new FabricaDeConexao();
+		if (pessoa instanceof Funcionario){
+			try {
+				Connection con = bd.getConexao("admin", "bancodedados");
+				PreparedStatement ps = con.prepareStatement("INSERT INTO pessoa VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+				ps.setString(1, pessoa.getNome());
+				ps.setString(2, pessoa.getCpf());
+				ps.setInt(3, pessoa.getMatricula());
+				ps.setString(4, pessoa.getEmail());
+				ps.setBlob(5, (Blob) ((Funcionario) pessoa).getFotoPadrao());
+				ps.setString(6, pessoa.getRg());
+				ps.setString(7, String.valueOf(pessoa.getSenha()));
+				ps.setString(8, pessoa.getTelefone());
+				ps.setString(9, pessoa.getCargo());
+				ps.setInt(10, pessoa.getCodDept());
+				ps.setString(11, pessoa.getRua());
+				ps.setString(12, pessoa.getNumero());
+				ps.setString(13, pessoa.getComplemento());
+				ps.setString(14, pessoa.getBairro());
+				ps.setString(15, pessoa.getCidade());
+				ps.setString(16, pessoa.getEstado());
+				ps.setString(17, pessoa.getCep());
+				ps.execute();
+				ps.close();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+//		repositorioPessoas.adicionarPessoa(pessoa);
 	}
 		
 	public void adicionarPessoa(int i, Pessoa pessoa) {
@@ -58,6 +92,9 @@ public class ControladorPessoas {
                     estaCorreto = true;
                 }
             }
+            stmt.close();
+            con.close();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }

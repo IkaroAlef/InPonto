@@ -112,7 +112,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		lblNewLabel.setBounds(10, 61, 46, 14);
 		contentPane.add(lblNewLabel);
 		
-		txtCPF = new JFormattedTextField(createFormatter("###.###.###-##"));
+		txtCPF = new JTextField();
 		txtCPF.setColumns(10);
 		txtCPF.setBounds(10, 76, 220, 20);
 		contentPane.add(txtCPF);
@@ -154,7 +154,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		lblTelefone.setBounds(152, 153, 78, 14);
 		contentPane.add(lblTelefone);
 		
-		txtTelefone = new JFormattedTextField(createFormatter("(##)#####-####"));
+		txtTelefone = new JTextField();
 		txtTelefone.setBounds(152, 167, 151, 20);
 		contentPane.add(txtTelefone);
 		txtTelefone.setColumns(10);
@@ -288,16 +288,16 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(btnNewButton);
 	}
 	
-	protected MaskFormatter createFormatter(String s) {
-		MaskFormatter formatter = null;
-	    try {
-	        formatter = new MaskFormatter(s);
-	    } catch (java.text.ParseException exc) {
-	        System.err.println("formatter is bad: " + exc.getMessage());
-	        System.exit(-1);
-	    }
-	    return formatter;
-	}
+//	protected MaskFormatter createFormatter(String s) {
+//		MaskFormatter formatter = null;
+//	    try {
+//	        formatter = new MaskFormatter(s);
+//	    } catch (java.text.ParseException exc) {
+//	        System.err.println("formatter is bad: " + exc.getMessage());
+//	        System.exit(-1);
+//	    }
+//	    return formatter;
+//	}
 
 	private void limparCampos(){
 		txtNome.setText("");

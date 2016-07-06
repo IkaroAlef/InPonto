@@ -14,15 +14,16 @@ public class Funcionario extends Pessoa implements Serializable {
 	protected String CTPS;
 	protected String PIS;
 	protected LocalDate dt_admissao;
-	protected LocalDate dt_demiissao;
-	protected char[] senha;
+	protected LocalDate dt_demissao;
 	private Empresa empresa;
 	private String cargo;
 	private String escala;
 	private LocalTime chegada,saida,intervalo_in,intervalo_out; //chegada, saida, voltou do intervalo, saiu para o intervalo
 	private ImageIcon fotoPadrao;
 	
-	public Funcionario(String nome, String cpf,String email,char[] senha,String telefone, Empresa empresa, String cargo, String escala, LocalTime chegada, LocalTime saida, LocalTime intervalo_in, LocalTime intervalo_out) throws NomeInvalidoException{
+	public Funcionario(String nome, String cpf,String email,char[] senha,String telefone, 
+			Empresa empresa, String cargo, String escala, LocalTime chegada, LocalTime saida, 
+			LocalTime intervalo_in, LocalTime intervalo_out) throws NomeInvalidoException{
 		super(nome,cpf,email,senha);
 		this.setTelefone(telefone);
 		this.setEmpresa(empresa);
@@ -34,6 +35,25 @@ public class Funcionario extends Pessoa implements Serializable {
 		this.setIntervalo_out(intervalo_out);
 	}
 	
+	public Funcionario(String nome, String cpf, String email, char[] senha, String cPF_Coord, String cTPS, String pIS,
+			LocalDate dt_admissao, LocalDate dt_demissao, Empresa empresa, String cargo, String escala,
+			LocalTime chegada, LocalTime saida, LocalTime intervalo_in, LocalTime intervalo_out, ImageIcon fotoPadrao) {
+		super(nome, cpf, email, senha);
+		CPF_Coord = cPF_Coord;
+		CTPS = cTPS;
+		PIS = pIS;
+		this.dt_admissao = dt_admissao;
+		this.dt_demissao = dt_demissao;
+		this.empresa = empresa;
+		this.cargo = cargo;
+		this.escala = escala;
+		this.chegada = chegada;
+		this.saida = saida;
+		this.intervalo_in = intervalo_in;
+		this.intervalo_out = intervalo_out;
+		this.fotoPadrao = fotoPadrao;
+	}
+
 	public Funcionario (){
 		
 	}
