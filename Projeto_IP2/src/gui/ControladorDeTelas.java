@@ -46,6 +46,7 @@ public class ControladorDeTelas extends JFrame {
 	public void loginProximaTela (Pessoa pessoa){
 		boolean logou = false;
 		String cpf = pessoa.getCpf();
+		System.out.println(cpf);
 		String dbCPF;
 		try {
 			FabricaDeConexao bd = new FabricaDeConexao();
@@ -64,7 +65,7 @@ public class ControladorDeTelas extends JFrame {
             }
             while (logou==false && rsGerente.next()){
             	while (rsGerente.next()){
-                	dbCPF = rsFunc.getString("CPF");
+                	dbCPF = rsGerente.getString("CPF");
                 	if (dbCPF.equals(cpf)){
                 		logou = true;
                 		new FrameAdmin1((Admin) pessoa).setVisible(true);
@@ -74,7 +75,7 @@ public class ControladorDeTelas extends JFrame {
             }
             while (logou==false && rsCoord.next()){
             	while (rsCoord.next()){
-                	dbCPF = rsFunc.getString("CPF");
+                	dbCPF = rsCoord.getString("CPF");
                 	if (dbCPF.equals(cpf)){
                 		logou = true;
                 		new FrameAdmin1((Admin) pessoa).setVisible(true);

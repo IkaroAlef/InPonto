@@ -1,7 +1,15 @@
 package negócio;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +17,9 @@ import java.sql.PreparedStatement;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import com.mysql.cj.api.jdbc.Statement;
 //import com.mysql.cj.jdbc.PreparedStatement;
@@ -42,17 +53,39 @@ public class ControladorPessoas {
 		if (pessoa instanceof Funcionario){
 			try {
 				Connection con = bd.getConexao("admin", "bancodedados");
-				PreparedStatement ps = con.prepareStatement("INSERT INTO pessoa VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+				PreparedStatement ps = con.prepareStatement("INSERT INTO pessoa VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 				ps.setString(1, pessoa.getNome());
 				ps.setString(2, pessoa.getCpf());
 				ps.setInt(3, pessoa.getMatricula());
 				ps.setString(4, pessoa.getEmail());
-				ps.setBlob(5, (Blob) ((Funcionario) pessoa).getFotoPadrao());
+				
+				Image img = ((Funcionario) pessoa).getFotoPadrao().getImage();
+				BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+				Graphics2D g2d = bi.createGraphics();
+				g2d.drawImage(img, 0, 0, null);
+				g2d.dispose();
+				
+				ByteArrayOutputStream baos = null;
+				try {
+				    baos = new ByteArrayOutputStream();
+				    ImageIO.write(bi, "png", baos);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+				    try {
+				        baos.close();
+				    } catch (Exception e) {
+				    }
+				}
+				ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+				
+				ps.setBinaryStream(5, bais);
 				ps.setString(6, pessoa.getRg());
 				ps.setString(7, String.valueOf(pessoa.getSenha()));
 				ps.setString(8, pessoa.getTelefone());
-				ps.setString(9, pessoa.getCargo());
-				ps.setInt(10, pessoa.getCodDept());
+				ps.setInt(9, 1); //cargo
+				ps.setInt(10, 1); //codDept
 				ps.setString(11, pessoa.getRua());
 				ps.setString(12, pessoa.getNumero());
 				ps.setString(13, pessoa.getComplemento());
@@ -61,8 +94,19 @@ public class ControladorPessoas {
 				ps.setString(16, pessoa.getEstado());
 				ps.setString(17, pessoa.getCep());
 				ps.execute();
+				PreparedStatement psFunc = con.prepareStatement("INSERT INTO funcionario VALUES (?,?,?,?,?,?,?)");
+				psFunc.setString(1, ((Funcionario) pessoa).getCTPS());
+				psFunc.setString(2, ((Funcionario) pessoa).getPIS());
+				psFunc.setDate(3, Date.valueOf("1996-11-09")); // certo -> Date.valueOf(((Funcionario) pessoa).getDt_admissao())
+				psFunc.setDate(4, Date.valueOf("2000-10-10")); // certo -> Date.valueOf(((Funcionario) pessoa).getDt_demissao())
+				psFunc.setString(5, ((Funcionario) pessoa).getCpf());
+				psFunc.setString(6, "84493610945"); //certo -->((Funcionario) pessoa).getCPF_Coord() 
+				psFunc.setInt(7, 1); //certo->((Funcionario) pessoa).getCod_Eqp()
+				psFunc.execute();
 				ps.close();
+				psFunc.close();
 				con.close();
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -144,13 +188,15 @@ public class ControladorPessoas {
 			FabricaDeConexao bd = new FabricaDeConexao();
 			Connection con = bd.getConexao("admin", "bancodedados");
 //			Statement stmt = (Statement) con.createStatement();
-			ResultSet rsFunc = con.createStatement().executeQuery("SELECT * FROM FUNCIONARIO JOIN PESSOA; ");
-            ResultSet rsGerente = con.createStatement().executeQuery("SELECT * FROM GERENTE JOIN PESSOA; ");
-            ResultSet rsCoord = con.createStatement().executeQuery("SELECT * FROM COORDENADOR JOIN PESSOA; ");
-            while (rsFunc.next()){
+			ResultSet rsFunc = con.createStatement().executeQuery("SELECT * FROM funcionario JOIN PESSOA WHERE funcionario.cpf=pessoa.cpf; ");
+            ResultSet rsGerente = con.createStatement().executeQuery("SELECT * FROM gerente JOIN PESSOA WHERE gerente.cpf=pessoa.cpf; ");
+            ResultSet rsCoord = con.createStatement().executeQuery("SELECT * FROM coordenador JOIN PESSOA WHERE coordenador.cpf=pessoa.cpf; ");
+            boolean achou = false;
+            while (rsFunc.next() && achou==false){
             	dbCPF = rsFunc.getString("CPF");
             	if (dbCPF.equals(cpf)){
             		//84493610941  123454   login e senha teste
+            		achou=true;
             		String telefone = rsFunc.getString("telefone"); 
             		Empresa empresa = new Empresa(); 
             		int carg = rsFunc.getInt("cargo");
@@ -170,18 +216,25 @@ public class ControladorPessoas {
             		break;
             	}
             }
-            while (rsGerente.next()){
+            while (rsGerente.next()&& achou==false){
             	while (rsGerente.next()){
                 	dbCPF = rsGerente.getString("CPF");
                 	if (dbCPF.equals(cpf)){
+                		//84493610974  123485   login e senha teste
+                		achou=true;
+                		String nome = rsGerente.getString("nome");
+                		String email = rsGerente.getString("email");
+                		char[] senha = rsGerente.getString("senha").toCharArray();
+                		pessoa = new Admin(nome, dbCPF, email, senha);
                 		break;
                 	}
                 }
             }
-            while (rsCoord.next()){
+            while (rsCoord.next() && achou==false){
             	while (rsCoord.next()){
                 	dbCPF = rsCoord.getString("CPF");
                 	if (dbCPF.equals(cpf)){
+                		achou=true;
                 		break;
                 	}
                 }

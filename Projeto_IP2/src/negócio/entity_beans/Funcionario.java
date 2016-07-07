@@ -10,11 +10,12 @@ import javax.swing.ImageIcon;
 import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 
 public class Funcionario extends Pessoa implements Serializable {
-	protected String CPF_Coord;
-	protected String CTPS;
-	protected String PIS;
-	protected LocalDate dt_admissao;
-	protected LocalDate dt_demissao;
+	private String CPF_Coord;
+	private String CTPS;
+	private String PIS;
+	private LocalDate dt_admissao;
+	private LocalDate dt_demissao;
+	private int cod_Eqp;
 	private Empresa empresa;
 	private String cargo;
 	private String escala;
@@ -35,8 +36,9 @@ public class Funcionario extends Pessoa implements Serializable {
 		this.setIntervalo_out(intervalo_out);
 	}
 	
+
 	public Funcionario(String nome, String cpf, String email, char[] senha, String cPF_Coord, String cTPS, String pIS,
-			LocalDate dt_admissao, LocalDate dt_demissao, Empresa empresa, String cargo, String escala,
+			LocalDate dt_admissao, LocalDate dt_demissao, int cod_Eqp, Empresa empresa, String cargo, String escala,
 			LocalTime chegada, LocalTime saida, LocalTime intervalo_in, LocalTime intervalo_out, ImageIcon fotoPadrao) {
 		super(nome, cpf, email, senha);
 		CPF_Coord = cPF_Coord;
@@ -44,6 +46,7 @@ public class Funcionario extends Pessoa implements Serializable {
 		PIS = pIS;
 		this.dt_admissao = dt_admissao;
 		this.dt_demissao = dt_demissao;
+		this.cod_Eqp = cod_Eqp;
 		this.empresa = empresa;
 		this.cargo = cargo;
 		this.escala = escala;
@@ -54,10 +57,59 @@ public class Funcionario extends Pessoa implements Serializable {
 		this.fotoPadrao = fotoPadrao;
 	}
 
+
 	public Funcionario (){
 		
 	}
 	
+	public String getCPF_Coord() {
+		return CPF_Coord;
+	}
+
+	public void setCPF_Coord(String cPF_Coord) {
+		CPF_Coord = cPF_Coord;
+	}
+
+	public String getCTPS() {
+		return CTPS;
+	}
+
+	public void setCTPS(String cTPS) {
+		CTPS = cTPS;
+	}
+
+	public String getPIS() {
+		return PIS;
+	}
+
+	public void setPIS(String pIS) {
+		PIS = pIS;
+	}
+
+	public LocalDate getDt_admissao() {
+		return dt_admissao;
+	}
+
+	public void setDt_admissao(LocalDate dt_admissao) {
+		this.dt_admissao = dt_admissao;
+	}
+
+	public LocalDate getDt_demissao() {
+		return dt_demissao;
+	}
+
+	public void setDt_demissao(LocalDate dt_demissao) {
+		this.dt_demissao = dt_demissao;
+	}
+
+	public int getCod_Eqp() {
+		return cod_Eqp;
+	}
+
+	public void setCod_Eqp(int cod_Eqp) {
+		this.cod_Eqp = cod_Eqp;
+	}
+
 	public String getTelefone() {
 		return telefone;
 	}
