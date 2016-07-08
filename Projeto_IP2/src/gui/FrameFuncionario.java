@@ -52,7 +52,7 @@ public class FrameFuncionario extends JFrame implements ActionListener, WindowLi
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameFuncionario frame = new FrameFuncionario((Funcionario) RepPessoas.getInstance().buscarPessoaNome("Ikaro Alef"));
+					FrameFuncionario frame = new FrameFuncionario((Funcionario) EpontoFachada.getInstance().getPessoaCpf("84493610937"));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -76,8 +76,8 @@ public class FrameFuncionario extends JFrame implements ActionListener, WindowLi
 		contentPane.setLayout(null);
 		addWindowListener(this);
 		
-		btnBaterPonto = new JButton("Bater Ponto");
-		btnBaterPonto.setBounds(600, 353, 117, 23);
+		btnBaterPonto = new JButton("Registrar Ponto");
+		btnBaterPonto.setBounds(600, 353, 130, 23);
 		contentPane.add(btnBaterPonto);
 		btnBaterPonto.addActionListener(this);
 		
