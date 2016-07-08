@@ -2,6 +2,7 @@
 package negócio.entity_beans;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -13,8 +14,8 @@ public class Funcionario extends Pessoa implements Serializable {
 	private String CPF_Coord;
 	private String CTPS;
 	private String PIS;
-	private LocalDate dt_admissao;
-	private LocalDate dt_demissao;
+	private Date dt_admissao;
+	private Date dt_demissao;
 	private int cod_Eqp;
 	private Empresa empresa;
 	private String cargo;
@@ -36,14 +37,35 @@ public class Funcionario extends Pessoa implements Serializable {
 		this.setIntervalo_out(intervalo_out);
 	}
 	
-
-	public Funcionario(String nome, String cpf, String email, char[] senha, String cPF_Coord, String cTPS, String pIS,
-			LocalDate dt_admissao, LocalDate dt_demissao, int cod_Eqp, Empresa empresa, String cargo, String escala,
-			LocalTime chegada, LocalTime saida, LocalTime intervalo_in, LocalTime intervalo_out, ImageIcon fotoPadrao) {
-		super(nome, cpf, email, senha);
-		CPF_Coord = cPF_Coord;
-		CTPS = cTPS;
-		PIS = pIS;
+	public Funcionario(String nome,
+	String cpf,
+	String email,
+	char[] senha,
+	int matricula,
+	String rg,
+	String telefone,
+	String cargo,
+	int codDept,
+	String rua,
+	String numero,
+	String complemento,
+	String bairro,
+	String cidade,
+	String estado,
+	String cep,
+	String CPF_Coord,
+	String CTPS,
+	String PIS,
+	Date dt_admissao,
+	Date dt_demissao,
+	int cod_Eqp,
+	Empresa empresa,
+	String escala,
+	LocalTime chegada, LocalTime saida, LocalTime intervalo_in, LocalTime intervalo_out) {
+		super(nome, cpf, email, senha, matricula, rg, telefone, cargo, codDept, rua, numero, complemento, bairro, cidade, estado, cep);
+		this.CPF_Coord = CPF_Coord;
+		this.CTPS = CTPS;
+		this.PIS = PIS;
 		this.dt_admissao = dt_admissao;
 		this.dt_demissao = dt_demissao;
 		this.cod_Eqp = cod_Eqp;
@@ -54,7 +76,7 @@ public class Funcionario extends Pessoa implements Serializable {
 		this.saida = saida;
 		this.intervalo_in = intervalo_in;
 		this.intervalo_out = intervalo_out;
-		this.fotoPadrao = fotoPadrao;
+		
 	}
 
 
@@ -86,19 +108,19 @@ public class Funcionario extends Pessoa implements Serializable {
 		PIS = pIS;
 	}
 
-	public LocalDate getDt_admissao() {
+	public Date getDt_admissao() {
 		return dt_admissao;
 	}
 
-	public void setDt_admissao(LocalDate dt_admissao) {
+	public void setDt_admissao(Date dt_admissao) {
 		this.dt_admissao = dt_admissao;
 	}
 
-	public LocalDate getDt_demissao() {
+	public Date getDt_demissao() {
 		return dt_demissao;
 	}
 
-	public void setDt_demissao(LocalDate dt_demissao) {
+	public void setDt_demissao(Date dt_demissao) {
 		this.dt_demissao = dt_demissao;
 	}
 

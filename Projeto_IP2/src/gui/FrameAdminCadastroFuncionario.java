@@ -1,16 +1,14 @@
 package gui;
 
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.File;
-import java.io.IOException;
+import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalTime;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -32,12 +30,12 @@ import dados.exceptionsDados.EmpresaNaoEncontradaException;
 import negócio.EpontoFachada;
 import negócio.entity_beans.Empresa;
 import negócio.entity_beans.Funcionario;
-import negócio.entity_beans.exceptionsBeans.CNPJInvalidoException;
 import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 import qrCode.GerarQRCode;
 
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class FrameAdminCadastroFuncionario extends JFrame implements ActionListener, WindowListener {
 
@@ -60,11 +58,24 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 	private JComboBox <String> cmbBxEscala;
 	private JButton btnLimpar;
 	private JButton btnSalvar;
-	
-	//webcam
 	private Webcam wCam;
 	private WebcamPanel wCamPanel;
-	private JButton btnNewButton;
+	private JTextField txtMatricula;
+	private JTextField txtRg;
+	private JTextField txtEndereco;
+	private JTextField txtNumero;
+	private JTextField txtComplemento;
+	private JTextField txtBairro;
+	private JTextField txtCidade;
+	private JTextField txtEstado;
+	private JTextField txtCep;
+	private JTextField txtCtps;
+	private JTextField txtPis;
+	private JTextField txtCodEqp;
+	private JTextField txtCpf_coord;
+	private JTextField txtDt_admissao;
+	private JSeparator separator_2;
+	private JTextField txtCodDept;
 
 	/**
 	 * Launch the application.
@@ -88,7 +99,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 	public FrameAdminCadastroFuncionario() {
 		setTitle("Cadastrar Funcion\u00E1rio");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 810, 423);
+		setBounds(100, 100, 810, 596);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(169, 169, 169));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -103,7 +114,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(lblNome);
 		
 		txtNome = new JTextField();
-		txtNome.setBounds(10, 25, 490, 20);
+		txtNome.setBounds(10, 25, 466, 20);
 		contentPane.add(txtNome);
 		txtNome.setColumns(10);
 		
@@ -124,7 +135,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		
 		txtSenha = new JTextField();
 		txtSenha.setColumns(10);
-		txtSenha.setBounds(256, 76, 244, 20);
+		txtSenha.setBounds(256, 76, 220, 20);
 		contentPane.add(txtSenha);
 		
 		JLabel lblEmail = new JLabel("Email:");
@@ -133,7 +144,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(lblEmail);
 		
 		txtEmail = new JTextField();
-		txtEmail.setBounds(10, 122, 490, 20);
+		txtEmail.setBounds(10, 122, 466, 20);
 		contentPane.add(txtEmail);
 		txtEmail.setColumns(10);
 		
@@ -143,7 +154,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(lblEmpresa);
 		
 		cmbBxEmpresa = new JComboBox<Empresa>();
-		cmbBxEmpresa.setBounds(10, 167, 116, 20);
+		cmbBxEmpresa.setBounds(10, 167, 132, 20);
 		contentPane.add(cmbBxEmpresa);
 		for(int i=0;i<EpontoFachada.getInstance().getSizeEmpresas() ; i++){
 			cmbBxEmpresa.addItem(EpontoFachada.getInstance().getEmpresas(null).get(i));
@@ -159,7 +170,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(txtTelefone);
 		txtTelefone.setColumns(10);
 		
-		JLabel lblCargo = new JLabel("Cargo");
+		JLabel lblCargo = new JLabel("Cargo:");
 		lblCargo.setForeground(new Color(255, 255, 255));
 		lblCargo.setBounds(322, 153, 58, 14);
 		contentPane.add(lblCargo);
@@ -175,94 +186,94 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(lblEscala);
 		
 		cmbBxEscala = new JComboBox <String>();
-		cmbBxEscala.setBounds(10, 215, 116, 20);
+		cmbBxEscala.setBounds(10, 215, 132, 20);
 		contentPane.add(cmbBxEscala);
 		cmbBxEscala.addItem("Seg. à Sex");
 		cmbBxEscala.addItem("Dia sim Dia não");
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 246, 470, 2);
+		separator.setBounds(10, 475, 486, 10);
 		contentPane.add(separator);
 		
 		JLabel lblHorrioChegada = new JLabel("Hor\u00E1rio Chegada:");
 		lblHorrioChegada.setForeground(new Color(255, 255, 255));
-		lblHorrioChegada.setBounds(10, 259, 104, 14);
+		lblHorrioChegada.setBounds(10, 482, 104, 14);
 		contentPane.add(lblHorrioChegada);
 		
-		txtHoraChegada = new JTextField();
-		txtHoraChegada.setBounds(10, 279, 30, 20);
+		txtHoraChegada = new JFormattedTextField(createFormatter("##"));
+		txtHoraChegada.setBounds(10, 502, 30, 20);
 		contentPane.add(txtHoraChegada);
 		txtHoraChegada.setColumns(10);
 		
-		txtMinutosChegada = new JTextField();
+		txtMinutosChegada = new JFormattedTextField(createFormatter("##"));
 		txtMinutosChegada.setColumns(10);
-		txtMinutosChegada.setBounds(52, 279, 30, 20);
+		txtMinutosChegada.setBounds(52, 502, 30, 20);
 		contentPane.add(txtMinutosChegada);
 		
 		JLabel lbl2ptChegada = new JLabel(":");
-		lbl2ptChegada.setBounds(45, 283, 10, 10);
+		lbl2ptChegada.setBounds(45, 506, 10, 10);
 		contentPane.add(lbl2ptChegada);
 		
 		JLabel lblHorarioSaida = new JLabel("Hor\u00E1rio Sa\u00EDda:");
 		lblHorarioSaida.setForeground(new Color(255, 255, 255));
-		lblHorarioSaida.setBounds(120, 259, 88, 14);
+		lblHorarioSaida.setBounds(122, 482, 88, 14);
 		contentPane.add(lblHorarioSaida);
 		
-		txtHoraSaida = new JTextField();
+		txtHoraSaida = new JFormattedTextField(createFormatter("##"));
 		txtHoraSaida.setColumns(10);
-		txtHoraSaida.setBounds(120, 279, 30, 20);
+		txtHoraSaida.setBounds(120, 502, 30, 20);
 		contentPane.add(txtHoraSaida);
 		
 		JLabel lbl2ptSaida = new JLabel(":");
-		lbl2ptSaida.setBounds(155, 283, 10, 10);
+		lbl2ptSaida.setBounds(155, 506, 10, 10);
 		contentPane.add(lbl2ptSaida);
 		
-		txtMinutosSaida = new JTextField();
+		txtMinutosSaida = new JFormattedTextField(createFormatter("##"));
 		txtMinutosSaida.setColumns(10);
-		txtMinutosSaida.setBounds(162, 279, 30, 20);
+		txtMinutosSaida.setBounds(162, 502, 30, 20);
 		contentPane.add(txtMinutosSaida);
 		
 		JLabel lblHorarioSaidaIntervalo = new JLabel("Hor\u00E1rio Sa\u00EDda Intervalo:");
 		lblHorarioSaidaIntervalo.setForeground(new Color(255, 255, 255));
-		lblHorarioSaidaIntervalo.setBounds(218, 259, 137, 14);
+		lblHorarioSaidaIntervalo.setBounds(218, 482, 137, 14);
 		contentPane.add(lblHorarioSaidaIntervalo);
 		
-		txtHoraSaidaIntervalo = new JTextField();
+		txtHoraSaidaIntervalo = new JFormattedTextField(createFormatter("##"));
 		txtHoraSaidaIntervalo.setColumns(10);
-		txtHoraSaidaIntervalo.setBounds(247, 279, 30, 20);
+		txtHoraSaidaIntervalo.setBounds(243, 502, 30, 20);
 		contentPane.add(txtHoraSaidaIntervalo);
 		
 		JLabel lbl2ptSaidaIntervalo = new JLabel(":");
-		lbl2ptSaidaIntervalo.setBounds(282, 283, 10, 10);
+		lbl2ptSaidaIntervalo.setBounds(278, 506, 10, 10);
 		contentPane.add(lbl2ptSaidaIntervalo);
 		
-		txtMinutosSaidaIntervalo = new JTextField();
+		txtMinutosSaidaIntervalo = new JFormattedTextField(createFormatter("##"));
 		txtMinutosSaidaIntervalo.setColumns(10);
-		txtMinutosSaidaIntervalo.setBounds(289, 279, 30, 20);
+		txtMinutosSaidaIntervalo.setBounds(285, 502, 30, 20);
 		contentPane.add(txtMinutosSaidaIntervalo);
 		
 		JLabel lblHorrioChegadaIntervalo = new JLabel("Hor\u00E1rio Chegada Intervalo:");
 		lblHorrioChegadaIntervalo.setForeground(new Color(255, 255, 255));
-		lblHorrioChegadaIntervalo.setBounds(355, 259, 150, 14);
+		lblHorrioChegadaIntervalo.setBounds(355, 482, 150, 14);
 		contentPane.add(lblHorrioChegadaIntervalo);
 		
-		txtHoraChegadaIntervalo = new JTextField();
+		txtHoraChegadaIntervalo = new JFormattedTextField(createFormatter("##"));
 		txtHoraChegadaIntervalo.setColumns(10);
-		txtHoraChegadaIntervalo.setBounds(384, 279, 30, 20);
+		txtHoraChegadaIntervalo.setBounds(376, 502, 30, 20);
 		contentPane.add(txtHoraChegadaIntervalo);
 		
 		JLabel lbl2ptChegadaIntervalo = new JLabel(":");
-		lbl2ptChegadaIntervalo.setBounds(419, 283, 10, 10);
+		lbl2ptChegadaIntervalo.setBounds(411, 506, 10, 10);
 		contentPane.add(lbl2ptChegadaIntervalo);
 		
-		txtMinutosChegadaIntervalo = new JTextField();
+		txtMinutosChegadaIntervalo = new JFormattedTextField(createFormatter("##"));
 		txtMinutosChegadaIntervalo.setColumns(10);
-		txtMinutosChegadaIntervalo.setBounds(426, 279, 30, 20);
+		txtMinutosChegadaIntervalo.setBounds(418, 502, 30, 20);
 		contentPane.add(txtMinutosChegadaIntervalo);
 		
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.setForeground(new Color(0,0,0));
-		btnSalvar.setBounds(585, 259, 149, 23);
+		btnSalvar.setBounds(510, 289, 116, 23);
 		btnSalvar.addActionListener(this);
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		contentPane.add(btnSalvar);
@@ -270,7 +281,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		btnLimpar = new JButton("Limpar");
 		btnLimpar.setForeground(new Color(0, 0, 0));
 		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnLimpar.setBounds(585, 293, 149, 23);
+		btnLimpar.setBounds(664, 289, 116, 23);
 		btnLimpar.addActionListener(this);
 		contentPane.add(btnLimpar);
 		
@@ -278,27 +289,181 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		wCam = Webcam.getDefault();
 		wCam.setViewSize(WebcamResolution.VGA.getSize());
 		wCamPanel = new WebcamPanel(wCam);
-		wCamPanel.setBounds(520, 8, 260, 240);
+		wCamPanel.setDisplayDebugInfo(false);
+		wCamPanel.setBounds(510, 25, 270, 240);
 		contentPane.add(wCamPanel);
 		
-		btnNewButton = new JButton("Cancelar");
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setBounds(585, 327, 149, 23);
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		contentPane.add(btnNewButton);
+		JLabel lblMatricula = new JLabel("Matr\u00EDcula:");
+		lblMatricula.setForeground(Color.WHITE);
+		lblMatricula.setBounds(152, 201, 78, 14);
+		contentPane.add(lblMatricula);
+		
+		txtMatricula = new JTextField();
+		txtMatricula.setColumns(10);
+		txtMatricula.setBounds(152, 215, 151, 20);
+		contentPane.add(txtMatricula);
+		
+		JLabel lblRg = new JLabel("RG:");
+		lblRg.setForeground(Color.WHITE);
+		lblRg.setBounds(325, 201, 78, 14);
+		contentPane.add(lblRg);
+		
+		txtRg = new JTextField();
+		txtRg.setColumns(10);
+		txtRg.setBounds(322, 215, 154, 20);
+		contentPane.add(txtRg);
+		
+		JLabel lblEndereco = new JLabel("Rua:");
+		lblEndereco.setForeground(Color.WHITE);
+		lblEndereco.setBounds(10, 248, 116, 14);
+		contentPane.add(lblEndereco);
+		
+		txtEndereco = new JTextField();
+		txtEndereco.setColumns(10);
+		txtEndereco.setBounds(10, 262, 466, 20);
+		contentPane.add(txtEndereco);
+		
+		JLabel lblNumero = new JLabel("Numero:");
+		lblNumero.setForeground(Color.WHITE);
+		lblNumero.setBounds(10, 293, 78, 14);
+		contentPane.add(lblNumero);
+		
+		txtNumero = new JTextField();
+		txtNumero.setColumns(10);
+		txtNumero.setBounds(10, 307, 132, 20);
+		contentPane.add(txtNumero);
+		
+		JLabel lblComplemento = new JLabel("Complemento:");
+		lblComplemento.setForeground(Color.WHITE);
+		lblComplemento.setBounds(152, 293, 85, 14);
+		contentPane.add(lblComplemento);
+		
+		txtComplemento = new JTextField();
+		txtComplemento.setColumns(10);
+		txtComplemento.setBounds(152, 307, 151, 20);
+		contentPane.add(txtComplemento);
+		
+		JLabel lblBairro = new JLabel("Bairro:");
+		lblBairro.setForeground(Color.WHITE);
+		lblBairro.setBounds(322, 293, 78, 14);
+		contentPane.add(lblBairro);
+		
+		txtBairro = new JTextField();
+		txtBairro.setColumns(10);
+		txtBairro.setBounds(322, 307, 154, 20);
+		contentPane.add(txtBairro);
+		
+		JLabel lblCidade = new JLabel("Cidade:");
+		lblCidade.setForeground(Color.WHITE);
+		lblCidade.setBounds(10, 334, 78, 14);
+		contentPane.add(lblCidade);
+		
+		txtCidade = new JTextField();
+		txtCidade.setColumns(10);
+		txtCidade.setBounds(10, 348, 132, 20);
+		contentPane.add(txtCidade);
+		
+		JLabel lblEstado = new JLabel("Estado:");
+		lblEstado.setForeground(Color.WHITE);
+		lblEstado.setBounds(152, 334, 78, 14);
+		contentPane.add(lblEstado);
+		
+		txtEstado = new JTextField();
+		txtEstado.setColumns(10);
+		txtEstado.setBounds(152, 348, 151, 20);
+		contentPane.add(txtEstado);
+		
+		JLabel lblCep = new JLabel("CEP:");
+		lblCep.setForeground(Color.WHITE);
+		lblCep.setBounds(322, 334, 78, 14);
+		contentPane.add(lblCep);
+		
+		txtCep = new JTextField();
+		txtCep.setColumns(10);
+		txtCep.setBounds(322, 348, 154, 20);
+		contentPane.add(txtCep);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setOrientation(SwingConstants.VERTICAL);
+		separator_1.setBounds(495, 24, 10, 453);
+		contentPane.add(separator_1);
+		
+		JLabel lblCtps = new JLabel("N\u00BA Carteira de Trabalho:");
+		lblCtps.setForeground(Color.WHITE);
+		lblCtps.setBounds(10, 379, 134, 14);
+		contentPane.add(lblCtps);
+		
+		txtCtps = new JTextField();
+		txtCtps.setColumns(10);
+		txtCtps.setBounds(10, 393, 132, 20);
+		contentPane.add(txtCtps);
+		
+		JLabel lblPis = new JLabel("N\u00BA PIS:");
+		lblPis.setForeground(Color.WHITE);
+		lblPis.setBounds(152, 379, 78, 14);
+		contentPane.add(lblPis);
+		
+		txtPis = new JTextField();
+		txtPis.setColumns(10);
+		txtPis.setBounds(152, 393, 151, 20);
+		contentPane.add(txtPis);
+		
+		JLabel lblCodEqp = new JLabel("C\u00F3digo Equipe:");
+		lblCodEqp.setForeground(Color.WHITE);
+		lblCodEqp.setBounds(322, 379, 92, 14);
+		contentPane.add(lblCodEqp);
+		
+		txtCodEqp = new JTextField();
+		txtCodEqp.setColumns(10);
+		txtCodEqp.setBounds(322, 393, 154, 20);
+		contentPane.add(txtCodEqp);
+		
+		JLabel lblCpf_coord = new JLabel("CPF Coordenador:");
+		lblCpf_coord.setForeground(Color.WHITE);
+		lblCpf_coord.setBounds(10, 424, 132, 14);
+		contentPane.add(lblCpf_coord);
+		
+		txtCpf_coord = new JTextField();
+		txtCpf_coord.setColumns(10);
+		txtCpf_coord.setBounds(10, 438, 132, 20);
+		contentPane.add(txtCpf_coord);
+		
+		JLabel lblDt_admissao = new JLabel("Data Admiss\u00E3o:");
+		lblDt_admissao.setForeground(Color.WHITE);
+		lblDt_admissao.setBounds(152, 424, 116, 14);
+		contentPane.add(lblDt_admissao);
+		
+		txtDt_admissao = new JFormattedTextField(createFormatter("##/##/####"));
+		txtDt_admissao.setColumns(10);
+		txtDt_admissao.setBounds(152, 438, 151, 20);
+		contentPane.add(txtDt_admissao);
+		
+		separator_2 = new JSeparator();
+		separator_2.setBounds(10, 536, 486, 10);
+		contentPane.add(separator_2);
+		
+		txtCodDept = new JTextField();
+		txtCodDept.setColumns(10);
+		txtCodDept.setBounds(322, 438, 154, 20);
+		contentPane.add(txtCodDept);
+		
+		JLabel lblCodDept = new JLabel("C\u00F3digo Departamento:");
+		lblCodDept.setForeground(Color.WHITE);
+		lblCodDept.setBounds(322, 424, 126, 14);
+		contentPane.add(lblCodDept);
 	}
 	
-//	protected MaskFormatter createFormatter(String s) {
-//		MaskFormatter formatter = null;
-//	    try {
-//	        formatter = new MaskFormatter(s);
-//	    } catch (java.text.ParseException exc) {
-//	        System.err.println("formatter is bad: " + exc.getMessage());
-//	        System.exit(-1);
-//	    }
-//	    return formatter;
-//	}
-
+	protected MaskFormatter createFormatter(String s) {
+		MaskFormatter formatter = null;
+	    try {
+	        formatter = new MaskFormatter(s);
+	    } catch (java.text.ParseException exc) {
+	        System.err.println("formatter is bad: " + exc.getMessage());
+	        System.exit(-1);
+	    }
+	    return formatter;
+	}
+	
 	private void limparCampos(){
 		txtNome.setText("");
 		txtCPF.setText("");
@@ -313,8 +478,23 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		txtHoraSaidaIntervalo.setText("");
 		txtMinutosSaidaIntervalo.setText("");
 		txtHoraChegadaIntervalo.setText("");
-		txtMinutosChegadaIntervalo.setText("");			
-	
+		txtMinutosChegadaIntervalo.setText("");	
+		txtBairro.setText("");
+		txtMatricula.setText("");
+		txtRg.setText("");
+		txtEndereco.setText("");
+		txtNumero.setText("");
+		txtComplemento.setText("");
+		txtBairro.setText("");
+		txtCidade.setText("");
+		txtEstado.setText("");
+		txtCep.setText("");
+		txtCtps.setText("");
+		txtPis.setText("");
+		txtCodEqp.setText("");
+		txtCpf_coord.setText("");
+		txtDt_admissao.setText("");
+		txtCodDept.setText("");	
 	}
 
 	@Override
@@ -330,19 +510,65 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 			char[] senha = txtSenha.getText().toCharArray();
 			String telefone = txtTelefone.getText();
 			String cargo = txtCargo.getText();
+			
 			Empresa empresa = null;
 			LocalTime horaChegada = null; 
 			LocalTime horaSaida = null ;
 			LocalTime horaChegadaIntervalo = null;
 			LocalTime horaSaidaIntervalo = null ;
 			
+			int matricula = Integer.parseInt(txtMatricula.getText());
+			String rg = txtRg.getText();
+			String endereco =  txtEndereco.getText();
+			String numero =  txtNumero.getText();
+			String complemento = txtComplemento.getText();
+			String bairro =  txtBairro.getText();
+			String cidade = txtCidade.getText();
+			String estado = txtEstado.getText();
+			String cep = txtCep.getText();
+			String ctps = txtCtps.getText();
+			String pis = txtPis.getText();
+			int codDept = Integer.parseInt(txtCodDept.getText());
+			int cod_eqp = Integer.parseInt(txtCodEqp.getText());
+			String cpf_coord = txtCpf_coord.getText();
+			Date dt_admissao = null;
+			Date dt_demissao = null;
+			if (txtDt_admissao.getText() != null){
+				String dt = txtDt_admissao.getText();
+				String[] dts = dt.split("/");
+				dt_admissao = Date.valueOf(dts[2]+"-"+dts[1]+"-"+dts[0]);
+			}
 			try {
 				empresa = (Empresa) EpontoFachada.getInstance().buscaEmpresaNome(cmbBxEmpresa.getSelectedItem().toString());
 				horaChegada = LocalTime.of( Integer.parseInt(txtHoraChegada.getText()) , Integer.parseInt( txtMinutosChegada.getText()) );
 				horaSaida = LocalTime.of( Integer.parseInt(txtHoraSaida.getText()) , Integer.parseInt( txtMinutosSaida.getText()) );
 				horaChegadaIntervalo = LocalTime.of( Integer.parseInt(txtHoraChegadaIntervalo.getText()) , Integer.parseInt( txtMinutosChegadaIntervalo.getText()) );
 				horaSaidaIntervalo = LocalTime.of( Integer.parseInt(txtHoraSaidaIntervalo.getText()) , Integer.parseInt( txtMinutosSaidaIntervalo.getText()) );
-				funcionario = new Funcionario(nome, cpf, email, senha, telefone, empresa, cargo, "Seg. à Sex", horaChegada, horaSaida, horaChegadaIntervalo, horaSaidaIntervalo);
+				funcionario = new Funcionario(nome,
+						cpf,
+						email,
+						senha,
+						matricula,
+						rg,
+						telefone,
+						cargo,
+						codDept,
+						endereco,
+						numero,
+						complemento,
+						bairro,
+						cidade,
+						estado,
+						cep,
+						cpf_coord,
+						ctps,
+						pis,
+						dt_admissao,
+						dt_demissao,
+						cod_eqp,
+						empresa,
+						"Seg. a Sexta",
+						horaChegada, horaSaida, horaChegadaIntervalo, horaSaidaIntervalo);
 				funcionario.setFotoPadrao(new ImageIcon(wCam.getImage()));
 
 				EpontoFachada.getInstance().adicionarPessoa(funcionario);
@@ -358,6 +584,9 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 				txtHoraChegada.requestFocus();
 			}catch(NomeInvalidoException e1){
 				JOptionPane.showMessageDialog(null, e1.getMessage() );
+			}catch (SQLException e1){
+				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, e1.getMessage());
 			}catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -403,5 +632,4 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		// TODO Auto-generated method stub
 		
 	}
-			
 }

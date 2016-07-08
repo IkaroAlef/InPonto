@@ -1,5 +1,6 @@
 package negócio;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import negócio.entity_beans.Dispensa;
@@ -57,7 +58,7 @@ public class EpontoFachada {
 		return pessoas.getPessoas(conteudo);
 	}
 
-	public void adicionarPessoa(Pessoa pessoa) {
+	public void adicionarPessoa(Pessoa pessoa) throws SQLException {
 		pessoas.adicionarPessoa(pessoa);
 	}
 

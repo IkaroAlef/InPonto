@@ -48,11 +48,12 @@ public class ControladorPessoas {
 	}
 		
 	
-	public void adicionarPessoa(Pessoa pessoa){
+	public void adicionarPessoa(Pessoa pessoa) throws SQLException{
 		FabricaDeConexao bd = new FabricaDeConexao();
+		Connection con = null ;
 		if (pessoa instanceof Funcionario){
-			try {
-				Connection con = bd.getConexao("admin", "bancodedados");
+				con = bd.getConexao("admin", "bancodedados");
+				con.setAutoCommit(false);
 				PreparedStatement ps = con.prepareStatement("INSERT INTO pessoa VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 				ps.setString(1, pessoa.getNome());
 				ps.setString(2, pessoa.getCpf());
@@ -84,8 +85,8 @@ public class ControladorPessoas {
 				ps.setString(6, pessoa.getRg());
 				ps.setString(7, String.valueOf(pessoa.getSenha()));
 				ps.setString(8, pessoa.getTelefone());
-				ps.setInt(9, 1); //cargo
-				ps.setInt(10, 1); //codDept
+				ps.setInt(9, 1); //CORRIGIR cargo
+				ps.setInt(10, 1); //CORRIGIR  codDept
 				ps.setString(11, pessoa.getRua());
 				ps.setString(12, pessoa.getNumero());
 				ps.setString(13, pessoa.getComplemento());
@@ -97,24 +98,20 @@ public class ControladorPessoas {
 				PreparedStatement psFunc = con.prepareStatement("INSERT INTO funcionario VALUES (?,?,?,?,?,?,?)");
 				psFunc.setString(1, ((Funcionario) pessoa).getCTPS());
 				psFunc.setString(2, ((Funcionario) pessoa).getPIS());
-				psFunc.setDate(3, Date.valueOf("1996-11-09")); // certo -> Date.valueOf(((Funcionario) pessoa).getDt_admissao())
-				psFunc.setDate(4, Date.valueOf("2000-10-10")); // certo -> Date.valueOf(((Funcionario) pessoa).getDt_demissao())
+				psFunc.setDate(3, ((Funcionario) pessoa).getDt_admissao());
+				psFunc.setDate(4, ((Funcionario) pessoa).getDt_demissao()); 
 				psFunc.setString(5, ((Funcionario) pessoa).getCpf());
-				psFunc.setString(6, "84493610945"); //certo -->((Funcionario) pessoa).getCPF_Coord() 
-				psFunc.setInt(7, 1); //certo->((Funcionario) pessoa).getCod_Eqp()
+				psFunc.setString(6, ((Funcionario) pessoa).getCPF_Coord());  
+				psFunc.setInt(7, ((Funcionario) pessoa).getCod_Eqp());
 				psFunc.execute();
+				con.commit();
 				ps.close();
 				psFunc.close();
-				con.close();
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				con.close();				
 			}
 		}
 		
 //		repositorioPessoas.adicionarPessoa(pessoa);
-	}
 		
 	public void adicionarPessoa(int i, Pessoa pessoa) {
 		repositorioPessoas.adicionarPessoa(i, pessoa);

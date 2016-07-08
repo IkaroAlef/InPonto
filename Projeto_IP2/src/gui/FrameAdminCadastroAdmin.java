@@ -15,6 +15,7 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -183,7 +184,12 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 				List<Empresa>empresas = jListaEmpresas.getSelectedValuesList();
 				admin.adicionarEmpresas(empresas);
 				
-				EpontoFachada.getInstance().adicionarPessoa(admin);
+				try {
+					EpontoFachada.getInstance().adicionarPessoa(admin);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				JOptionPane.showMessageDialog(null, "Cadastro realizado com suscesso!");
 				this.limparCampos();
 				}
