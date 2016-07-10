@@ -19,10 +19,10 @@ public class ControladorProjetos {
 		PreparedStatement ps = con.prepareStatement("INSERT INTO projeto VALUES (?,?,?,?,?,?)");
 		ps.setInt(1, projeto.getCodigo());
 		ps.setInt(2, projeto.getHoras());
-		ps.setDate(3, (Date) projeto.getDataInicio());
-		ps.setDate(4, (Date) projeto.getDataFim());
-		ps.setString(6, projeto.getCoordenador());
-		ps.setInt(7, projeto.getDepartamento());		
+		ps.setString(3, projeto.getDataInicio());
+		ps.setString(4, projeto.getDataFim());
+		ps.setString(5, projeto.getCoordenador());
+		ps.setString(6, projeto.getDepartamento());		
 		ps.execute();
 		con.commit();
 		ps.close();

@@ -1,16 +1,15 @@
 package negócio.entity_beans;
 
-import javax.xml.crypto.Data;
-
 public class Projeto {
 	private int codigo;
 	private int horas;
-	private Data dataInicio;
-	private Data dataFim;
-	private Coordenador coordenador;
-	private Departamento departamento;
+	private String descricao;
+	private String dataInicio;
+	private String dataFim;
+	private String coordenador;
+	private String departamento;
 	
-	public Projeto(int codigo, int horas, Data dataInicio, Data dataFim, Tarefa tarefa, Coordenador coordenador, Departamento departamento) {
+	public Projeto(int codigo, int horas, String descricao, String dataInicio, String dataFim, String coordenador, String departamento) {
 		this.codigo = codigo;
 		this.horas = horas;
 		this.dataInicio = dataInicio;
@@ -35,35 +34,43 @@ public class Projeto {
 		this.horas = horas;
 	}
 
-	public Data getDataInicio() {
+	public String getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(Data dataInicio) {
+	public void setDataInicio(String dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public Data getDataFim() {
+	public String getDataFim() {
 		return dataFim;
 	}
 
-	public void setDataFim(Data dataFim) {
+	public void setDataFim(String dataFim) {
 		this.dataFim = dataFim;
 	}
 
-	public String getCoordenador() {
-		return coordenador.getCpf();
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setCoordenador(Coordenador coordenador) {
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getCoordenador() {
+		return coordenador;
+	}
+
+	public void setCoordenador(String coordenador) {
 		this.coordenador = coordenador;
 	}
 
-	public int getDepartamento() {
-		return departamento.getCodigo();
+	public String getDepartamento() {
+		return departamento;
 	}
 
-	public void setDepartamento(Departamento departamento) {
+	public void setDepartamento(String departamento) {
 		this.departamento = departamento;
 	}
 }
