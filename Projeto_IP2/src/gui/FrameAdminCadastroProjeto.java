@@ -5,7 +5,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 import javax.xml.crypto.Data;
+
+import conexaoBD.FabricaDeConexao;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -15,7 +19,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import negócio.ControladorProjetos;
 import negócio.EpontoFachada;
@@ -33,8 +43,8 @@ public class FrameAdminCadastroProjeto extends JFrame implements ActionListener 
 
 	private JPanel contentPane;
 	private JTextField txtDescricaoProjeto;
-	private JComboBox<Coordenador> cmbBxCoordenador;
-	private JComboBox<Departamento> cmbBxDepartamento;
+	private JComboBox<String> cmbBxCoordenador;
+	private JComboBox<String> cmbBxDepartamento;
 	private JFormattedTextField txtDataInicio;
 	private JTextField txtHoras;
 	private JButton btnLimpar;
@@ -86,16 +96,54 @@ public class FrameAdminCadastroProjeto extends JFrame implements ActionListener 
 		lblHoras.setBounds(104, 171, 49, 14);
 		contentPane.add(lblHoras);
 
-		cmbBxCoordenador = new JComboBox<Coordenador>();
+		cmbBxCoordenador = new JComboBox<String>();
+		// cmbBxCoordenador = new JTextField();
 		cmbBxCoordenador.setBounds(151, 196, 262, 20);
 		contentPane.add(cmbBxCoordenador);
 
-		txtDataInicio = new JFormattedTextField();
+		FabricaDeConexao bd = new FabricaDeConexao();
+		Connection con = null;
+		try {
+			con = bd.getConexao("admin", "bancodedados");
+			con.setAutoCommit(false);
+			ResultSet rsCoord = con.createStatement().executeQuery(
+					"SELECT nome, coordenador.cpf FROM coordenador JOIN PESSOA WHERE coordenador.cpf=pessoa.cpf;");
+			String coord;
+			while (rsCoord.next()) {
+				coord = rsCoord.getString("nome") + "-" + rsCoord.getString("cpf");
+				cmbBxCoordenador.addItem(coord);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		txtDataInicio = new JFormattedTextField(createFormatter("##/##/####"));
 		txtDataInicio.setColumns(10);
 		txtDataInicio.setBounds(151, 140, 128, 20);
 		contentPane.add(txtDataInicio);
 
-		txtHoras = new JTextField();
+		NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.getDefault());
+		DecimalFormat decimalFormat = (DecimalFormat) numberFormat;
+		decimalFormat.setGroupingUsed(false);
+
+		txtHoras = new JTextField() {
+			public void processKeyEvent(KeyEvent ev) {
+				char c = ev.getKeyChar();
+				try {
+					// Ignore all non-printable characters. Just check the
+					// printable ones.
+					if (c > 31 && c < 127) {
+						Integer.parseInt(c + "");
+					}
+					super.processKeyEvent(ev);
+				} catch (NumberFormatException nfe) {
+					// Do nothing. Character inputted is not a number, so ignore
+					// it.
+				}
+			}
+		};
 		txtHoras.setColumns(10);
 		txtHoras.setBounds(151, 168, 100, 20);
 		contentPane.add(txtHoras);
@@ -136,19 +184,43 @@ public class FrameAdminCadastroProjeto extends JFrame implements ActionListener 
 		lblDepartamento.setBounds(63, 230, 90, 14);
 		contentPane.add(lblDepartamento);
 
-		cmbBxDepartamento = new JComboBox<Departamento>();
+		cmbBxDepartamento = new JComboBox<String>();
 		cmbBxDepartamento.setBounds(151, 227, 262, 20);
 		contentPane.add(cmbBxDepartamento);
-		// for(int i=0;i<EpontoFachada.getInstance().getSizeEmpresas() ; i++){
-		// cmbBxEmpresa.addItem(EpontoFachada.getInstance().getEmpresas(null).get(i));
-		// }
+
+		try {
+			con = bd.getConexao("admin", "bancodedados");
+			con.setAutoCommit(false);
+			ResultSet rsDept = con.createStatement().executeQuery("SELECT nome, codigo FROM departamento;");
+			String dept;
+			while (rsDept.next()) {
+				dept = rsDept.getString("codigo") + "-" + rsDept.getString("nome");
+				cmbBxDepartamento.addItem(dept);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	protected MaskFormatter createFormatter(String s) {
+		MaskFormatter formatter = null;
+		try {
+			formatter = new MaskFormatter(s);
+		} catch (java.text.ParseException exc) {
+			System.err.println("formatter is bad: " + exc.getMessage());
+			System.exit(-1);
+		}
+		return formatter;
 	}
 
 	private void limparCampos() {
 		txtDescricaoProjeto.setText("");
 		txtDataInicio.setText("");
 		txtHoras.setText("");
-
+		// cmbBxCoordenador.setText("");;
+		// cmbBxDepartamento.setText("");
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -156,14 +228,20 @@ public class FrameAdminCadastroProjeto extends JFrame implements ActionListener 
 			this.limparCampos();
 		} else if (e.getSource().equals(btnSalvar)) {
 			Projeto projeto = null;
-			int codigo = 1;
 			String descricao = txtDescricaoProjeto.getText();
-			String coordenador = cmbBxCoordenador.getName();
-			String dataInicio = txtDataInicio.getText();
+			String coordenador = cmbBxCoordenador.getSelectedItem().toString();
+			String[] coord = coordenador.split("-");
+			Date dataInicio = null;
+			if (txtDataInicio.getText() != null) {
+				String dt = txtDataInicio.getText();
+				String[] dts = dt.split("/");
+				dataInicio = Date.valueOf(dts[2] + "-" + dts[1] + "-" + dts[0]);
+			}
 			int horas = Integer.parseInt(txtHoras.getText());
-			String departamento = cmbBxDepartamento.getName();
+			String departamento = cmbBxDepartamento.getSelectedItem().toString();
+			String[] dept = departamento.split("-");
 
-			projeto = new Projeto(codigo, horas, descricao, dataInicio, null, coordenador, departamento);
+			projeto = new Projeto(horas, descricao, dataInicio, null, coord[1], Integer.parseInt(dept[0]));
 
 			ControladorProjetos controlProjeto = new ControladorProjetos();
 			try {

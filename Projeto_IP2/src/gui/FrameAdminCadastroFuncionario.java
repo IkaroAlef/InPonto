@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
 
@@ -26,6 +28,7 @@ import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
 
+import conexaoBD.FabricaDeConexao;
 import dados.exceptionsDados.EmpresaNaoEncontradaException;
 import negócio.EpontoFachada;
 import negócio.entity_beans.Empresa;
@@ -72,7 +75,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 	private JTextField txtCtps;
 	private JTextField txtPis;
 	private JTextField txtCodEqp;
-	private JTextField txtCpf_coord;
+	private JComboBox<String> txtCpf_coord;
 	private JTextField txtDt_admissao;
 	private JSeparator separator_2;
 	private JTextField txtCodDept;
@@ -320,67 +323,67 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		
 		txtEndereco = new JTextField();
 		txtEndereco.setColumns(10);
-		txtEndereco.setBounds(10, 262, 466, 20);
+		txtEndereco.setBounds(10, 262, 396, 20);
 		contentPane.add(txtEndereco);
 		
 		JLabel lblNumero = new JLabel("Numero:");
 		lblNumero.setForeground(Color.WHITE);
-		lblNumero.setBounds(10, 293, 78, 14);
+		lblNumero.setBounds(411, 246, 78, 14);
 		contentPane.add(lblNumero);
 		
 		txtNumero = new JTextField();
 		txtNumero.setColumns(10);
-		txtNumero.setBounds(10, 307, 132, 20);
+		txtNumero.setBounds(411, 262, 65, 20);
 		contentPane.add(txtNumero);
 		
 		JLabel lblComplemento = new JLabel("Complemento:");
 		lblComplemento.setForeground(Color.WHITE);
-		lblComplemento.setBounds(152, 293, 85, 14);
+		lblComplemento.setBounds(10, 293, 85, 14);
 		contentPane.add(lblComplemento);
 		
 		txtComplemento = new JTextField();
 		txtComplemento.setColumns(10);
-		txtComplemento.setBounds(152, 307, 151, 20);
+		txtComplemento.setBounds(10, 307, 151, 20);
 		contentPane.add(txtComplemento);
 		
 		JLabel lblBairro = new JLabel("Bairro:");
 		lblBairro.setForeground(Color.WHITE);
-		lblBairro.setBounds(322, 293, 78, 14);
+		lblBairro.setBounds(171, 293, 78, 14);
 		contentPane.add(lblBairro);
 		
 		txtBairro = new JTextField();
 		txtBairro.setColumns(10);
-		txtBairro.setBounds(322, 307, 154, 20);
+		txtBairro.setBounds(171, 307, 154, 20);
 		contentPane.add(txtBairro);
 		
 		JLabel lblCidade = new JLabel("Cidade:");
 		lblCidade.setForeground(Color.WHITE);
-		lblCidade.setBounds(10, 334, 78, 14);
+		lblCidade.setBounds(335, 293, 78, 14);
 		contentPane.add(lblCidade);
 		
 		txtCidade = new JTextField();
 		txtCidade.setColumns(10);
-		txtCidade.setBounds(10, 348, 132, 20);
+		txtCidade.setBounds(335, 307, 141, 20);
 		contentPane.add(txtCidade);
 		
 		JLabel lblEstado = new JLabel("Estado:");
 		lblEstado.setForeground(Color.WHITE);
-		lblEstado.setBounds(152, 334, 78, 14);
+		lblEstado.setBounds(10, 334, 78, 14);
 		contentPane.add(lblEstado);
 		
 		txtEstado = new JTextField();
 		txtEstado.setColumns(10);
-		txtEstado.setBounds(152, 348, 151, 20);
+		txtEstado.setBounds(10, 348, 151, 20);
 		contentPane.add(txtEstado);
 		
 		JLabel lblCep = new JLabel("CEP:");
 		lblCep.setForeground(Color.WHITE);
-		lblCep.setBounds(322, 334, 78, 14);
+		lblCep.setBounds(171, 334, 78, 14);
 		contentPane.add(lblCep);
 		
 		txtCep = new JTextField();
 		txtCep.setColumns(10);
-		txtCep.setBounds(322, 348, 154, 20);
+		txtCep.setBounds(171, 348, 154, 20);
 		contentPane.add(txtCep);
 		
 		JSeparator separator_1 = new JSeparator();
@@ -390,52 +393,68 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		
 		JLabel lblCtps = new JLabel("N\u00BA Carteira de Trabalho:");
 		lblCtps.setForeground(Color.WHITE);
-		lblCtps.setBounds(10, 379, 134, 14);
+		lblCtps.setBounds(335, 334, 134, 14);
 		contentPane.add(lblCtps);
 		
 		txtCtps = new JTextField();
 		txtCtps.setColumns(10);
-		txtCtps.setBounds(10, 393, 132, 20);
+		txtCtps.setBounds(335, 348, 141, 20);
 		contentPane.add(txtCtps);
 		
 		JLabel lblPis = new JLabel("N\u00BA PIS:");
 		lblPis.setForeground(Color.WHITE);
-		lblPis.setBounds(152, 379, 78, 14);
+		lblPis.setBounds(10, 379, 78, 14);
 		contentPane.add(lblPis);
 		
 		txtPis = new JTextField();
 		txtPis.setColumns(10);
-		txtPis.setBounds(152, 393, 151, 20);
+		txtPis.setBounds(10, 393, 151, 20);
 		contentPane.add(txtPis);
 		
 		JLabel lblCodEqp = new JLabel("C\u00F3digo Equipe:");
 		lblCodEqp.setForeground(Color.WHITE);
-		lblCodEqp.setBounds(322, 379, 92, 14);
+		lblCodEqp.setBounds(335, 379, 92, 14);
 		contentPane.add(lblCodEqp);
 		
 		txtCodEqp = new JTextField();
 		txtCodEqp.setColumns(10);
-		txtCodEqp.setBounds(322, 393, 154, 20);
+		txtCodEqp.setBounds(335, 393, 141, 20);
 		contentPane.add(txtCodEqp);
 		
-		JLabel lblCpf_coord = new JLabel("CPF Coordenador:");
+		JLabel lblCpf_coord = new JLabel("Coordenador:");
 		lblCpf_coord.setForeground(Color.WHITE);
 		lblCpf_coord.setBounds(10, 424, 132, 14);
 		contentPane.add(lblCpf_coord);
 		
-		txtCpf_coord = new JTextField();
-		txtCpf_coord.setColumns(10);
-		txtCpf_coord.setBounds(10, 438, 132, 20);
+		txtCpf_coord = new JComboBox<String>();
+		txtCpf_coord.setBounds(10, 438, 315, 20);
 		contentPane.add(txtCpf_coord);
+		
+		FabricaDeConexao bd = new FabricaDeConexao();
+		Connection con = null;
+		try {
+			con = bd.getConexao("admin", "bancodedados");
+			con.setAutoCommit(false);
+			ResultSet rsCoord = con.createStatement().executeQuery("SELECT nome, coordenador.cpf FROM coordenador JOIN PESSOA WHERE coordenador.cpf=pessoa.cpf;");
+			String coord;
+			while (rsCoord.next()){
+				coord = rsCoord.getString("nome") + "-" +rsCoord.getString("cpf");
+				txtCpf_coord.addItem(coord);
+			}
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		JLabel lblDt_admissao = new JLabel("Data Admiss\u00E3o:");
 		lblDt_admissao.setForeground(Color.WHITE);
-		lblDt_admissao.setBounds(152, 424, 116, 14);
+		lblDt_admissao.setBounds(171, 379, 116, 14);
 		contentPane.add(lblDt_admissao);
 		
 		txtDt_admissao = new JFormattedTextField(createFormatter("##/##/####"));
 		txtDt_admissao.setColumns(10);
-		txtDt_admissao.setBounds(152, 438, 151, 20);
+		txtDt_admissao.setBounds(171, 393, 154, 20);
 		contentPane.add(txtDt_admissao);
 		
 		separator_2 = new JSeparator();
@@ -443,13 +462,12 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		contentPane.add(separator_2);
 		
 		txtCodDept = new JTextField();
-		txtCodDept.setColumns(10);
-		txtCodDept.setBounds(322, 438, 154, 20);
+		txtCodDept.setBounds(335, 438, 141, 20);
 		contentPane.add(txtCodDept);
 		
 		JLabel lblCodDept = new JLabel("C\u00F3digo Departamento:");
 		lblCodDept.setForeground(Color.WHITE);
-		lblCodDept.setBounds(322, 424, 126, 14);
+		lblCodDept.setBounds(335, 424, 126, 14);
 		contentPane.add(lblCodDept);
 	}
 	
@@ -492,7 +510,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		txtCtps.setText("");
 		txtPis.setText("");
 		txtCodEqp.setText("");
-		txtCpf_coord.setText("");
+//		txtCpf_coord.setText("");
 		txtDt_admissao.setText("");
 		txtCodDept.setText("");	
 	}
@@ -530,7 +548,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 			String pis = txtPis.getText();
 			int codDept = Integer.parseInt(txtCodDept.getText());
 			int cod_eqp = Integer.parseInt(txtCodEqp.getText());
-			String cpf_coord = txtCpf_coord.getText();
+			String cpf_coord = txtCpf_coord.getSelectedItem().toString();
 			Date dt_admissao = null;
 			Date dt_demissao = null;
 			if (txtDt_admissao.getText() != null){

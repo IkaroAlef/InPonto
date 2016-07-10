@@ -242,10 +242,13 @@ public class ControladorPessoas {
                 	}
                 }
             }
-			
+            con.close();
+            
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		
 		//return repositorioPessoas.buscarPessoaCpf(cpf);
 		return pessoa;
 	}

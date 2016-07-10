@@ -1,17 +1,19 @@
 package negócio.entity_beans;
 
+import java.sql.Date;
+
 public class Projeto {
 	private int codigo;
 	private int horas;
 	private String descricao;
-	private String dataInicio;
-	private String dataFim;
+	private Date dataInicio;
+	private Date dataFim;
 	private String coordenador;
-	private String departamento;
+	private int departamento;
 	
-	public Projeto(int codigo, int horas, String descricao, String dataInicio, String dataFim, String coordenador, String departamento) {
-		this.codigo = codigo;
+	public Projeto(int horas, String descricao, Date dataInicio, Date dataFim, String coordenador, int departamento) {
 		this.horas = horas;
+		this.descricao = descricao;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
 		this.coordenador = coordenador;
@@ -34,19 +36,19 @@ public class Projeto {
 		this.horas = horas;
 	}
 
-	public String getDataInicio() {
+	public Date getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(String dataInicio) {
+	public void setDataInicio(Date dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public String getDataFim() {
+	public Date getDataFim() {
 		return dataFim;
 	}
 
-	public void setDataFim(String dataFim) {
+	public void setDataFim(Date dataFim) {
 		this.dataFim = dataFim;
 	}
 
@@ -66,11 +68,11 @@ public class Projeto {
 		this.coordenador = coordenador;
 	}
 
-	public String getDepartamento() {
+	public int getDepartamento() {
 		return departamento;
 	}
 
-	public void setDepartamento(String departamento) {
+	public void setDepartamento(int departamento) {
 		this.departamento = departamento;
 	}
 }
