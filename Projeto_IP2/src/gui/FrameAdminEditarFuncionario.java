@@ -67,7 +67,6 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 	//webcam
 	private Webcam wCam;
 	private WebcamPanel wCamPanel;
-	private JButton btnCancelar;
 
 	/**
 	 * Launch the application.
@@ -268,7 +267,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.setForeground(new Color(128, 128, 128));
-		btnSalvar.setBounds(529, 283, 72, 23);
+		btnSalvar.setBounds(581, 283, 72, 23);
 		btnSalvar.setForeground(new Color(0, 0, 0));
 		btnSalvar.addActionListener(this);
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -276,7 +275,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		
 		btnLimpar = new JButton("Limpar");
 		btnLimpar.setForeground(new Color(128, 128, 128));
-		btnLimpar.setBounds(611, 283, 75, 23);
+		btnLimpar.setBounds(663, 283, 75, 23);
 		btnLimpar.setForeground(new Color(0, 0, 0));
 		btnLimpar.addActionListener(this);
 		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -289,13 +288,6 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 		chkbxAlterarFoto.addItemListener(this);
 		chkbxAlterarFoto.setForeground(new Color(255, 255, 255));
 		contentPane.add(chkbxAlterarFoto);
-		
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setForeground(new Color(128, 128, 128));
-		btnCancelar.setBounds(693, 283, 85, 23);
-		btnCancelar.setForeground(new Color(0, 0, 0));
-		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		contentPane.add(btnCancelar);
 		
 		}
 	

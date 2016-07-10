@@ -54,12 +54,15 @@ public class ControladorPessoas {
 		if (pessoa instanceof Funcionario){
 				con = bd.getConexao("admin", "bancodedados");
 				con.setAutoCommit(false);
+				
+				//Pessoa
 				PreparedStatement ps = con.prepareStatement("INSERT INTO pessoa VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 				ps.setString(1, pessoa.getNome());
 				ps.setString(2, pessoa.getCpf());
 				ps.setInt(3, pessoa.getMatricula());
 				ps.setString(4, pessoa.getEmail());
 				
+				//Conversão Image para LongBlob para adicionar no banco
 				Image img = ((Funcionario) pessoa).getFotoPadrao().getImage();
 				BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 				Graphics2D g2d = bi.createGraphics();
@@ -95,6 +98,8 @@ public class ControladorPessoas {
 				ps.setString(16, pessoa.getEstado());
 				ps.setString(17, pessoa.getCep());
 				ps.execute();
+				
+				//Funcionario
 				PreparedStatement psFunc = con.prepareStatement("INSERT INTO funcionario VALUES (?,?,?,?,?,?,?)");
 				psFunc.setString(1, ((Funcionario) pessoa).getCTPS());
 				psFunc.setString(2, ((Funcionario) pessoa).getPIS());
@@ -104,6 +109,7 @@ public class ControladorPessoas {
 				psFunc.setString(6, ((Funcionario) pessoa).getCPF_Coord());  
 				psFunc.setInt(7, ((Funcionario) pessoa).getCod_Eqp());
 				psFunc.execute();
+				
 				con.commit();
 				ps.close();
 				psFunc.close();

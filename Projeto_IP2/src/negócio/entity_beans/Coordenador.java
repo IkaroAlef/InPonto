@@ -7,4 +7,7 @@ public class Coordenador extends Admin {
 		// TODO Auto-generated constructor stub
 	}
 
+	public String getCPF_Coord() {
+		return cpf;
+	}
 }

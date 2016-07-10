@@ -48,13 +48,13 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	private JButton btnCadastrarFuncionario;
 	private JButton btnMostrarTodos;
 	private JButton btnCadastrarEmpresa;
-	private JButton btnExcluirFuncionrio;
+	private JButton btnExcluirFuncionario;
 	private JButton btnCadastrarAdministrador;
+	private JButton btnCadastrarProjeto;
 	private JComboBox<Empresa> cmbBxEmpresa;
 	private JLabel lblEmpresa;
 	private static final String AdminSuper= EpontoFachada.getInstance().getPessoas(null).get(0).getCpf();
-	private JLabel lblModoAdministrador;
-	private JLabel lblBuscarFuncionrio;
+	private JLabel lblModoAdmin;
 	
 	/**
 	 * Launch the application.
@@ -155,16 +155,6 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	    contentPane.add(panel);
 	    panel.setLayout(null);
 	    
-	    btnCadastrarEmpresa = new JButton("Cadastrar Empresa");
-	    btnCadastrarEmpresa.setForeground(new Color(0, 0, 0));
-	    btnCadastrarEmpresa.setBounds(28, 306, 180, 39);
-	    panel.add(btnCadastrarEmpresa);
-	    
-	    btnExcluirFuncionrio = new JButton("Excluir Funcion\u00E1rio");
-	    btnExcluirFuncionrio.setForeground(new Color(0, 0, 0));
-	    btnExcluirFuncionrio.setBounds(28, 356, 180, 39);
-	    panel.add(btnExcluirFuncionrio);
-	    
 	    btnCadastrarFuncionario = new JButton("Cadastrar Funcionario");
 	    btnCadastrarFuncionario.setForeground(new Color(0, 0, 0));
 	    btnCadastrarFuncionario.setBounds(28, 256, 180, 39);
@@ -175,26 +165,37 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	    btnCadastrarAdministrador.setBounds(28, 206, 180, 39);
 	    panel.add(btnCadastrarAdministrador);
 	    
-	    JLabel lblInponto = new JLabel("inPonto");
+	    JLabel lblInponto = new JLabel("InPonto");
 	    lblInponto.setFont(new Font("Tw Cen MT Condensed", Font.PLAIN, 29));
 	    lblInponto.setForeground(new Color(143, 188, 143));
 	    lblInponto.setBounds(74, 133, 98, 22);
 	    panel.add(lblInponto);
 	    
-	    lblModoAdministrador = new JLabel("Modo Administrador");
-	    lblModoAdministrador.setForeground(new Color(169, 169, 169));
-	    lblModoAdministrador.setBounds(53, 451, 129, 14);
-	    panel.add(lblModoAdministrador);
+	    btnCadastrarProjeto = new JButton("Cadastrar Projeto");
+	    btnCadastrarProjeto.setForeground(new Color(0, 0, 0));
+	    btnCadastrarProjeto.setBounds(28, 356, 180, 39);
+	    panel.add(btnCadastrarProjeto);
+	    btnCadastrarProjeto.addActionListener(this);
 	    
-	    lblBuscarFuncionrio = new JLabel("BUSCAR FUNCION\u00C1RIO");
-	    lblBuscarFuncionrio.setForeground(new Color(0,0,0));
-	    lblBuscarFuncionrio.setFont(new Font("Tahoma", Font.BOLD, 16));
-	    lblBuscarFuncionrio.setBounds(645, 44, 200, 20);
-	    contentPane.add(lblBuscarFuncionrio);
+	    btnExcluirFuncionario = new JButton("Excluir Funcion\u00E1rio");
+	    btnExcluirFuncionario.setBounds(28, 406, 180, 39);
+	    panel.add(btnExcluirFuncionario);
+	    btnExcluirFuncionario.setForeground(new Color(0, 0, 0));
+	    
+	    btnCadastrarEmpresa = new JButton("Cadastrar Empresa");
+	    btnCadastrarEmpresa.setBounds(28, 306, 180, 39);
+	    panel.add(btnCadastrarEmpresa);
+	    btnCadastrarEmpresa.setForeground(new Color(0, 0, 0));
+	    btnCadastrarEmpresa.addActionListener(this);
+	    btnExcluirFuncionario.addActionListener(this);
+	    
+	    lblModoAdmin = new JLabel("MODO ADMINISTRADOR");
+	    lblModoAdmin.setForeground(new Color(0,0,0));
+	    lblModoAdmin.setFont(new Font("Tahoma", Font.BOLD, 16));
+	    lblModoAdmin.setBounds(645, 44, 200, 20);
+	    contentPane.add(lblModoAdmin);
 	    btnCadastrarAdministrador.addActionListener(this);
 	    btnCadastrarFuncionario.addActionListener(this);
-	    btnExcluirFuncionrio.addActionListener(this);
-	    btnCadastrarEmpresa.addActionListener(this );
 		    
 		}
 
@@ -288,7 +289,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 				this.preencherTableFuncionarios(null);
 		} 	
 		
-		else if(e.getSource().equals(btnExcluirFuncionrio)){
+		else if(e.getSource().equals(btnExcluirFuncionario)){
 			if(tableFuncionarios.getSelectedRowCount()==0)
 				JOptionPane.showMessageDialog(null, "Por favor, selecione pelo menos um funcionário.");
 			else{
@@ -308,6 +309,10 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		
 		else if(e.getSource().equals(btnCadastrarEmpresa)){
 			ControladorDeTelas.getInstance().frameCadastrarEmpresa();
+		}
+		
+		else if(e.getSource().equals(btnCadastrarProjeto)){
+			ControladorDeTelas.getInstance().frameCadastrarProjeto();
 		}
 		
 		else if(e.getSource().equals(btnCadastrarAdministrador))

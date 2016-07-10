@@ -35,7 +35,6 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener{
 	private JTextField txtLogin;
 	private JPasswordField passSenha;
 	private JLabel lblInponto;
-	private JButton btnNewButton;
 	private static WebcamQRCodeExample frameQR;
 	
 	/**
@@ -63,7 +62,7 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener{
 	public FrameLogin() {
 		
 		setResizable(false);
-		setTitle("Login inPonto");
+		setTitle("Login InPonto");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 379, 213);
 		contentPane = new JPanel();
@@ -101,21 +100,15 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener{
 		
 		btnOk = new JButton("Entrar");
 		btnOk.setForeground(new Color(0, 0, 0));
-		btnOk.setBounds(114, 133, 78, 23);
+		btnOk.setBounds(151, 134, 78, 23);
 		contentPane.add(btnOk);
 		btnOk.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
-		lblInponto = new JLabel("inPonto");
+		lblInponto = new JLabel("InPonto");
 		lblInponto.setForeground(new Color(143, 188, 143));
 		lblInponto.setFont(new Font("Tw Cen MT Condensed", Font.PLAIN, 28));
 		lblInponto.setBounds(136, 11, 107, 39);
 		contentPane.add(lblInponto);
-		
-		btnNewButton = new JButton("Cancela");
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnNewButton.setBounds(202, 133, 78, 23);
-		contentPane.add(btnNewButton);
 		btnOk.addActionListener(this);
 		btnOk.addKeyListener(this);
 

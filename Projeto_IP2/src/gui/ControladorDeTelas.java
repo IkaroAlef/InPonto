@@ -21,6 +21,7 @@ public class ControladorDeTelas extends JFrame {
 	private FrameAdminCadastroEmpresa frameAdminCadEmpresa = new FrameAdminCadastroEmpresa();
 	private FrameAdminCadastroFuncionario frameAdminCadFuncionario;
 	private FrameLogin frameLogin = new FrameLogin();
+	private FrameAdminCadastroProjeto frameAdminCadProjeto = new FrameAdminCadastroProjeto();
 	
 	public static ControladorDeTelas instance;
 	
@@ -108,6 +109,10 @@ public class ControladorDeTelas extends JFrame {
 		frameAdminCadEmpresa.setVisible(true);
 	}
 	
+	public void frameCadastrarProjeto(){
+		frameAdminCadProjeto.setVisible(true);
+	}
+	
 	public void frameCadastrarFuncionario(){
 		frameAdminCadFuncionario = new FrameAdminCadastroFuncionario();
 		frameAdminCadFuncionario.setVisible(true);
@@ -132,5 +137,6 @@ public class ControladorDeTelas extends JFrame {
 	public void frameEditarAdmin(Admin admin){
 		new FrameAdminEditarAdmin(admin).setVisible(true);
 	}
+	
 	
 }

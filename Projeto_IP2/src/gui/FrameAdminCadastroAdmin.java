@@ -90,12 +90,12 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 		
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
-		txtEmail.setBounds(96, 157, 340, 20);
+		txtEmail.setBounds(100, 157, 340, 20);
 		contentPane.add(txtEmail);
 		
 		txtCpf = new JTextField();
 		txtCpf.setColumns(10);
-		txtCpf.setBounds(96, 185, 113, 20);
+		txtCpf.setBounds(100, 185, 113, 20);
 		contentPane.add(txtCpf);
 		
 		JLabel lblEmail = new JLabel("Email:");
@@ -110,20 +110,20 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 		
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.setForeground(new Color(0,0,0));
-		btnSalvar.setBounds(96, 249, 89, 23);
+		btnSalvar.setBounds(163, 249, 89, 23);
 		btnSalvar.addActionListener(this);
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		contentPane.add(btnSalvar);
 				
 		btnLimpar = new JButton("Limpar");
 		btnLimpar.setForeground(new Color(0,0,0));
-		btnLimpar.setBounds(195, 249, 89, 23);
+		btnLimpar.setBounds(262, 249, 89, 23);
 		btnLimpar.addActionListener(this);
 		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		contentPane.add(btnLimpar);
 		
 		passSenha = new JPasswordField();
-		passSenha.setBounds(260, 185, 176, 20);
+		passSenha.setBounds(264, 185, 176, 20);
 		contentPane.add(passSenha);
 		
 		listModel = new DefaultListModel<>();
@@ -149,12 +149,6 @@ public class FrameAdminCadastroAdmin extends JFrame implements ActionListener {
 		lblCadastroAdministrador.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblCadastroAdministrador.setBounds(142, 60, 242, 14);
 		contentPane.add(lblCadastroAdministrador);
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setForeground(new Color(0,0,0));
-		btnCancelar.setBounds(295, 249, 89, 23);
-		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		contentPane.add(btnCancelar);
 		
 	}
 	

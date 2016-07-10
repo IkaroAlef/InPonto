@@ -31,7 +31,6 @@ public class FrameAdminCadastroEmpresa extends JFrame implements ActionListener 
 	private JTextField txtContato;
 	private JButton btnLimpar;
 	private JButton btnSalvar;
-	private JButton btnNewButton;
 	private JLabel lblCadastrarEmpresa;
 	
 	/**
@@ -114,23 +113,17 @@ public class FrameAdminCadastroEmpresa extends JFrame implements ActionListener 
 		
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.setForeground(new Color(0,0,0));
-		btnSalvar.setBounds(151, 273, 100, 23);
+		btnSalvar.setBounds(168, 273, 100, 23);
 		btnSalvar.addActionListener(this);
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		contentPane.add(btnSalvar);
 				
 		btnLimpar = new JButton("Limpar");
 		btnLimpar.setForeground(new Color(0,0,0));
-		btnLimpar.setBounds(261, 273, 100, 23);
+		btnLimpar.setBounds(285, 273, 100, 23);
 		btnLimpar.addActionListener(this);
 		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		contentPane.add(btnLimpar);
-		
-		btnNewButton = new JButton("Cancelar");
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setBounds(371, 273, 100, 23);
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		contentPane.add(btnNewButton);
 		
 		lblCadastrarEmpresa = new JLabel("CADASTRAR EMPRESA");
 		lblCadastrarEmpresa.setForeground(new Color(255, 255, 255));
