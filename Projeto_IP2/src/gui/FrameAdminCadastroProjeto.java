@@ -107,7 +107,7 @@ public class FrameAdminCadastroProjeto extends JFrame implements ActionListener 
 			con = bd.getConexao("admin", "bancodedados");
 			con.setAutoCommit(false);
 			ResultSet rsCoord = con.createStatement().executeQuery(
-					"SELECT nome, coordenador.cpf FROM coordenador JOIN PESSOA WHERE coordenador.cpf=pessoa.cpf;");
+					"SELECT pessoa.nome, coordenador.cpf, departamento.CNPJ FROM coordenador JOIN PESSOA JOIN PROJETO JOIN DEPARTAMENTO WHERE coordenador.cpf = pessoa.cpf;");
 			String coord;
 			while (rsCoord.next()) {
 				coord = rsCoord.getString("nome") + "-" + rsCoord.getString("cpf");

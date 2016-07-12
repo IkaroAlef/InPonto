@@ -9,6 +9,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -21,6 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import conexaoBD.FabricaDeConexao;
 import negócio.EpontoFachada;
 import negócio.entity_beans.Admin;
 import negócio.entity_beans.Empresa;
@@ -205,30 +209,56 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		this.limparTableFuncionarios();
 		
 		ArrayList<Pessoa>pessoas = EpontoFachada.getInstance().getPessoas(nome);
-		String[] linha= new String[6];
-		Empresa empresa = (Empresa) cmbBxEmpresa.getSelectedItem();
-		for (int i=0; i < pessoas.size() ; i++){
-			if (pessoas.get(i) instanceof Funcionario && 
-					((Funcionario)pessoas.get(i)).getEmpresa().igualNome(empresa.getNomeEmpresa())){
-				linha[0] = pessoas.get(i).getNome();
-				linha[1] = pessoas.get(i).getCpf();
-				linha[2] = pessoas.get(i).getEmail();
-				linha[3] = ((Funcionario) pessoas.get(i)).getTelefone();
-				linha[4] = ((Funcionario) pessoas.get(i)).getCargo();
-				linha[5] = ((Funcionario) pessoas.get(i)).getEmpresa().getNomeEmpresa();
+		
+		FabricaDeConexao bd = new FabricaDeConexao();
+		Connection con = null;
+		try {
+			con = bd.getConexao("admin", "bancodedados");
+			con.setAutoCommit(false);
+			ResultSet rsFunc = con.createStatement().executeQuery(
+					"SELECT pessoa.nome as Nome, pessoa.cpf as CPF, pessoa.email as Email, pessoa.telefone as Telefone, cargo.nome as Cargo FROM funcionario JOIN pessoa JOIN cargo WHERE funcionario.cpf = pessoa.cpf and cargo.codigo = pessoa.cargo;");
+			
+			String[] linha= new String[5];
+			
+			while(rsFunc.next()){
+				linha[0] = rsFunc.getString("Nome");
+				linha[1] = rsFunc.getString("CPF");
+				linha[2] = rsFunc.getString("Email");
+				linha[3] = rsFunc.getString("Telefone");
+				linha[4] = rsFunc.getString("Cargo");
 				modeloTable.addRow(linha);
 			}
-			if (pessoas.get(i) instanceof Admin && 
-					((Admin)pessoas.get(i)).getEmpresas().contains(cmbBxEmpresa.getSelectedItem())){
-				linha[0] = pessoas.get(i).getNome();
-				linha[1] = pessoas.get(i).getCpf();
-				linha[2] = pessoas.get(i).getEmail();
-				linha[3] = "";
-				linha[4] = "";
-				linha[5] = ((Admin) pessoas.get(i)).getStringEmpresas();
-				modeloTable.addRow(linha);
-			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		String[] linha= new String[6];
+		
+		Empresa empresa = (Empresa) cmbBxEmpresa.getSelectedItem();
+//		for (int i=0; i < pessoas.size() ; i++){
+//			if (pessoas.get(i) instanceof Funcionario && 
+//					((Funcionario)pessoas.get(i)).getEmpresa().igualNome(empresa.getNomeEmpresa())){
+//				linha[0] = pessoas.get(i).getNome();
+//				linha[1] = pessoas.get(i).getCpf();
+//				linha[2] = pessoas.get(i).getEmail();
+//				linha[3] = ((Funcionario) pessoas.get(i)).getTelefone();
+//				linha[4] = ((Funcionario) pessoas.get(i)).getCargo();
+//				linha[5] = ((Funcionario) pessoas.get(i)).getEmpresa().getNomeEmpresa();
+//				modeloTable.addRow(linha);
+//			}
+//			if (pessoas.get(i) instanceof Admin && 
+//					((Admin)pessoas.get(i)).getEmpresas().contains(cmbBxEmpresa.getSelectedItem())){
+//				linha[0] = pessoas.get(i).getNome();
+//				linha[1] = pessoas.get(i).getCpf();
+//				linha[2] = pessoas.get(i).getEmail();
+//				linha[3] = "";
+//				linha[4] = "";
+//				linha[5] = ((Admin) pessoas.get(i)).getStringEmpresas();
+//				modeloTable.addRow(linha);
+//			}
+//		}
 	}
 	
 	public void preencherTableFuncionariosSuper(String nome){ 
