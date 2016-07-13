@@ -16,13 +16,14 @@ public class ControladorProjetos {
 		con = bd.getConexao("admin", "bancodedados");
 		con.setAutoCommit(false);
 		
-		PreparedStatement ps = con.prepareStatement("INSERT INTO projeto (`dataFim`, `dataInicio`, `descricao`, `qtdHoras`, `cod_Dept`, `CPF_Coord`) VALUES (?,?,?,?,?,?)");
+		PreparedStatement ps = con.prepareStatement("INSERT INTO projeto (`dataFim`, `dataInicio`, `descricao`, `qtdHoras`, `cod_Dept`, `CPF_Coord`, `CNPJ`) VALUES (?,?,?,?,?,?)");
 		ps.setDate(1, projeto.getDataFim());
 		ps.setDate(2, projeto.getDataInicio());
 		ps.setString(3, projeto.getDescricao());
 		ps.setInt(4, projeto.getHoras());
 		ps.setInt(5, projeto.getDepartamento());
 		ps.setString(6, projeto.getCoordenador());				
+		ps.setString(7, projeto.getCoordenador());
 		ps.execute();
 		con.commit();
 		ps.close();
