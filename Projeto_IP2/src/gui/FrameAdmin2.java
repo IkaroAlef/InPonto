@@ -9,8 +9,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -39,6 +41,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Image;
 
 
 public class FrameAdmin2 extends JFrame implements PropertyChangeListener, ActionListener, MouseListener, WindowListener{
@@ -52,7 +55,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 	private Funcionario funcionario;
 	private JButton btnIniciarFerias;
 	private JButton btnEditar;
-	private ImageIcon fotoPadrao;
+	private Image fotoPadrao;
 	private JLabel lblFoto;
 	private JTextField txtGreen;
 	private JTextField txtYellow;
@@ -71,10 +74,16 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameAdmin2 frame = new FrameAdmin2((Funcionario) EpontoFachada.getInstance().getPessoaNome("Ikaro Alef"));
+					FrameAdmin2 frame = new FrameAdmin2((Funcionario) EpontoFachada.getInstance().getPessoaCpf("10344022420"));
 					frame.setVisible(true);
 				} catch (FuncionarioNaoEncontradoException e1){
 					JOptionPane.showMessageDialog(null, e1.getMessage());
+				} catch (NomeInvalidoException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		});
@@ -255,8 +264,9 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 		JLabel lblIntervaloVoltaFuncionario = new JLabel(funcionario.getIntervalo_in().toString());
 		lblIntervaloVoltaFuncionario.setBounds(139, 459, 165, 14);
 		panel.add(lblIntervaloVoltaFuncionario);
-		lblFoto = new JLabel(fotoPadrao);
-		lblFoto.setBounds(53, 11, 232, 208);
+		lblFoto = new JLabel(new ImageIcon(fotoPadrao));
+		lblFoto.setBounds(2, 0, 320, 240);
+		lblFoto.setIcon(new ImageIcon(fotoPadrao.getScaledInstance(lblFoto.getWidth(),lblFoto.getHeight(), Image.SCALE_DEFAULT)));
 		panel.add(lblFoto);
 		
 		JPanel panel_1 = new JPanel();
@@ -463,7 +473,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 					lblTotalYellow.setText(String.valueOf(totalYellow));
 					lblTotalRed.setText(String.valueOf(totalRed));
 					}
-		}catch (FuncionarioNaoEncontradoException | NomeInvalidoException e1) {
+		}catch (FuncionarioNaoEncontradoException | NomeInvalidoException | IOException e1) {
 			JOptionPane.showMessageDialog(null, e1.getMessage());
 		}
 		
@@ -524,7 +534,7 @@ public class FrameAdmin2 extends JFrame implements PropertyChangeListener, Actio
 				ArrayList<RegPonto> pontos = null;
 				try {
 					pontos = EpontoFachada.getInstance().getPontosDoFuncionario(funcionario.getCpf(), dia, mes, ano);
-				} catch (FuncionarioNaoEncontradoException | NomeInvalidoException e1) {
+				} catch (FuncionarioNaoEncontradoException | NomeInvalidoException | IOException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 

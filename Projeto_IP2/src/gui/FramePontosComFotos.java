@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Image;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ import negócio.entity_beans.RegPonto;
 public class FramePontosComFotos extends JFrame {
 
 	private JPanel contentPane;
-	private ImageIcon foto[];
+	private Image foto[];
 	private JLabel lblFoto[];
 	private JLabel lblPontos[];
 	private static DateTimeFormatter formatadorData =  DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -51,14 +52,14 @@ public class FramePontosComFotos extends JFrame {
 		
 		int tamanho = pontos.size();
 		String ponto[] = new String[tamanho];
-		foto = new ImageIcon[tamanho];
+		foto = new Image[tamanho];
 		lblFoto = new JLabel[tamanho];
 		lblPontos = new JLabel[tamanho];
 		
 		for (int i = 0; i<pontos.size(); i++){
 			
 			foto[i] = pontos.get(i).getFotoPonto();
-			lblFoto[i] = new JLabel(foto[i]);
+			lblFoto[i] = new JLabel(new ImageIcon(foto[i]));
 			lblFoto[i].setLocation(5+(i*210), 11);	
 			lblFoto[i].setSize(192, 148);
 			contentPane.add(lblFoto[i]);

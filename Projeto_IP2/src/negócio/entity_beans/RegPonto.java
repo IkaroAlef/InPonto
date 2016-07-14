@@ -1,6 +1,7 @@
 //Classe para Registro de Ponto
 package negócio.entity_beans;
 
+import java.awt.Image;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -11,7 +12,7 @@ import javax.swing.ImageIcon;
 public class RegPonto implements Serializable {
 	private LocalDateTime agora;
 	private Funcionario funcionario;
-	private ImageIcon fotoPonto;
+	private Image fotoPonto;
 	
 	public RegPonto(){
 		
@@ -32,11 +33,11 @@ public class RegPonto implements Serializable {
 		return this.funcionario;
 	}
 
-	public ImageIcon getFotoPonto() {
+	public Image getFotoPonto() {
 		return fotoPonto;
 	}
 
-	public void setFotoPonto(ImageIcon fotoPonto) {
+	public void setFotoPonto(Image fotoPonto) {
 		this.fotoPonto = fotoPonto;
 	}
 
@@ -52,7 +53,7 @@ public class RegPonto implements Serializable {
 		}
 	}
 	
-	public void registrarPonto(Funcionario funcionario, ImageIcon fotoPonto){
+	public void registrarPonto(Funcionario funcionario, Image fotoPonto){
 		if(funcionario!=null){
 			this.agora=LocalDateTime.now();
 			this.funcionario=funcionario;

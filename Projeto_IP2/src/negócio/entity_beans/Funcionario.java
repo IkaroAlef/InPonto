@@ -1,6 +1,7 @@
 //Classe para representar Funcionario
 package negócio.entity_beans;
 
+import java.awt.Image;
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -21,7 +22,7 @@ public class Funcionario extends Pessoa implements Serializable {
 	private String cargo;
 	private String escala;
 	private LocalTime chegada,saida,intervalo_in,intervalo_out; //chegada, saida, voltou do intervalo, saiu para o intervalo
-	private ImageIcon fotoPadrao;
+	private Image fotoPadrao;
 	
 	public Funcionario(String nome, String cpf,String email,char[] senha,String telefone, 
 			Empresa empresa, String cargo, String escala, LocalTime chegada, LocalTime saida, 
@@ -196,11 +197,11 @@ public class Funcionario extends Pessoa implements Serializable {
 		this.intervalo_out = intervalo_out;
 	}
 	
-	public ImageIcon getFotoPadrao() {
+	public Image getFotoPadrao() {
 		return fotoPadrao;
 	}
 
-	public void setFotoPadrao(ImageIcon fotoPadrao) {
+	public void setFotoPadrao(Image fotoPadrao) {
 		this.fotoPadrao = fotoPadrao;
 	}
 

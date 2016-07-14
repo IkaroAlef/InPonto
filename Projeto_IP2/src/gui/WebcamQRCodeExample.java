@@ -3,6 +3,7 @@ package gui;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.StringTokenizer;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -119,7 +120,7 @@ public class WebcamQRCodeExample extends JFrame implements Runnable, ThreadFacto
 						ControladorDeTelas.getInstance().loginProximaTela(EpontoFachada.getInstance().getPessoaCpf(cpf));
 						this.setVisible(false);
 					}
-				} catch (FuncionarioNaoEncontradoException | NomeInvalidoException e) {
+				} catch (FuncionarioNaoEncontradoException | NomeInvalidoException | IOException e) {
 					JOptionPane.showMessageDialog(null, "Funcionário não encontrado");
 				}
 				

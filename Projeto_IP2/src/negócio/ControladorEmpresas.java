@@ -42,6 +42,7 @@ public class ControladorEmpresas {
 	
 	// Buscar
 	public Empresa buscaEmpresaNome(String nomeEmpresa) throws EmpresaNaoEncontradaException{
+		System.out.println(nomeEmpresa);
 		return repositorioEmpresas.buscarEmpresaNome(nomeEmpresa);
 	}
 	public Empresa buscaEmpresaCNPJ(String cnpj) throws CnpjNaoEncontradoException{

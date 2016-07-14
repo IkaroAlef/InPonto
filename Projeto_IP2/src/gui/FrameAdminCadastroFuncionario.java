@@ -75,7 +75,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 	private JTextField txtCtps;
 	private JTextField txtPis;
 	private JTextField txtCodEqp;
-	private JComboBox<String> txtCpf_coord;
+	private JComboBox<String> cmbBxCpf_coord;
 	private JTextField txtDt_admissao;
 	private JSeparator separator_2;
 	private JTextField txtCodDept;
@@ -426,9 +426,9 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 		lblCpf_coord.setBounds(10, 424, 132, 14);
 		contentPane.add(lblCpf_coord);
 		
-		txtCpf_coord = new JComboBox<String>();
-		txtCpf_coord.setBounds(10, 438, 315, 20);
-		contentPane.add(txtCpf_coord);
+		cmbBxCpf_coord = new JComboBox<String>();
+		cmbBxCpf_coord.setBounds(10, 438, 315, 20);
+		contentPane.add(cmbBxCpf_coord);
 		
 		FabricaDeConexao bd = new FabricaDeConexao();
 		Connection con = null;
@@ -439,7 +439,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 			String coord;
 			while (rsCoord.next()){
 				coord = rsCoord.getString("nome") + "-" +rsCoord.getString("cpf");
-				txtCpf_coord.addItem(coord);
+				cmbBxCpf_coord.addItem(coord);
 			}
 				
 		} catch (SQLException e) {
@@ -548,7 +548,9 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 			String pis = txtPis.getText();
 			int codDept = Integer.parseInt(txtCodDept.getText());
 			int cod_eqp = Integer.parseInt(txtCodEqp.getText());
-			String cpf_coord = txtCpf_coord.getSelectedItem().toString();
+			String coordenador = cmbBxCpf_coord.getSelectedItem().toString();
+			String[] coord = coordenador.split("-");
+			String cpf_coord = coord[1];
 			Date dt_admissao = null;
 			Date dt_demissao = null;
 			if (txtDt_admissao.getText() != null){
@@ -557,6 +559,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 				dt_admissao = Date.valueOf(dts[2]+"-"+dts[1]+"-"+dts[0]);
 			}
 			try {
+				System.out.println(cmbBxEmpresa.getSelectedItem().toString());
 				empresa = (Empresa) EpontoFachada.getInstance().buscaEmpresaNome(cmbBxEmpresa.getSelectedItem().toString());
 				horaChegada = LocalTime.of( Integer.parseInt(txtHoraChegada.getText()) , Integer.parseInt( txtMinutosChegada.getText()) );
 				horaSaida = LocalTime.of( Integer.parseInt(txtHoraSaida.getText()) , Integer.parseInt( txtMinutosSaida.getText()) );
@@ -587,7 +590,7 @@ public class FrameAdminCadastroFuncionario extends JFrame implements ActionListe
 						empresa,
 						"Seg. a Sexta",
 						horaChegada, horaSaida, horaChegadaIntervalo, horaSaidaIntervalo);
-				funcionario.setFotoPadrao(new ImageIcon(wCam.getImage()));
+				funcionario.setFotoPadrao(wCam.getImage());
 
 				EpontoFachada.getInstance().adicionarPessoa(funcionario);
 				

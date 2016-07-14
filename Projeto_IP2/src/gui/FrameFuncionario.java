@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -242,8 +243,8 @@ public class FrameFuncionario extends JFrame implements ActionListener, WindowLi
 			RegPonto ponto = new RegPonto();
 			ponto.registrarPonto(funcionario);
 			try {
-				ponto.registrarPonto((Funcionario)EpontoFachada.getInstance().getPessoaCpf(funcionario.getCpf()),new ImageIcon(wCam.getImage()));
-			} catch (FuncionarioNaoEncontradoException | NomeInvalidoException e1) {
+				ponto.registrarPonto((Funcionario)EpontoFachada.getInstance().getPessoaCpf(funcionario.getCpf()),wCam.getImage());
+			} catch (FuncionarioNaoEncontradoException | NomeInvalidoException | IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}

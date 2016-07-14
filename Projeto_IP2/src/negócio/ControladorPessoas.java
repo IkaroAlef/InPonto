@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
@@ -63,7 +64,7 @@ public class ControladorPessoas {
 				ps.setString(4, pessoa.getEmail());
 				
 				//Conversão Image para LongBlob para adicionar no banco
-				Image img = ((Funcionario) pessoa).getFotoPadrao().getImage();
+				Image img = (((Funcionario) pessoa).getFotoPadrao());
 				BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 				Graphics2D g2d = bi.createGraphics();
 				g2d.drawImage(img, 0, 0, null);
@@ -183,7 +184,7 @@ public class ControladorPessoas {
 		return repositorioPessoas.buscarPessoaNome(nome);
 	}
 
-	public Pessoa buscarPessoaCpf(String cpf) throws FuncionarioNaoEncontradoException, NomeInvalidoException {
+	public Pessoa buscarPessoaCpf(String cpf) throws FuncionarioNaoEncontradoException, NomeInvalidoException, IOException {
 		Pessoa pessoa = null;
 		String dbCPF;
 		
@@ -216,6 +217,13 @@ public class ControladorPessoas {
             		String email = rsFunc.getString("email");
             		char[] senha = rsFunc.getString("senha").toCharArray();
             		pessoa = new Funcionario(nome, dbCPF, email, senha, telefone, empresa,cargo,escala,chegada,saida,intervalo_in,intervalo_out);
+            		
+            		Blob fotoBlob = rsFunc.getBlob("fotoPadrao");
+            		//InputStream bStream = rsFunc.getBinaryStream("fotoPadrao");
+            		InputStream bStream = fotoBlob.getBinaryStream(1, fotoBlob.length());
+            		Image fotoPadrao = ImageIO.read(bStream);
+            		((Funcionario)pessoa).setFotoPadrao(fotoPadrao);
+            		
             		break;
             	}
             }
@@ -223,7 +231,7 @@ public class ControladorPessoas {
             	while (rsGerente.next()){
                 	dbCPF = rsGerente.getString("CPF");
                 	if (dbCPF.equals(cpf)){
-                		//a  123485   login e senha teste
+                		//84493610974  123485   login e senha teste
                 		achou=true;
                 		String nome = rsGerente.getString("nome");
                 		String email = rsGerente.getString("email");

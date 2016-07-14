@@ -339,7 +339,7 @@ public class FrameAdminEditarFuncionario extends JFrame implements ActionListene
 			try{
 				if(chkbxAlterarFoto.isSelected()){
 				funcionarioNew = new Funcionario(nome, cpf, email, senha, telefone, empresa, cargo, "Seg. à Sex", horaChegada, horaSaida, horaChegadaIntervalo, horaSaidaIntervalo);
-				funcionarioNew.setFotoPadrao(new ImageIcon(wCam.getImage()));
+				funcionarioNew.setFotoPadrao(wCam.getImage());
 				}
 				else{
 					funcionarioNew = new Funcionario(nome, cpf, email, senha, telefone, empresa, cargo, "Seg. à Sex", horaChegada, horaSaida, horaChegadaIntervalo, horaSaidaIntervalo);

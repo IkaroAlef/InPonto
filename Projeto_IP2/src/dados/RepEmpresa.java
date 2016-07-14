@@ -49,6 +49,7 @@ public class RepEmpresa implements IRepositorioEmpresas ,Serializable{
 	
 	//Busca pelo nomeEmpresa e Retorna o indice da empresa no array.
 	public int buscarIndiceNomeEmpresa(String nomeEmpresa) throws EmpresaNaoEncontradaException{ 
+		System.out.println(nomeEmpresa);
 		int resultado=-1;
 		for (int i=0;i<this.empresas.size();i++){
 			if (nomeEmpresa!= null && this.empresas.get(i).igualNome(nomeEmpresa)){
@@ -76,6 +77,7 @@ public class RepEmpresa implements IRepositorioEmpresas ,Serializable{
 	
 	//Buscar Empresa pelo nome.
 	public Empresa buscarEmpresaNome(String nomeEmpresa) throws EmpresaNaoEncontradaException{ 
+		System.out.println(nomeEmpresa);
 		return this.empresas.get(buscarIndiceNomeEmpresa(nomeEmpresa));
 	}
 	

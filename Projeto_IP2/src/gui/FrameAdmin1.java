@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -371,6 +372,9 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 				pessoaSelecionada = EpontoFachada.getInstance().getPessoaCpf((String) target.getValueAt(row, 1));
 			} catch (FuncionarioNaoEncontradoException | NomeInvalidoException e1) {
 				JOptionPane.showMessageDialog(null, e1.getMessage());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 			if (pessoaSelecionada instanceof Funcionario)
 				ControladorDeTelas.getInstance().frameAdmin2((Funcionario) pessoaSelecionada);
