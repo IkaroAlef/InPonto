@@ -223,7 +223,7 @@ public class ControladorPessoas {
             	while (rsGerente.next()){
                 	dbCPF = rsGerente.getString("CPF");
                 	if (dbCPF.equals(cpf)){
-                		//84493610974  123485   login e senha teste
+                		//a  123485   login e senha teste
                 		achou=true;
                 		String nome = rsGerente.getString("nome");
                 		String email = rsGerente.getString("email");
