@@ -30,6 +30,7 @@ import negócio.entity_beans.Admin;
 import negócio.entity_beans.Empresa;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.Pessoa;
+import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 
 import javax.swing.JButton;
 
@@ -363,8 +364,8 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		      int row = target.getSelectedRow();
 		      Pessoa pessoaSelecionada = null;
 			try {
-				pessoaSelecionada = EpontoFachada.getInstance().getPessoaNome((String) target.getValueAt(row, 0));
-			} catch (FuncionarioNaoEncontradoException e1) {
+				pessoaSelecionada = EpontoFachada.getInstance().getPessoaCpf((String) target.getValueAt(row, 1));
+			} catch (FuncionarioNaoEncontradoException | NomeInvalidoException e1) {
 				JOptionPane.showMessageDialog(null, e1.getMessage());
 			}
 		      if(pessoaSelecionada instanceof Funcionario)

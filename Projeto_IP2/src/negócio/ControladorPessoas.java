@@ -242,7 +242,7 @@ public class ControladorPessoas {
                 	}
                 }
             }
-            con.close();
+            con.close(); 
             
 		} catch (SQLException e) {
 			e.printStackTrace();
