@@ -361,8 +361,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) { // evento para double click nna
-												// tableFuncionarios;
+	public void mouseClicked(MouseEvent e) { // evento para double click na tableFuncionarios;
 		if (e.getClickCount() == 2) {
 			JTable target = (JTable) e.getSource();
 			int row = target.getSelectedRow();
