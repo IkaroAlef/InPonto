@@ -92,6 +92,7 @@ public class ControladorDeTelas extends JFrame {
 	}
 	
 	public void offQR(){
+		frameQR.closeWeb();
 		this.frameQR.setVisible(false);
 		this.frameQR.dispose();
 	}
