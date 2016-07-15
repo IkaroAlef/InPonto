@@ -119,6 +119,7 @@ public class WebcamQRCodeExample extends JFrame implements Runnable, ThreadFacto
 						JOptionPane.showMessageDialog(null, "Login efetuado com sucesso.");
 						ControladorDeTelas.getInstance().loginProximaTela(EpontoFachada.getInstance().getPessoaCpf(cpf));
 						this.setVisible(false);
+						ControladorDeTelas.getInstance().offLogin();
 					}
 				} catch (FuncionarioNaoEncontradoException | NomeInvalidoException | IOException e) {
 					JOptionPane.showMessageDialog(null, "Funcionário não encontrado");

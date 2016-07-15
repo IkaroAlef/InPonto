@@ -5,33 +5,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.JButton;
-
-
-
-
-
-
-
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
 
-import dados.RepPessoas;
-import dados.exceptionsDados.FuncionarioNaoEncontradoException;
 import negócio.EpontoFachada;
 import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
-import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -40,6 +29,7 @@ import java.awt.Component;
 
 public class FrameFuncionario extends JFrame implements ActionListener, WindowListener {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton btnBaterPonto;
 	private Funcionario funcionario;
@@ -53,7 +43,7 @@ public class FrameFuncionario extends JFrame implements ActionListener, WindowLi
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameFuncionario frame = new FrameFuncionario((Funcionario) EpontoFachada.getInstance().getPessoaCpf("84493610937"));
+					FrameFuncionario frame = new FrameFuncionario((Funcionario) EpontoFachada.getInstance().getPessoaCpf("10344022420"));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -241,14 +231,13 @@ public class FrameFuncionario extends JFrame implements ActionListener, WindowLi
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(btnBaterPonto)){
 			RegPonto ponto = new RegPonto();
-			ponto.registrarPonto(funcionario);
+			ponto.registrarPonto(funcionario.getCpf(),wCam.getImage());
 			try {
-				ponto.registrarPonto((Funcionario)EpontoFachada.getInstance().getPessoaCpf(funcionario.getCpf()),wCam.getImage());
-			} catch (FuncionarioNaoEncontradoException | NomeInvalidoException | IOException e1) {
+				EpontoFachada.getInstance().adicionarRegistro(ponto);
+			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			EpontoFachada.getInstance().adicionarRegistro(ponto);
 			JOptionPane.showMessageDialog(null, "Ponto registrado com sucesso às " + ponto.getAgoraFormatada() + ("!"));
 			}
 		

@@ -106,8 +106,8 @@ public class EpontoFachada {
 		pessoas.deletarPessoas(nome);
 	}
 
-	public void deletarPessoa(int i) {
-		pessoas.deletarPessoa(i);
+	public void deletarPessoa(String cpf) throws SQLException {
+		pessoas.deletarPessoa(cpf);
 	}
 
 	public void editarPessoa(int i, Pessoa pessoa) {
@@ -157,7 +157,7 @@ public class EpontoFachada {
 		return empresas.getEmpresas();
 	}
 
-	public void adicionarRegistro(RegPonto ponto) {
+	public void adicionarRegistro(RegPonto ponto) throws SQLException {
 		pontos.adicionarRegistro(ponto);
 	}
 

@@ -11,9 +11,11 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,9 +23,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import conexaoBD.FabricaDeConexao;
 import negócio.EpontoFachada;
@@ -69,7 +75,7 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameAdmin1 frame = new FrameAdmin1((Admin) EpontoFachada.getInstance().getPessoaCpf(AdminSuper));
+					FrameAdmin1 frame = new FrameAdmin1((Admin) EpontoFachada.getInstance().getPessoaCpf("84493610974"));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -131,6 +137,14 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 		contentPane.add(lblProcurar);
 
 		this.tableFuncionarios = new JTable(modeloTable);
+		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tableFuncionarios.getModel());
+		tableFuncionarios.setRowSorter(sorter);
+		
+		//tornar a tablea "Ordenável"
+		List<RowSorter.SortKey> sortKeys = new ArrayList<>(25);
+		sortKeys.add(new RowSorter.SortKey(4, SortOrder.ASCENDING));
+		sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
+		sorter.setSortKeys(sortKeys);
 		tableFuncionarios.addMouseListener(this);
 
 		this.scrllPnFuncionarios = new JScrollPane(tableFuncionarios);
@@ -212,35 +226,66 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 	public void preencherTableFuncionarios(String nome) {
 		this.limparTableFuncionarios();
 
-		ArrayList<Pessoa> pessoas = EpontoFachada.getInstance().getPessoas(nome);
-
+		//ArrayList<Pessoa> pessoas = EpontoFachada.getInstance().getPessoas(nome);
 		FabricaDeConexao bd = new FabricaDeConexao();
 		Connection con = null;
-		try {
-			con = bd.getConexao("admin", "bancodedados");
-			con.setAutoCommit(false);
-			ResultSet rsFunc = con.createStatement().executeQuery(
-			"SELECT pessoa.nome as Nome, pessoa.cpf as CPF, pessoa.email as Email, pessoa.telefone as Telefone, cargo.nome as Cargo FROM funcionario JOIN pessoa JOIN cargo WHERE funcionario.cpf = pessoa.cpf and cargo.codigo = pessoa.cargo;");
-
-			String[] linha = new String[5];
-
-			while (rsFunc.next()) {
-				linha[0] = rsFunc.getString("Nome");
-				linha[1] = rsFunc.getString("CPF");
-				linha[2] = rsFunc.getString("Email");
-				linha[3] = rsFunc.getString("Telefone");
-				linha[4] = rsFunc.getString("Cargo");
-				modeloTable.addRow(linha);
+		if (nome==null){
+			try {
+				con = bd.getConexao("admin", "bancodedados");
+				con.setAutoCommit(false);
+				ResultSet rsFunc = con.createStatement().executeQuery(
+				"SELECT pessoa.nome as Nome, pessoa.cpf as CPF, pessoa.email as Email, pessoa.telefone as Telefone, cargo.nome as Cargo FROM funcionario JOIN pessoa JOIN cargo WHERE funcionario.cpf = pessoa.cpf and cargo.codigo = pessoa.cargo;");
+	
+				String[] linha = new String[5];
+	
+				while (rsFunc.next()) {
+					linha[0] = rsFunc.getString("Nome");
+					linha[1] = rsFunc.getString("CPF");
+					linha[2] = rsFunc.getString("Email");
+					linha[3] = rsFunc.getString("Telefone");
+					linha[4] = rsFunc.getString("Cargo");
+					modeloTable.addRow(linha);
+				}
+	
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			String[] linha = new String[6];
+	
+			Empresa empresa = (Empresa) cmbBxEmpresa.getSelectedItem();
+		}	
+		else{
+			try {
+				con = bd.getConexao("admin", "bancodedados");
+				con.setAutoCommit(false);
+				PreparedStatement ps = con.prepareStatement("SELECT pessoa.nome as Nome, pessoa.cpf as CPF, pessoa.email as Email, "
+						+ "pessoa.telefone as Telefone, cargo.nome as Cargo FROM funcionario JOIN pessoa JOIN cargo WHERE pessoa.nome LIKE ? "
+						+ "AND funcionario.cpf = pessoa.cpf and cargo.codigo = pessoa.cargo;");
+				ps.setString(1, "%"+nome+"%");
+				ResultSet rsFunc = ps.executeQuery();
+	
+				String[] linha = new String[5];
+	
+				while (rsFunc.next()) {
+					linha[0] = rsFunc.getString("Nome");
+					linha[1] = rsFunc.getString("CPF");
+					linha[2] = rsFunc.getString("Email");
+					linha[3] = rsFunc.getString("Telefone");
+					linha[4] = rsFunc.getString("Cargo");
+					modeloTable.addRow(linha);
+				}
+	
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			String[] linha = new String[6];
+	
+			Empresa empresa = (Empresa) cmbBxEmpresa.getSelectedItem();
 		}
-
-		String[] linha = new String[6];
-
-		Empresa empresa = (Empresa) cmbBxEmpresa.getSelectedItem();
 		// for (int i=0; i < pessoas.size() ; i++){
 		// if (pessoas.get(i) instanceof Funcionario &&
 		// ((Funcionario)pessoas.get(i)).getEmpresa().igualNome(empresa.getNomeEmpresa())){
@@ -328,15 +373,12 @@ public class FrameAdmin1 extends JFrame implements ActionListener, MouseListener
 			if (tableFuncionarios.getSelectedRowCount() == 0)
 				JOptionPane.showMessageDialog(null, "Por favor, selecione pelo menos um funcionário.");
 			else {
-				String nomes[] = new String[tableFuncionarios.getSelectedRowCount()];
-				int[] linhasSelecionadas = tableFuncionarios.getSelectedRows();
-				for (int i = 0; i < tableFuncionarios.getSelectedRowCount(); i++) {
-					nomes[i] = (String) tableFuncionarios.getValueAt(linhasSelecionadas[i], 0);
-				}
+				int linha = tableFuncionarios.getSelectedRowCount();
+				String cpf = tableFuncionarios.getValueAt(linha, 1).toString();
 				try {
-					EpontoFachada.getInstance().deletarPessoas(nomes);
-					JOptionPane.showMessageDialog(null, "Funcionário (s) excluído (s) com sucesso.");
-				} catch (FuncionarioNaoEncontradoException e1) {
+					EpontoFachada.getInstance().deletarPessoa(cpf);
+					JOptionPane.showMessageDialog(null, "Funcionário excluído com sucesso.");
+				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 			}

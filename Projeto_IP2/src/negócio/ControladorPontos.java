@@ -1,9 +1,23 @@
 package negócio;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Time;
 import java.time.Month;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+
+import conexaoBD.FabricaDeConexao;
+import negócio.entity_beans.Funcionario;
 import negócio.entity_beans.RegPonto;
 import negócio.entity_beans.exceptionsBeans.NomeInvalidoException;
 import dados.IRepositorioPontos;
@@ -17,8 +31,47 @@ public class ControladorPontos {
 		this.pontos = RepRegPonto.getInstance();
 	}
 
-	public void adicionarRegistro(RegPonto ponto) {
-		pontos.adicionarRegistro(ponto);
+	public void adicionarRegistro(RegPonto ponto) throws SQLException{
+		FabricaDeConexao bd = new FabricaDeConexao();
+		Connection con = bd.getConexao("func", "bancodedados");
+		con.setAutoCommit(false);
+		PreparedStatement ps = con.prepareStatement("INSERT INTO reg_ponto(`rData`, `hora_min`, `fotoPonto`, `CPF_Func`) VALUES(?,?,?,?);");
+		Date data = Date.valueOf(ponto.getAgora().toLocalDate());
+		Time hora_min = Time.valueOf(ponto.getAgora().toLocalTime());
+		ps.setDate(1, data);
+		ps.setTime(2,hora_min);
+		
+		//Conversão Image para LongBlob para adicionar no banco
+		Image img = (ponto.getFotoPonto());
+		BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2d = bi.createGraphics();
+		g2d.drawImage(img, 0, 0, null);
+		g2d.dispose();
+		
+		ByteArrayOutputStream baos = null;
+		try {
+		    baos = new ByteArrayOutputStream();
+		    ImageIO.write(bi, "png", baos);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+		    try {
+		        baos.close();
+		    } catch (Exception e) {
+		    }
+		}
+		ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+		
+		ps.setBinaryStream(3, bais);
+		ps.setString(4,ponto.getCpf());
+		
+		ps.executeUpdate();
+		con.commit();
+		
+		ps.close();
+		con.close();
+		//pontos.adicionarRegistro(ponto);
 	}
 
 	public ArrayList<RegPonto> getPontosDoFuncionario(String cpf) throws FuncionarioNaoEncontradoException, NomeInvalidoException, IOException {

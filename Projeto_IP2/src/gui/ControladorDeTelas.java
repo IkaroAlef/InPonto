@@ -1,5 +1,10 @@
 package gui;
 
+import java.awt.EventQueue;
+import java.awt.SplashScreen;
+import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,9 +12,11 @@ import java.util.ArrayList;
 
 import negócio.entity_beans.Admin;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-
-import com.mysql.cj.api.jdbc.Statement;
+import javax.swing.JLabel;
+import javax.swing.JWindow;
+import javax.swing.SwingConstants;
 
 import conexaoBD.FabricaDeConexao;
 import negócio.entity_beans.Funcionario;
@@ -17,11 +24,50 @@ import negócio.entity_beans.Pessoa;
 import negócio.entity_beans.RegPonto;
 
 public class ControladorDeTelas extends JFrame {
+
+	private static final long serialVersionUID = 1L;
 	private FrameAdmin1 frameAdmin1;
 	private FrameAdminCadastroEmpresa frameAdminCadEmpresa = new FrameAdminCadastroEmpresa();
 	private FrameAdminCadastroFuncionario frameAdminCadFuncionario;
-	private FrameLogin frameLogin = new FrameLogin();
+	private FrameLogin frameLogin;
+	private WebcamQRCodeExample frameQR;
 	private FrameAdminCadastroProjeto frameAdminCadProjeto = new FrameAdminCadastroProjeto();
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		JWindow window = new JWindow();
+		try {
+			window.getContentPane().add(
+			    new JLabel("", new ImageIcon(new URL("https://pbs.twimg.com/profile_images/2643407135/bbae446e0aa3fcf8918d892f2f3f694b.png")), SwingConstants.CENTER));
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		window.setBounds(500, 150, 300, 200);
+		window.setVisible(true);
+		try {
+		    Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			
+		}
+		
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						ControladorDeTelas.getInstance().frameLogin = new FrameLogin();
+						ControladorDeTelas.getInstance().frameQR = new WebcamQRCodeExample();
+						ControladorDeTelas.getInstance().frameLogin.setVisible(true);
+						ControladorDeTelas.getInstance().frameQR.setVisible(true);
+						window.dispose();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+	}
+
 	
 	public static ControladorDeTelas instance;
 	
@@ -60,6 +106,9 @@ public class ControladorDeTelas extends JFrame {
             	dbCPF = rsFunc.getString("CPF");
             	if (dbCPF.equals(cpf)){
             		logou = true;
+            		this.offLogin();
+            		this.frameLogin.setVisible(false);
+            		this.frameLogin.dispose();
             		frameFuncionario((Funcionario) pessoa);
             		break;
             	}
@@ -69,6 +118,8 @@ public class ControladorDeTelas extends JFrame {
                 	dbCPF = rsGerente.getString("CPF");
                 	if (dbCPF.equals(cpf)){
                 		logou = true;
+                		this.frameLogin.setVisible(false);
+                		this.frameLogin.dispose();
                 		new FrameAdmin1((Admin) pessoa).setVisible(true);
                 		break;
                 	}
@@ -79,6 +130,8 @@ public class ControladorDeTelas extends JFrame {
                 	dbCPF = rsCoord.getString("CPF");
                 	if (dbCPF.equals(cpf)){
                 		logou = true;
+                		this.frameLogin.setVisible(false);
+                		this.frameLogin.dispose();
                 		new FrameAdmin1((Admin) pessoa).setVisible(true);
                 		break;
                 	}

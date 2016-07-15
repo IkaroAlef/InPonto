@@ -2,7 +2,6 @@ package negócio;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -10,8 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
@@ -20,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 import com.mysql.cj.api.jdbc.Statement;
 //import com.mysql.cj.jdbc.PreparedStatement;
@@ -98,7 +94,12 @@ public class ControladorPessoas {
 				ps.setString(15, pessoa.getCidade());
 				ps.setString(16, pessoa.getEstado());
 				ps.setString(17, pessoa.getCep());
-				ps.execute();
+				try{
+				ps.executeUpdate();
+				}catch (SQLException e){
+					con.rollback();
+					throw new SQLException(e.getMessage());
+				}
 				
 				//Funcionario
 				PreparedStatement psFunc = con.prepareStatement("INSERT INTO funcionario VALUES (?,?,?,?,?,?,?)");
@@ -109,9 +110,13 @@ public class ControladorPessoas {
 				psFunc.setString(5, ((Funcionario) pessoa).getCpf());
 				psFunc.setString(6, ((Funcionario) pessoa).getCPF_Coord());  
 				psFunc.setInt(7, ((Funcionario) pessoa).getCod_Eqp());
-				psFunc.execute();
-				
-				con.commit();
+				try {
+					psFunc.execute();
+					con.commit();
+				}catch (SQLException e){
+					con.rollback();
+					throw new SQLException(e.getMessage());
+				}
 				ps.close();
 				psFunc.close();
 				con.close();				
@@ -265,8 +270,24 @@ public class ControladorPessoas {
 		repositorioPessoas.deletarPessoas(nome);
 	}
 
-	public void deletarPessoa(int i) {
-		repositorioPessoas.deletarPessoa(i);
+	public void deletarPessoa(String cpf) throws SQLException {
+		FabricaDeConexao bd = new FabricaDeConexao();
+		Connection con = bd.getConexao("admin", "bancodedados");
+		con.setAutoCommit(false);
+		con.prepareStatement("set foreign_key_checks=0;").executeQuery(); 
+		PreparedStatement ps = con.prepareStatement("DELETE FROM PESSOA WHERE CPF LIKE ?;");
+		ps.setString(1, cpf);
+		try{
+		ps.executeUpdate();
+		
+		con.prepareStatement("set foreign_key_checks=1;").executeQuery();
+		con.commit();
+		}catch(SQLException e){
+			e.printStackTrace();
+			con.rollback();
+			throw new SQLException(e.getMessage());
+		}
+		//repositorioPessoas.deletarPessoa(i);
 	}
 
 	public void editar(int i, Pessoa pessoa) {

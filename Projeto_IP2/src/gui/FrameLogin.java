@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.EventQueue;
 import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
@@ -31,32 +30,15 @@ import java.awt.Color;
 
 public class FrameLogin extends JFrame implements ActionListener, KeyListener{
 	
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton btnOk;
 	private JTextField txtLogin;
 	private JPasswordField passSenha;
 	private JLabel lblInponto;
 	private static WebcamQRCodeExample frameQR;
+	private static FrameLogin frame;
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrameLogin frame = new FrameLogin();
-					frame.setVisible(true);
-					frameQR = new WebcamQRCodeExample();
-					frameQR.setVisible(true);
-						
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 */
@@ -120,6 +102,9 @@ public class FrameLogin extends JFrame implements ActionListener, KeyListener{
 			if (EpontoFachada.getInstance().validarLogin(txtLogin.getText(), passSenha.getPassword() ) ){
 				JOptionPane.showMessageDialog(null, "Login efetuado com sucesso.");
 				this.setVisible(false);
+				frame.setVisible(false);
+				frame.dispose();
+				frameQR.dispose();
 				frameQR.closeWeb();
 				try {
 					ControladorDeTelas.getInstance().loginProximaTela(EpontoFachada.getInstance().getPessoaCpf(txtLogin.getText()));

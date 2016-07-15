@@ -7,11 +7,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import javax.swing.ImageIcon;
-
 public class RegPonto implements Serializable {
 	private LocalDateTime agora;
 	private Funcionario funcionario;
+	private String cpf;
 	private Image fotoPonto;
 	
 	public RegPonto(){
@@ -31,6 +30,14 @@ public class RegPonto implements Serializable {
 	
 	public Funcionario getFuncionario(){
 		return this.funcionario;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public Image getFotoPonto() {
@@ -57,6 +64,14 @@ public class RegPonto implements Serializable {
 		if(funcionario!=null){
 			this.agora=LocalDateTime.now();
 			this.funcionario=funcionario;
+			this.setFotoPonto(fotoPonto);
+		}
+	}
+	
+	public void registrarPonto(String cpf, Image fotoPonto){
+		if(cpf!=null){
+			this.agora=LocalDateTime.now();
+			this.setCpf(cpf);
 			this.setFotoPonto(fotoPonto);
 		}
 	}
