@@ -88,6 +88,12 @@ public class ControladorDeTelas extends JFrame {
 	
 	public void offLogin(){
 		this.frameLogin.setVisible(false);
+		this.frameLogin.dispose();
+	}
+	
+	public void offQR(){
+		this.frameQR.setVisible(false);
+		this.frameQR.dispose();
 	}
 	
 	public void loginProximaTela (Pessoa pessoa){
