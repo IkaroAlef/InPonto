@@ -10,14 +10,16 @@ public class Projeto {
 	private Date dataFim;
 	private String coordenador;
 	private int departamento;
+	private String cnpj;
 	
-	public Projeto(int horas, String descricao, Date dataInicio, Date dataFim, String coordenador, int departamento) {
+	public Projeto(int horas, String descricao, Date dataInicio, Date dataFim, String coordenador, int departamento, String cnpj) {
 		this.horas = horas;
 		this.descricao = descricao;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
 		this.coordenador = coordenador;
 		this.departamento = departamento;
+		this.cnpj = cnpj;
 	}
 
 	public int getCodigo() {
@@ -75,4 +77,13 @@ public class Projeto {
 	public void setDepartamento(int departamento) {
 		this.departamento = departamento;
 	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
 }

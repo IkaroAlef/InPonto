@@ -21,6 +21,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -232,16 +233,35 @@ public class FrameAdminCadastroProjeto extends JFrame implements ActionListener 
 			String coordenador = cmbBxCoordenador.getSelectedItem().toString();
 			String[] coord = coordenador.split("-");
 			Date dataInicio = null;
+			String cnpj = null;
+
+			String departamento = cmbBxDepartamento.getSelectedItem().toString();
+			String[] dept = departamento.split("-");
+			FabricaDeConexao bd = new FabricaDeConexao();
+			Connection con;
+			try {
+				con = bd.getConexao("admin", "bancodedados");
+			
+			con.setAutoCommit(false);
+			PreparedStatement ps =con.prepareStatement("SELECT cnpj from departamento where departamento.codigo=?;");
+			ps.setInt(1, Integer.parseInt(dept[0]));
+			ResultSet rsDept = ps.executeQuery();
+			rsDept.next();
+			cnpj = rsDept.getString("cnpj");
+			} catch (SQLException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			
+			
 			if (txtDataInicio.getText() != null) {
 				String dt = txtDataInicio.getText();
 				String[] dts = dt.split("/");
 				dataInicio = Date.valueOf(dts[2] + "-" + dts[1] + "-" + dts[0]);
 			}
 			int horas = Integer.parseInt(txtHoras.getText());
-			String departamento = cmbBxDepartamento.getSelectedItem().toString();
-			String[] dept = departamento.split("-");
 
-			projeto = new Projeto(horas, descricao, dataInicio, null, coord[1], Integer.parseInt(dept[0]));
+			projeto = new Projeto(horas, descricao, dataInicio, null, coord[1], Integer.parseInt(dept[0]),cnpj);
 
 			ControladorProjetos controlProjeto = new ControladorProjetos();
 			try {

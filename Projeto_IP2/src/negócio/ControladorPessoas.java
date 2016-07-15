@@ -287,6 +287,7 @@ public class ControladorPessoas {
 			con.rollback();
 			throw new SQLException(e.getMessage());
 		}
+		con.close();
 		//repositorioPessoas.deletarPessoa(i);
 	}
 
